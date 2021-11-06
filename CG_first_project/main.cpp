@@ -84,7 +84,7 @@ int main(void){
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     
     
-    GLFWwindow* window = glfwCreateWindow(width, height, "TP1 Computação Gráfica", NULL, NULL);
+    GLFWwindow* window = glfwCreateWindow(width, height, "CG game", NULL, NULL);
     if(window == NULL) {
         cout << "Failed to create window" << endl;
         glfwTerminate();

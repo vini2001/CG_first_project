@@ -41,11 +41,9 @@
 /* Begin PBXFileReference section */
 		8F8332502734B4310084BD57 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		8F8332512734B47E0084BD57 /* stb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb.cpp; sourceTree = "<group>"; };
-		8F8332552734B6C20084BD57 /* pikachu.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = pikachu.jpg; sourceTree = "<group>"; };
-		8F8332562734B87E0084BD57 /* pop_cat.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = pop_cat.png; path = ../../../../../../Downloads/pop_cat.png; sourceTree = "<group>"; };
 		8F8332572734BF980084BD57 /* GShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GShape.cpp; sourceTree = "<group>"; };
 		8F8332582734BF980084BD57 /* GShape.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GShape.hpp; sourceTree = "<group>"; };
-		8F878A812730B01500FA5FF1 /* TP1 Computacao Grafica */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "TP1 Computacao Grafica"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8F878A812730B01500FA5FF1 /* CG_first_project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CG_first_project; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F878A842730B01500FA5FF1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		8F878A8E2730B0BE00FA5FF1 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
 		8F878A902730B0F000FA5FF1 /* GLFW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLFW; sourceTree = "<group>"; };
@@ -104,7 +102,7 @@
 			isa = PBXGroup;
 			children = (
 				8F878A8B2730B02900FA5FF1 /* Externals */,
-				8F878A832730B01500FA5FF1 /* TP1 Computacao Grafica */,
+				8F878A832730B01500FA5FF1 /* CG_first_project */,
 				8F878A822730B01500FA5FF1 /* Products */,
 				8F878A952730B29700FA5FF1 /* Frameworks */,
 			);
@@ -113,22 +111,20 @@
 		8F878A822730B01500FA5FF1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				8F878A812730B01500FA5FF1 /* TP1 Computacao Grafica */,
+				8F878A812730B01500FA5FF1 /* CG_first_project */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		8F878A832730B01500FA5FF1 /* TP1 Computacao Grafica */ = {
+		8F878A832730B01500FA5FF1 /* CG_first_project */ = {
 			isa = PBXGroup;
 			children = (
-				8F8332562734B87E0084BD57 /* pop_cat.png */,
-				8F8332552734B6C20084BD57 /* pikachu.jpg */,
 				8FDCD6A727330473004B6BDF /* src */,
 				8FDCD6A5273303AC004B6BDF /* headers */,
 				8FDCD6A22733033F004B6BDF /* shaders */,
 				8F878A842730B01500FA5FF1 /* main.cpp */,
 			);
-			path = "TP1 Computacao Grafica";
+			path = CG_first_project;
 			sourceTree = "<group>";
 		};
 		8F878A8B2730B02900FA5FF1 /* Externals */ = {
@@ -215,9 +211,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		8F878A802730B01500FA5FF1 /* TP1 Computacao Grafica */ = {
+		8F878A802730B01500FA5FF1 /* CG_first_project */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 8F878A882730B01500FA5FF1 /* Build configuration list for PBXNativeTarget "TP1 Computacao Grafica" */;
+			buildConfigurationList = 8F878A882730B01500FA5FF1 /* Build configuration list for PBXNativeTarget "CG_first_project" */;
 			buildPhases = (
 				8F878A7D2730B01500FA5FF1 /* Sources */,
 				8F878A7E2730B01500FA5FF1 /* Frameworks */,
@@ -227,9 +223,9 @@
 			);
 			dependencies = (
 			);
-			name = "TP1 Computacao Grafica";
+			name = CG_first_project;
 			productName = LearnOpenGL;
-			productReference = 8F878A812730B01500FA5FF1 /* TP1 Computacao Grafica */;
+			productReference = 8F878A812730B01500FA5FF1 /* CG_first_project */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -246,7 +242,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 8F878A7C2730B01500FA5FF1 /* Build configuration list for PBXProject "TP1 Computacao Grafica" */;
+			buildConfigurationList = 8F878A7C2730B01500FA5FF1 /* Build configuration list for PBXProject "CG_first_project" */;
 			compatibilityVersion = "Xcode 13.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -259,7 +255,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				8F878A802730B01500FA5FF1 /* TP1 Computacao Grafica */,
+				8F878A802730B01500FA5FF1 /* CG_first_project */,
 			);
 		};
 /* End PBXProject section */
@@ -424,7 +420,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		8F878A7C2730B01500FA5FF1 /* Build configuration list for PBXProject "TP1 Computacao Grafica" */ = {
+		8F878A7C2730B01500FA5FF1 /* Build configuration list for PBXProject "CG_first_project" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F878A862730B01500FA5FF1 /* Debug */,
@@ -433,7 +429,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		8F878A882730B01500FA5FF1 /* Build configuration list for PBXNativeTarget "TP1 Computacao Grafica" */ = {
+		8F878A882730B01500FA5FF1 /* Build configuration list for PBXNativeTarget "CG_first_project" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				8F878A892730B01500FA5FF1 /* Debug */,
