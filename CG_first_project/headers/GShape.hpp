@@ -39,6 +39,7 @@ class GShape : public GObject {
         void addTriangle(GVertice v1, GVertice v2, GVertice v3);
         void rgb(GLfloat r, GLfloat g, GLfloat b);
         void setScale(GLfloat scale);
+        void destroy();
     
         vector<GVertice> vertices;
         GLfloat* getVerticesArray();

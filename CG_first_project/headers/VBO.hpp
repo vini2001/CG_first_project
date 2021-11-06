@@ -11,6 +11,8 @@ class VBO {
         void bind();
         void unbind();
         void deleteIt();
+    
+        ~VBO();
 };
 
 #endif

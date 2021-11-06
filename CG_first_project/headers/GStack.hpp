@@ -19,6 +19,7 @@ public:
     void bind();
     void draw(GLenum mode, GLsizei count, GLenum type, const void* indices);
     void setScale(GLfloat scale);
+    void destroy();
     
     ~GStack();
 };

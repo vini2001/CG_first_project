@@ -76,14 +76,16 @@ void GShape::prepare() {
 }
 
 void GShape::prepare(GLfloat addX, GLfloat addY) {
+    GObject::prepare();
     if(vao != NULL) delete vao;
+    
     vao = new VAO();
     vao->bind();
     getVerticesArray();
     
     for(int i = 0; i < vertices.size(); i++) {
-        vArray[6*i + 0] = (vArray[6*i + 0]) * scale  + addX;
-        vArray[6*i + 1] = (vArray[6*i + 1]) * scale  + addY;
+        vArray[6*i + 0] = (vArray[6*i + 0]) * scale  + addX + speed[0];
+        vArray[6*i + 1] = (vArray[6*i + 1]) * scale  + addY + speed[1];
     }
     
     vbo1 = new VBO(vArray, getSizeVertices());
@@ -100,24 +102,26 @@ void GShape::prepare(GLfloat addX, GLfloat addY) {
     
     vao->linkAttrib(*vbo1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
     vao->linkAttrib(*vbo1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    
     vao->unbind();
-    vbo1->unbind();
-    ebo1->unbind();
+    delete vbo1;
+    delete ebo1;
 }
 
 void GShape::bind() {
     vao->bind();
 }
 
+void GShape::destroy() {
+    cout << "GShape destroy" << endl;
+    free(vArray);
+    free(indices);
+    
+    if(vao != NULL) {
+        delete vao;
+    }
+}
+
 GShape::~GShape() {
-    if(this->vArray != NULL) delete this->vArray;
-    if(vao != NULL) vao->deleteIt();
-    if(vbo1 != NULL) {
-        vbo1->deleteIt();
-        delete vbo1;
-    }
-    if(ebo1 != NULL) {
-        ebo1->unbind();
-        delete ebo1;
-    }
+    destroy();
 }

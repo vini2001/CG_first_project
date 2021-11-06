@@ -24,12 +24,14 @@ void GStack::prepare() {
 }
 
 void GStack::prepare(GLfloat addX, GLfloat addY) {
+    GObject::prepare();
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->prepare(parent ? (x + addX) : (x*scale + addX), parent ? (y+addY) : (y*scale+addY));
+        objects[i]->prepare(parent ? (x+addX) : (x*scale + addX), parent ? (y+addY) : (y*scale+addY));
     }
 }
 
 void GStack::draw(GLenum mode, GLsizei count, GLenum type, const void* indices) {
+    if(toUpdate) prepare();
     for(int i = 0; i < objects.size(); i++) {
         objects[i]->draw(mode, count, type, indices);
     }
@@ -41,8 +43,12 @@ void GStack::bind() {
     }
 }
 
-GStack::~GStack() {
+void GStack::destroy() {
     for(int i = 0; i < objects.size(); i++) {
         free(objects[i]);
     }
+}
+
+GStack::~GStack() {
+    destroy();
 }

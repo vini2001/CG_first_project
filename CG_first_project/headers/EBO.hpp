@@ -11,6 +11,8 @@ class EBO {
         void bind();
         void unbind();
         void deleteIt();
+    
+        ~EBO();
 };
 
 #endif

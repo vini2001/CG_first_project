@@ -19,3 +19,9 @@ void EBO::unbind(){
 void EBO::deleteIt(){
     glDeleteBuffers(1, &ID);
 }
+
+EBO::~EBO() {
+    unbind();
+    std::cout << "EBO destroy" << std::endl;
+    deleteIt();
+}

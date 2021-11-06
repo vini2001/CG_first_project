@@ -49,6 +49,8 @@ GShape* createTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height, bool
     obj->addVertice(v2);
     obj->addVertice(v3);
     obj->addTriangle(v1, v2, v3);
+    
+    obj->setItemSpawnPos(v3.x, v3.y);
     return obj;
 }
 
@@ -108,6 +110,7 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, GLfloat scale) {
     st->addObject(t4);
     st->addObject(st1);
     st->setScale(scale);
+    st->setItemSpawnPos(t1->getItemSpawnPos()[0]*scale, t1->getItemSpawnPos()[1]*scale);
     
     return st;
 }

@@ -51,7 +51,10 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
             glfwSetWindowShouldClose(window, GLFW_TRUE);
             break;
         default:
-            if(!(find(supportedKeys.begin(), supportedKeys.end(), key) != supportedKeys.end())) break;
+            if(!(find(supportedKeys.begin(), supportedKeys.end(), key) != supportedKeys.end())) {
+                cout << "unsupported key " << key << endl;
+                break;
+            }
 
             if(pressedKey == key && action == GLFW_RELEASE) {
                 pressedKey = NULL;
@@ -65,19 +68,35 @@ static void key_callback(GLFWwindow* window, int key, int scancode, int action, 
     }
 }
 
+bool shoot = false;
+void mouse_button_callback(GLFWwindow* window, int button, int action, int mods){
+    if (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS) {
+        shoot = true;
+    }
+}
+
+
+
+vector<GObject*> objects;
+
+void fire(GStack *spaceShip) {
+    float* spawnPos = spaceShip->getItemSpawnPos();
+    GShape *bullet = createRectangle(spawnPos[0] - 0.006, spawnPos[1] - 0.1, 0.012, 0.04);
+    bullet->setSpeed(0.0, 0.05);
+    bullet->destroyAt = getMillis() + 500;
+    objects.push_back(bullet);
+}
+
 
 int main(void){
     
-    
-    vector<GObject*> objects;
 
     
-    GStack *st = createSpaceShip(-0.3f, -0.9f, 0.7f);
-    objects.push_back(st);
+    GStack *spaceShip = createSpaceShip(-0.2f, -0.9f, 0.7f);
+    objects.push_back(spaceShip);
     
     
     glfwInit();
-    
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
@@ -92,6 +111,7 @@ int main(void){
     }
     
     glfwSetKeyCallback(window, key_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
     
     glfwMakeContextCurrent(window);
     gladLoadGL();
@@ -115,19 +135,31 @@ int main(void){
     
         long timeEllapsed = getMillis() - lastTime;
         if(timeEllapsed > 5) {
+            
             if(pressedKey == GLFW_KEY_LEFT) {
                 vec2 change = {  -0.02f, 0.0f };
-                st->addPos(change);
-                st->prepare();
+                spaceShip->addPos(change);
             }else if(pressedKey == GLFW_KEY_RIGHT) {
                 vec2 change = { 0.02f, 0.0f };
-                st->addPos(change);
-                st->prepare();
+                spaceShip->addPos(change);
             }
             lastTime = getMillis();
+            
+            if(shoot) {
+                fire(spaceShip);
+                shoot = false;
+            }
         }
         
         for(int i = 0; i < objects.size(); i++) {
+            if(objects[i]->shouldDestroy(getMillis())) {
+                GShape* c = dynamic_cast<GShape*>(objects[i]);
+                delete c;
+                objects.erase(objects.begin()+i);
+                i--;
+                continue;
+            }
+            objects[i]->update();
             objects[i]->draw(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
         }
         
@@ -135,8 +167,12 @@ int main(void){
         glfwPollEvents();
     }
     
+    for(int i = 0; i < objects.size(); i++) {
+        objects[i]->destroy();
+        free(objects[i]);
+    }
+    
     shaderProgram.deleteIt();
-    delete st;
     glfwDestroyWindow(window);
     glfwTerminate();
     return 0;

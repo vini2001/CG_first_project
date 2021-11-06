@@ -1,4 +1,5 @@
 #include "VAO.hpp"
+#include <iostream>
 
 // Constructor that generates a VAO ID
 VAO::VAO(){
@@ -26,4 +27,10 @@ void VAO::unbind(){
 // Deletes the VAO
 void VAO::deleteIt(){
     glDeleteVertexArrays(1, &ID);
+}
+
+VAO::~VAO() {
+    std::cout << "VAO destroy" << std::endl;
+    unbind();
+    deleteIt();
 }
