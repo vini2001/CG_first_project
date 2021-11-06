@@ -6,14 +6,16 @@
 
 class GObject {
    public:
+        GLfloat x, y;
+        vec2 boxSize = {0.0, 0.0};
         GObject(GLfloat x, GLfloat y);
         GObject();
         virtual void prepare();
         virtual void prepare(GLfloat addX, GLfloat addY) = 0;
         virtual void bind() = 0;
-        virtual void setScale(GLfloat scale) = 0;
+        virtual void setScale(vec2 scale) = 0;
         bool update();
-        GLfloat getScale();
+        float* getScale();
         void addPos(vec2 change);
         void setSpeed(GLfloat x, GLfloat y);
         void setItemSpawnPos(GLfloat x, GLfloat y);
@@ -28,8 +30,7 @@ class GObject {
         virtual void draw(GLenum mode, GLsizei count, GLenum type, const void* indices);
     
     protected:
-        GLfloat x, y;
-        GLfloat scale = 1;
+        vec2 scale = {1.0, 1.0};
         vec2 speed;
         vec2 itemSpawnPos;
         bool toUpdate = false;

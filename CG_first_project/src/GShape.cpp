@@ -1,6 +1,7 @@
 #include "GShape.hpp"
 
 #include <iostream>
+#include "globals.hpp"
 
 GTriangle::GTriangle(GVertice aa, GVertice bb, GVertice cc) : a(aa), b(bb), c(cc) {}
 
@@ -67,12 +68,20 @@ void GShape::addTriangle(GVertice v1, GVertice v2, GVertice v3) {
     triangles.push_back(tri);
 }
 
-void GShape::setScale(GLfloat scale) {
-    this->scale = scale;
+void GShape::setScale(vec2 scale) {
+    memcpy(this->scale, scale, 2*sizeof(float));
 }
 
 void GShape::prepare() {
     this->prepare(0.0f, 0.0f);
+}
+
+GLfloat normalizeCoordX(GLfloat coordU) {
+    return coordU / (game::width/2);
+}
+
+GLfloat normalizeCoordY(GLfloat coordU) {
+    return coordU / (game::height/2);
 }
 
 void GShape::prepare(GLfloat addX, GLfloat addY) {
@@ -84,8 +93,8 @@ void GShape::prepare(GLfloat addX, GLfloat addY) {
     getVerticesArray();
     
     for(int i = 0; i < vertices.size(); i++) {
-        vArray[6*i + 0] = (vArray[6*i + 0]) * scale  + addX + speed[0];
-        vArray[6*i + 1] = (vArray[6*i + 1]) * scale  + addY + speed[1];
+        vArray[6*i + 0] = normalizeCoordX((vArray[6*i + 0]) * scale[0]  + addX + speed[0]);
+        vArray[6*i + 1] = normalizeCoordY((vArray[6*i + 1]) * scale[1]  + addY + speed[1]);
     }
     
     vbo1 = new VBO(vArray, getSizeVertices());

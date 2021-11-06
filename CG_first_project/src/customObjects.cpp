@@ -67,40 +67,40 @@ GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
     return obj;
 }
 
-GStack* createSpaceShip(GLfloat x, GLfloat y, GLfloat scale) {
-    GShape *t1 = createTriangle(0.175f, 0.28f, 0.15f, 0.1f);
+GStack* createSpaceShip(GLfloat x, GLfloat y, vec2 scale) {
+    GShape *t1 = createTriangle(175.0f, 280.0f, 150.0f, 100.f);
     t1->rgb(0.174509f, 0.3098f, 0.7058f);
     
-    GShape *r1 = createRectangle(0.175f, 0.03f, 0.15f, 0.25f);
+    GShape *r1 = createRectangle(175.0f, 30.0f, 150.f, 250.f);
     r1->rgb(0.214509f, 0.25098f, 0.7058f);
     
-    GShape *t2 = createTriangle(0.00f, 0.03f, 0.5f, 0.25f);
+    GShape *t2 = createTriangle(0.00f, 030.0f, 500.0f, 250.0f);
     t2->rgb(0.174509f, 0.3098f, 0.7058f);
     
-    GShape *r3 = createRectangle(0.05, 0.0f, 0.025f, 0.13f);
+    GShape *r3 = createRectangle(50.0, 0.0f, 25.0f, 130.0f);
     r3->rgb(0.174509f, 0.3098f, 0.7058f);
     
-    GShape *r4 = createRectangle(0.43, 0.0f, 0.025f, 0.13f);
+    GShape *r4 = createRectangle(430.0, 0.0f, 25.0f, 130.0f);
     r4->rgb(0.174509f, 0.3098f, 0.7058f);
     
-    GShape *t3 = createTriangle(0.043, -0.00f, 0.04f, 0.02f, true);
+    GShape *t3 = createTriangle(43.0f, -0.00f, 40.f, 20.f, true);
     t3->rgb(0.774509f, 0.1098f, 0.3058f);
     
-    GShape *t4 = createTriangle(0.423, -0.00f, 0.04f, 0.02f, true);
+    GShape *t4 = createTriangle(423, -0.00f, 40.f, 20.f, true);
     t4->rgb(0.774509f, 0.1098f, 0.3058f);
     
-    GStack *st1 = new GStack(0.145, 0.02f);
-    GShape *t5 = createRectTriangle(0.0, 0.00f, 0.023f, -0.02f);
+    GStack *st1 = new GStack(145, 20);
+    GShape *t5 = createRectTriangle(0.0, 0.00f, 23.f, -20.f);
     t5->rgb(0.974509f, 0.9098f, 0.8058f);
     st1->addObject(t5);
-    GShape *t6 = createRectTriangle(0.20, 0.00f, -0.023f, -0.02f);
+    GShape *t6 = createRectTriangle(200.f, 0.00f, -23.f, -20);
     t6->rgb(0.974509f, 0.9098f, 0.8058f);
     st1->addObject(t6);
-    GShape *r5 = createRectangle(0.023, 0.00f, 0.155f, -0.02f);
+    GShape *r5 = createRectangle(23, 0.00f, 155, -20.f);
     r5->rgb(0.974509f, 0.9098f, 0.8058f);
     st1->addObject(r5);
     
-    GStack *st = new GStack(x, y, true);
+    GStack *st = new GStack(0, 0, true);
     st->addObject(r1);
     st->addObject(t1);
     st->addObject(t2);
@@ -110,7 +110,13 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, GLfloat scale) {
     st->addObject(t4);
     st->addObject(st1);
     st->setScale(scale);
-    st->setItemSpawnPos(t1->getItemSpawnPos()[0]*scale, t1->getItemSpawnPos()[1]*scale);
+    st->setItemSpawnPos(t1->getItemSpawnPos()[0] * scale[0], t1->getItemSpawnPos()[1] * scale[1]);
     
-    return st;
+    
+    GStack *stR = new GStack(x, y+5);
+    stR->setItemSpawnPos(st->getItemSpawnPos()[0], st->getItemSpawnPos()[1]);
+    stR->addObject(st);
+    stR->boxSize[0] = 500.0 * scale[0];
+    
+    return stR;
 }

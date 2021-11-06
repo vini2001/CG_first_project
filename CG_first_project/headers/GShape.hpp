@@ -7,6 +7,7 @@
 #include "EBO.hpp"
 #include "VAO.hpp"
 #include "GObject.hpp"
+#include "globals.hpp"
 
 using namespace std;
 
@@ -38,7 +39,7 @@ class GShape : public GObject {
         void bind();
         void addTriangle(GVertice v1, GVertice v2, GVertice v3);
         void rgb(GLfloat r, GLfloat g, GLfloat b);
-        void setScale(GLfloat scale);
+        void setScale(vec2 scale);
         void destroy();
     
         vector<GVertice> vertices;

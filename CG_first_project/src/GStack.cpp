@@ -12,8 +12,8 @@ void GStack::addObject(GObject *obj) {
     objects.push_back(obj);
 }
 
-void GStack::setScale(GLfloat scale) {
-    this->scale = scale;
+void GStack::setScale(vec2 scale) {
+    memcpy(this->scale, scale, 2 * sizeof(float));
     for(int i = 0; i < objects.size(); i++) {
         objects[i]->setScale(scale);
     }
@@ -26,7 +26,7 @@ void GStack::prepare() {
 void GStack::prepare(GLfloat addX, GLfloat addY) {
     GObject::prepare();
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->prepare(parent ? (x+addX) : (x*scale + addX), parent ? (y+addY) : (y*scale+addY));
+        objects[i]->prepare(parent ? (x+addX) : (x*scale[0] + addX), parent ? (y+addY) : (y*scale[1]+addY));
     }
 }
 

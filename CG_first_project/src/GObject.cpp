@@ -8,7 +8,7 @@ void GObject::draw(GLenum mode, GLsizei count, GLenum type, const void* indices)
     glDrawElements(mode, count, type, indices);
 }
 
-GLfloat GObject::getScale() {
+float* GObject::getScale() {
     return scale;
 }
 

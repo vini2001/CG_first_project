@@ -6,5 +6,5 @@
     GShape* createTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
     GShape* createTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height, bool upsideDown);
     GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
-    GStack* createSpaceShip(GLfloat x, GLfloat y, GLfloat scale);
+    GStack* createSpaceShip(GLfloat x, GLfloat y, vec2 scale);
 #endif

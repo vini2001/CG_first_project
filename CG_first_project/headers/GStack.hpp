@@ -18,7 +18,7 @@ public:
     void prepare(GLfloat addX, GLfloat addY);
     void bind();
     void draw(GLenum mode, GLsizei count, GLenum type, const void* indices);
-    void setScale(GLfloat scale);
+    void setScale(vec2 scale);
     void destroy();
     
     ~GStack();
