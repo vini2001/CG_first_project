@@ -1,5 +1,6 @@
 #include "VBO.hpp"
 #include <iostream>
+#include "globals.hpp"
 
 VBO::VBO(GLfloat* vertices, int size)
 {
@@ -23,6 +24,6 @@ void VBO::deleteIt(){
 
 VBO::~VBO() {
     unbind();
-    std::cout << "VBO delete buffers" << std::endl;
+    if(debugLevel == DEBUG_ALL) std::cout << "VBO delete buffers" << std::endl;
     deleteIt();
 }

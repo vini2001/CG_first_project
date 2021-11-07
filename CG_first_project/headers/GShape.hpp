@@ -19,6 +19,7 @@ class GVertice {
         GLfloat cr, cg, cb;
         GVertice(GLfloat x, GLfloat y);
         GVertice(GLfloat x, GLfloat y, GLfloat cr, GLfloat cg, GLfloat cb);
+        Vec2 toVec();
 };
 
 class GTriangle {
@@ -39,8 +40,11 @@ class GShape : public GObject {
         void bind();
         void addTriangle(GVertice v1, GVertice v2, GVertice v3);
         void rgb(GLfloat r, GLfloat g, GLfloat b);
-        void setScale(vec2 scale);
+        void setScale(Vec2 scale);
+        void setpropagatedScale(Vec2 scale);
         void destroy();
+        GObject* testColision(std::vector<GObject*> &objects, string label);
+        std::vector<std::pair<Vec2, Vec2>> getSubLines();
     
         vector<GVertice> vertices;
         GLfloat* getVerticesArray();
@@ -53,7 +57,7 @@ class GShape : public GObject {
         VAO* vao;
         VBO* vbo1;
         EBO* ebo1;
-        GLuint* indices;
+        GLuint* indices = NULL;
         vector<GTriangle> triangles;
         GLuint verticesIdsCount = 0;
 };

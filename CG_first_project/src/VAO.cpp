@@ -1,5 +1,6 @@
 #include "VAO.hpp"
 #include <iostream>
+#include "globals.hpp"
 
 // Constructor that generates a VAO ID
 VAO::VAO(){
@@ -30,7 +31,7 @@ void VAO::deleteIt(){
 }
 
 VAO::~VAO() {
-    std::cout << "VAO destroy" << std::endl;
+    if(debugLevel == DEBUG_ALL) std::cout << "VAO destroy" << std::endl;
     unbind();
     deleteIt();
 }

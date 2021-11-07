@@ -5,3 +5,4 @@
 int game::width;
 int game::height;
 GLFWwindow* game::window;
+int debugLevel;

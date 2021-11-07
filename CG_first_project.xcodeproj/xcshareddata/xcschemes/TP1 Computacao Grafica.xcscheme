@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "8F878A802730B01500FA5FF1"
-               BuildableName = "TP1 Computacao Grafica"
+               BuildableName = "CG_first_project"
                BlueprintName = "CG_first_project"
                ReferencedContainer = "container:CG_first_project.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8F878A802730B01500FA5FF1"
-            BuildableName = "TP1 Computacao Grafica"
+            BuildableName = "CG_first_project"
             BlueprintName = "CG_first_project"
             ReferencedContainer = "container:CG_first_project.xcodeproj">
          </BuildableReference>
@@ -70,7 +70,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "8F878A802730B01500FA5FF1"
-            BuildableName = "TP1 Computacao Grafica"
+            BuildableName = "CG_first_project"
             BlueprintName = "CG_first_project"
             ReferencedContainer = "container:CG_first_project.xcodeproj">
          </BuildableReference>

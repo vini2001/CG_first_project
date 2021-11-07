@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F238D3B2736FCBC00F7A88A /* globals.cpp */; };
+		8F263E872738985E00975C47 /* vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F263E852738985E00975C47 /* vectors.cpp */; };
 		8F8332522734B47E0084BD57 /* stb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332512734B47E0084BD57 /* stb.cpp */; };
 		8F8332592734BF980084BD57 /* GShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332572734BF980084BD57 /* GShape.cpp */; };
 		8F878A852730B01500FA5FF1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F878A842730B01500FA5FF1 /* main.cpp */; };
@@ -42,6 +43,8 @@
 /* Begin PBXFileReference section */
 		8F238D392736F99D00F7A88A /* globals.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = globals.hpp; sourceTree = "<group>"; };
 		8F238D3B2736FCBC00F7A88A /* globals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = globals.cpp; sourceTree = "<group>"; };
+		8F263E852738985E00975C47 /* vectors.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vectors.cpp; sourceTree = "<group>"; };
+		8F263E862738985E00975C47 /* vectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vectors.hpp; sourceTree = "<group>"; };
 		8F8332502734B4310084BD57 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		8F8332512734B47E0084BD57 /* stb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb.cpp; sourceTree = "<group>"; };
 		8F8332572734BF980084BD57 /* GShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GShape.cpp; sourceTree = "<group>"; };
@@ -192,6 +195,7 @@
 				8FC993082735D9F7003681F6 /* GStack.hpp */,
 				8FC9930B2735DE0F003681F6 /* GObject.hpp */,
 				8F238D392736F99D00F7A88A /* globals.hpp */,
+				8F263E862738985E00975C47 /* vectors.hpp */,
 			);
 			path = headers;
 			sourceTree = "<group>";
@@ -209,6 +213,7 @@
 				8FC993072735D9F7003681F6 /* GStack.cpp */,
 				8FC9930D2735E47E003681F6 /* GObject.cpp */,
 				8F238D3B2736FCBC00F7A88A /* globals.cpp */,
+				8F263E852738985E00975C47 /* vectors.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -273,6 +278,7 @@
 				8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */,
 				8FC993092735D9F7003681F6 /* GStack.cpp in Sources */,
 				8F8332592734BF980084BD57 /* GShape.cpp in Sources */,
+				8F263E872738985E00975C47 /* vectors.cpp in Sources */,
 				8FDCD6B227330833004B6BDF /* VAO.cpp in Sources */,
 				8FDCD6A927330482004B6BDF /* shaderClass.cpp in Sources */,
 				8FC993052735D2D8003681F6 /* customObjects.cpp in Sources */,

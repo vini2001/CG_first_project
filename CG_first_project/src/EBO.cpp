@@ -1,4 +1,5 @@
 #include "EBO.hpp"
+#include "globals.hpp"
 #include <iostream>
 
 // Constructor that generates a Elements Buffer Object and links it to indices
@@ -22,6 +23,6 @@ void EBO::deleteIt(){
 
 EBO::~EBO() {
     unbind();
-    std::cout << "EBO destroy" << std::endl;
+    if(debugLevel == DEBUG_ALL) std::cout << "EBO destroy" << std::endl;
     deleteIt();
 }

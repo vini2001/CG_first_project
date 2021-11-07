@@ -86,10 +86,11 @@ void WindowSizeCallback(GLFWwindow* window, int width, int height){
 
 
 void fire(GStack *spaceShip) {
-    float* spawnPos = spaceShip->getItemSpawnPos();
-    GShape *bullet = createRectangle(spawnPos[0] - 1.5, spawnPos[1] - 100, 3, 30);
-    bullet->setSpeed(0.0, 40.0);
+    Vec2 spawnPos = spaceShip->getItemSpawnPos();
+    GShape *bullet = createRectangle(spawnPos.x - .5, spawnPos.y - 70, 1, 30);
+    bullet->setSpeed(0.0, 30.0);
     bullet->destroyAt = getMillis() + 500;
+    bullet->setLabel("bullet");
     objects.push_back(bullet);
 }
 
@@ -133,36 +134,42 @@ int main(void){
     Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
     
     
-    GStack *spaceShip = createSpaceShip(-100, -game::height/2 * 0.98, new vec2 {0.34, 0.34});
+    GStack *spaceShip = createSpaceShip(-100, -game::height/2 * 0.95, Vec2(0.35, 0.35));
     objects.push_back(spaceShip);
-
     
+    
+    // create a bunch of targets
+    for(int i = 0; i < 50; i++) {
+        GShape *target = createSquare(-700 + 50*i, 100, 50);
+        target->setLabel("target");
+        target->setScale(Vec2(0.70, 0.70));
+        objects.push_back(target);
+    }
+    
+
     for(int i = 0; i < objects.size(); i++) {
         objects[i]->prepare();
     }
     
-    
-    
-    GLuint scaleUniID = glGetUniformLocation(shaderProgram.ID, "scale");
-    
     long lastTime = getMillis();
     while (!glfwWindowShouldClose(game::window)) {
-        glClearColor(0.07f, 0.13f, 0.17f, 1.0f);
+        glClearColor(0.03f, 0.06f, 0.08f, 1.0f);
         glClear(GL_COLOR_BUFFER_BIT);
         shaderProgram.activate();
-        glUniform1f(scaleUniID, 0.0f);
     
         long timeEllapsed = getMillis() - lastTime;
         if(timeEllapsed > 5) {
             
+            float spaceShipSpeed = 10;
+            
             if(pressedKey == GLFW_KEY_LEFT) {
                 GLfloat toBorder = -game::width/2 - spaceShip->x;
-                vec2 change = { (spaceShip->x - 20 < -game::width/2 ? toBorder : -20.f), 0.0f };
+                Vec2 change((spaceShip->x - spaceShipSpeed < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
                 spaceShip->addPos(change);
             }else if(pressedKey == GLFW_KEY_RIGHT) {
-                GLfloat rightmostX = spaceShip->x + spaceShip->boxSize[0];
+                GLfloat rightmostX = spaceShip->x + spaceShip->boxSize.x;
                 GLfloat toBorder = game::width/2 - rightmostX;
-                vec2 change = { (rightmostX + 20 > game::width/2 ? toBorder : 20.f), 0.0f };
+                Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), 0.0f };
                 spaceShip->addPos(change);
             }
             lastTime = getMillis();
@@ -174,6 +181,7 @@ int main(void){
         }
         
         for(int i = 0; i < objects.size(); i++) {
+            
             if(objects[i]->shouldDestroy(getMillis())) {
                 GShape* c = dynamic_cast<GShape*>(objects[i]);
                 delete c;
@@ -183,6 +191,26 @@ int main(void){
             }
             objects[i]->update();
             objects[i]->draw(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
+        }
+        
+        
+        /// Test colisions
+        for(int i = 0; i < objects.size(); i++) {
+            if(objects[i]->getLabel() == "target") {
+                
+                float rx = (getRand() - 0.5)*5;
+                float ry = (getRand() - 0.5)*5;
+                objects[i]->addPos(Vec2(rx, ry));
+                
+                GObject* colidedWith = objects[i]->testColision(objects, "bullet");
+                if(colidedWith != NULL) {
+                    cout << "colision!!!" << endl;
+                    colidedWith->setSpeed(0.0, 0.0);
+                    // TODO: remove object from vector objects
+                    objects[i]->destroyAt = 0;
+                    colidedWith->destroyAt = 0;
+                }
+            }
         }
         
         glfwSwapBuffers(game::window);

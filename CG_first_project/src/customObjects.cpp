@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "GShape.hpp"
 #include "customObjects.h"
+#include "vectors.hpp"
 
 
 GShape* createSquare(GLfloat x, GLfloat y, GLfloat size) {
@@ -67,14 +68,14 @@ GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
     return obj;
 }
 
-GStack* createSpaceShip(GLfloat x, GLfloat y, vec2 scale) {
+GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     GShape *t1 = createTriangle(175.0f, 280.0f, 150.0f, 100.f);
     t1->rgb(0.174509f, 0.3098f, 0.7058f);
     
     GShape *r1 = createRectangle(175.0f, 30.0f, 150.f, 250.f);
     r1->rgb(0.214509f, 0.25098f, 0.7058f);
     
-    GShape *t2 = createTriangle(0.00f, 030.0f, 500.0f, 250.0f);
+    GShape *t2 = createTriangle(0.00f, 30.0f, 500.0f, 250.0f);
     t2->rgb(0.174509f, 0.3098f, 0.7058f);
     
     GShape *r3 = createRectangle(50.0, 0.0f, 25.0f, 130.0f);
@@ -89,7 +90,8 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, vec2 scale) {
     GShape *t4 = createTriangle(423, -0.00f, 40.f, 20.f, true);
     t4->rgb(0.774509f, 0.1098f, 0.3058f);
     
-    GStack *st1 = new GStack(145, 20);
+    GStack *st1 = new GStack(145, 20, false);
+    st1->setLabel("treco de tras da nave");
     GShape *t5 = createRectTriangle(0.0, 0.00f, 23.f, -20.f);
     t5->rgb(0.974509f, 0.9098f, 0.8058f);
     st1->addObject(t5);
@@ -110,13 +112,14 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, vec2 scale) {
     st->addObject(t4);
     st->addObject(st1);
     st->setScale(scale);
-    st->setItemSpawnPos(t1->getItemSpawnPos()[0] * scale[0], t1->getItemSpawnPos()[1] * scale[1]);
+    st->setItemSpawnPos(t1->getItemSpawnPos().x * scale.x, t1->getItemSpawnPos().y * scale.y);
     
     
     GStack *stR = new GStack(x, y+5);
-    stR->setItemSpawnPos(st->getItemSpawnPos()[0], st->getItemSpawnPos()[1]);
+    stR->setItemSpawnPos(st->getItemSpawnPos().x, st->getItemSpawnPos().y);
     stR->addObject(st);
-    stR->boxSize[0] = 500.0 * scale[0];
+    stR->boxSize.x = 500.0 * scale.x;
     
+    stR->setLabel("spaceship");
     return stR;
 }
