@@ -25,7 +25,6 @@
 using namespace std;
 
 
-
 GLuint indices[] = {0, 1, 2,  0, 2, 3 };
 
 float getRand() {
@@ -91,7 +90,9 @@ void fire(GStack *spaceShip) {
     bullet->setSpeed(0.0, 30.0);
     bullet->destroyAt = getMillis() + 500;
     bullet->setLabel("bullet");
-    objects.push_back(bullet);
+    
+    // insert at the beggining so the ship will always be render over the bullet
+    objects.insert(objects.begin(), bullet);
 }
 
 
@@ -194,21 +195,22 @@ int main(void){
         }
         
         
-        /// Test colisions
+        // Test colisions
         for(int i = 0; i < objects.size(); i++) {
             if(objects[i]->getLabel() == "target") {
                 
                 float rx = (getRand() - 0.5)*5;
                 float ry = (getRand() - 0.5)*5;
                 objects[i]->addPos(Vec2(rx, ry));
+                objects[i]-> setScale(Vec2(1 - getRand()/4, 1 - getRand()/4));
                 
                 GObject* colidedWith = objects[i]->testColision(objects, "bullet");
                 if(colidedWith != NULL) {
-                    cout << "colision!!!" << endl;
                     colidedWith->setSpeed(0.0, 0.0);
-                    // TODO: remove object from vector objects
                     objects[i]->destroyAt = 0;
                     colidedWith->destroyAt = 0;
+                    objects.erase(objects.begin()+i--);
+                    continue;
                 }
             }
         }

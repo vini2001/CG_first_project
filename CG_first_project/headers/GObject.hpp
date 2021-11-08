@@ -17,7 +17,7 @@ class GObject {
         virtual void prepare(GLfloat addX, GLfloat addY) = 0;
         virtual void bind() = 0;
         virtual void setScale(Vec2 scale) = 0;
-        virtual void setpropagatedScale(Vec2 scale) = 0;
+        virtual void setPropagatedScale(Vec2 scale) = 0;
         bool update();
         Vec2 getScale();
         void addPos(Vec2 change);

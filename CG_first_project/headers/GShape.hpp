@@ -41,7 +41,7 @@ class GShape : public GObject {
         void addTriangle(GVertice v1, GVertice v2, GVertice v3);
         void rgb(GLfloat r, GLfloat g, GLfloat b);
         void setScale(Vec2 scale);
-        void setpropagatedScale(Vec2 scale);
+        void setPropagatedScale(Vec2 scale);
         void destroy();
         GObject* testColision(std::vector<GObject*> &objects, string label);
         std::vector<std::pair<Vec2, Vec2>> getSubLines();

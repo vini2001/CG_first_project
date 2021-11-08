@@ -71,24 +71,31 @@ GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
 GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     GShape *t1 = createTriangle(175.0f, 280.0f, 150.0f, 100.f);
     t1->rgb(0.174509f, 0.3098f, 0.7058f);
+    t1->setLabel("spaceship top_Triangle");
     
     GShape *r1 = createRectangle(175.0f, 30.0f, 150.f, 250.f);
-    r1->rgb(0.214509f, 0.25098f, 0.7058f);
+    r1->rgb(0.174509f, 0.3098f, 0.7058f);
+    r1->setLabel("spaceship item");
     
     GShape *t2 = createTriangle(0.00f, 30.0f, 500.0f, 250.0f);
     t2->rgb(0.174509f, 0.3098f, 0.7058f);
+    t2->setLabel("spaceship item");
     
     GShape *r3 = createRectangle(50.0, 0.0f, 25.0f, 130.0f);
     r3->rgb(0.174509f, 0.3098f, 0.7058f);
+    r3->setLabel("spaceship item");
     
     GShape *r4 = createRectangle(430.0, 0.0f, 25.0f, 130.0f);
     r4->rgb(0.174509f, 0.3098f, 0.7058f);
+    r4->setLabel("spaceship item");
     
     GShape *t3 = createTriangle(43.0f, -0.00f, 40.f, 20.f, true);
     t3->rgb(0.774509f, 0.1098f, 0.3058f);
+    t3->setLabel("spaceship item");
     
     GShape *t4 = createTriangle(423, -0.00f, 40.f, 20.f, true);
     t4->rgb(0.774509f, 0.1098f, 0.3058f);
+    t4->setLabel("spaceship item");
     
     GStack *st1 = new GStack(145, 20, false);
     st1->setLabel("treco de tras da nave");
@@ -101,6 +108,7 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     GShape *r5 = createRectangle(23, 0.00f, 155, -20.f);
     r5->rgb(0.974509f, 0.9098f, 0.8058f);
     st1->addObject(r5);
+    st1->setLabel("spaceship stack item");
     
     GStack *st = new GStack(0, 0, true);
     st->addObject(r1);

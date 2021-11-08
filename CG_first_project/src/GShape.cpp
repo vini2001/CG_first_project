@@ -78,7 +78,7 @@ void GShape::setScale(Vec2 scale) {
     this->recomputeTotalScale();
 }
 
-void GShape::setpropagatedScale(Vec2 scale) {
+void GShape::setPropagatedScale(Vec2 propagatedScale) {
     this->propagatedScale = propagatedScale;
     this->recomputeTotalScale();
 }

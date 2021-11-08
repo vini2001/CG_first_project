@@ -16,17 +16,17 @@ void GStack::addObject(GObject *obj) {
 void GStack::setScale(Vec2 scale) {
     this->scale = scale;
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->setpropagatedScale(scale);
+        objects[i]->setPropagatedScale(scale);
     }
     this->recomputeTotalScale();
 }
 
-void GStack::setpropagatedScale(Vec2 propagatedScale) {
+void GStack::setPropagatedScale(Vec2 propagatedScale) {
     this->propagatedScale = propagatedScale;
     this->recomputeTotalScale();
     // propragate this element's scale combined with the parent's scale (the propagated one)
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->setpropagatedScale(totalScale);
+        objects[i]->setPropagatedScale(totalScale);
     }
 }
 

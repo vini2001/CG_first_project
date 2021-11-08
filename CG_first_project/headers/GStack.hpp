@@ -21,7 +21,7 @@ public:
     void bind();
     void draw(GLenum mode, GLsizei count, GLenum type, const void* indices);
     void setScale(Vec2 scale);
-    void setpropagatedScale(Vec2 scale);
+    void setPropagatedScale(Vec2 scale);
     std::vector<std::pair<Vec2, Vec2>> getSubLines();
     GObject* testColision(std::vector<GObject*> &objects, string label);
     
