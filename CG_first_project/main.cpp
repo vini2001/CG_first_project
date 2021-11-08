@@ -209,6 +209,7 @@ int main(void){
                     colidedWith->setSpeed(0.0, 0.0);
                     objects[i]->destroyAt = 0;
                     colidedWith->destroyAt = 0;
+                    delete dynamic_cast<GShape*>(objects[i]);
                     objects.erase(objects.begin()+i--);
                     continue;
                 }
