@@ -143,10 +143,14 @@ void GShape::destroy() {
 }
 
 std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines() {
+    return this->getSubLines(0.0f, 0.0f);
+}
+
+std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines(GLfloat addX, GLfloat addY) {
     vector<pair<Vec2, Vec2>> res;
     
     // get every line segment that forms the shape
-    for(int t = 0; t < triangles.size(); t--) {
+    for(int t = 0; t < triangles.size(); t++) {
         pair<Vec2, Vec2> a = { triangles[t].a.toVec(), triangles[t].b.toVec() };
         pair<Vec2, Vec2> b = { triangles[t].b.toVec(), triangles[t].c.toVec() };
         pair<Vec2, Vec2> c = { triangles[t].c.toVec(), triangles[t].a.toVec() };
@@ -157,49 +161,14 @@ std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines() {
     
     // add the position of the shape to every line segment relative position, so we get the real position of each segment
     for(int i = 0; i < res.size(); i++) {
-        res[i].first.x = res[i].first.x*totalScale.x +  x*propagatedScale.x;
-        res[i].first.y = res[i].first.y*totalScale.y +  y*propagatedScale.y;
-        res[i].second.x = res[i].second.x*totalScale.x +  x*propagatedScale.x;
-        res[i].second.y = res[i].second.y*totalScale.y +  y*propagatedScale.y;
+        res[i].first.x = res[i].first.x*totalScale.x +  x*propagatedScale.x + addX;
+        res[i].first.y = res[i].first.y*totalScale.y +  y*propagatedScale.y + addY;
+        res[i].second.x = res[i].second.x*totalScale.x +  x*propagatedScale.x + addX;
+        res[i].second.y = res[i].second.y*totalScale.y +  y*propagatedScale.y + addY;
     }
     
     return res;
 }
-
-
-float ccw(Vec2 A, Vec2 B, Vec2 C) {
-    return (C.y-A.y) * (B.x-A.x) > (B.y-A.y) * (C.x-A.x);
-}
-
-// Return true if line segments AB and CD intersect
-bool intersect(Vec2 A, Vec2 B, Vec2 C, Vec2 D){
-    return ccw(A,C,D) != ccw(B,C,D) and ccw(A,B,C) != ccw(A,B,D);
-}
-
-GObject* GShape::testColision(std::vector<GObject*> &objects, string label) {
-    for(int i = 0; i < objects.size(); i++) {
-        GObject *o = objects[i];
-        
-        if(o->getLabel() == label) {
-            vector<pair<Vec2, Vec2>> subLinesOther = o->getSubLines();
-            vector<pair<Vec2, Vec2>> subLineThis = getSubLines();
-            
-            for(int t = 0; t < subLineThis.size(); t++) {
-                for(int j = 0; j < subLinesOther.size(); j++) {
-                    if(intersect(subLineThis[t].first, subLineThis[t].second, subLinesOther[j].first, subLinesOther[j].second)) {
-//                        cout << "Test " << "((" << subLineThis[t].first[0] << "," << subLineThis[t].first[1] << "), (" <<  subLineThis[t].second[0] << "," << subLineThis[t].second[1] << "))" << ", " << "((" << subLinesOther[j].first[0] << "," << subLinesOther[j].first[1] << "), (" <<  subLinesOther[j].second[0] << "," << subLinesOther[j].second[1] << "))" << endl;
-                        return o;
-                    }
-                }
-            }
-            
-
-//            std::cout << "testing colision with bullet" << std::endl;
-        }
-    }
-    return NULL;
-}
-
 
 GShape::~GShape() {
     destroy();

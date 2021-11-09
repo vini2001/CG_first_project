@@ -9,4 +9,5 @@
     GShape* createTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height, bool upsideDown);
     GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height);
     GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale);
+    GStack* createAlien(GLfloat x, GLfloat y, Vec2 scale);
 #endif

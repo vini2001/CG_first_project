@@ -68,6 +68,35 @@ GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
     return obj;
 }
 
+GStack* createAlien(GLfloat x, GLfloat y, Vec2 scale) {
+    
+    GStack *stR = new GStack(x, y+5);
+    
+    GShape *square = createSquare(0, 0, 50);
+    GShape *eye1 = createSquare(35, 0, 10);
+    eye1->rgb(0.09, 0.13, 0.43);
+    GShape *eye2 = createSquare(5, 0, 10);
+    eye2->rgb(0.09, 0.13, 0.43);
+    
+    GShape *tri1 = createTriangle(-15, 35, 30, -20);
+    tri1->rgb(0.09, 0.13, 0.43);
+    GShape *tri2 = createTriangle(35, 35, 30, -20);
+    tri2->rgb(0.09, 0.13, 0.43);
+    
+    GShape *rec1 = createRectangle(-10, 50, 70, 5);
+    rec1->rgb(0.09, 0.13, 0.43);
+    
+    
+    stR->addObject(square);
+    stR->addObject(eye1);
+    stR->addObject(eye2);
+    stR->addObject(tri1);
+    stR->addObject(tri2);
+    stR->addObject(rec1);
+    stR->setLabel("spaceship");
+    return stR;
+}
+
 GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     GShape *t1 = createTriangle(175.0f, 280.0f, 150.0f, 100.f);
     t1->rgb(0.174509f, 0.3098f, 0.7058f);

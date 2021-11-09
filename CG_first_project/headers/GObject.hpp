@@ -5,6 +5,7 @@
 #include <queue>
 #include <string>
 #include "vectors.hpp"
+#include <string>
 
 
 class GObject {
@@ -30,8 +31,9 @@ class GObject {
         void setParent(GObject *p);
     
         virtual std::vector<std::pair<Vec2, Vec2>> getSubLines() = 0;
+        virtual std::vector<std::pair<Vec2, Vec2>> getSubLines(GLfloat addX, GLfloat addY) = 0;
     
-        virtual GObject* testColision(std::vector<GObject*> &objects, std::string label) = 0;
+    GObject* testColision(std::vector<GObject*> &objects, std::string label);
     
         virtual void destroy() = 0;
         

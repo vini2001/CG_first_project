@@ -23,7 +23,7 @@ public:
     void setScale(Vec2 scale);
     void setPropagatedScale(Vec2 scale);
     std::vector<std::pair<Vec2, Vec2>> getSubLines();
-    GObject* testColision(std::vector<GObject*> &objects, string label);
+    std::vector<std::pair<Vec2, Vec2>> getSubLines(GLfloat addX, GLfloat addY);
     
     void destroy();
     

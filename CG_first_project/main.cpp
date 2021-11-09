@@ -86,7 +86,7 @@ void WindowSizeCallback(GLFWwindow* window, int width, int height){
 
 void fire(GStack *spaceShip) {
     Vec2 spawnPos = spaceShip->getItemSpawnPos();
-    GShape *bullet = createRectangle(spawnPos.x - .5, spawnPos.y - 70, 1, 30);
+    GShape *bullet = createRectangle(spawnPos.x - .5, spawnPos.y - 70, 1, 15);
     bullet->setSpeed(0.0, 30.0);
     bullet->destroyAt = getMillis() + 500;
     bullet->setLabel("bullet");
@@ -132,25 +132,28 @@ int main(void){
     glfwMakeContextCurrent(game::window);
     gladLoadGL();
     
-    Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
-    
+    Shader shaderProgram("default.vert", "default.frag");
     
     GStack *spaceShip = createSpaceShip(-100, -game::height/2 * 0.95, Vec2(0.35, 0.35));
     objects.push_back(spaceShip);
     
     
-    // create a bunch of targets
-    for(int i = 0; i < 50; i++) {
-        GShape *target = createSquare(-700 + 50*i, 100, 50);
-        target->setLabel("target");
-        target->setScale(Vec2(0.70, 0.70));
-        objects.push_back(target);
+    // create a bunch of aliens
+    for(int i = 0; i < 10; i++) {
+        GStack *alien = createAlien(350 + 75*i - game::width/2, game::height/2 - 100, Vec2(1, 1));
+        alien->setLabel("alien");
+        alien->setSpeed(0, -1);
+        objects.push_back(alien);
     }
     
-
+    
+    
     for(int i = 0; i < objects.size(); i++) {
         objects[i]->prepare();
     }
+    
+    long changeDirAt = 0;
+    bool goingEsq = false;
     
     long lastTime = getMillis();
     while (!glfwWindowShouldClose(game::window)) {
@@ -164,11 +167,11 @@ int main(void){
             float spaceShipSpeed = 10;
             
             if(pressedKey == GLFW_KEY_LEFT) {
-                GLfloat toBorder = -game::width/2 - spaceShip->x;
-                Vec2 change((spaceShip->x - spaceShipSpeed < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
+                GLfloat toBorder = -game::width/2 - spaceShip->x - spaceShip->boxSize.x/2;
+                Vec2 change((spaceShip->x - spaceShipSpeed + spaceShip->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
                 spaceShip->addPos(change);
             }else if(pressedKey == GLFW_KEY_RIGHT) {
-                GLfloat rightmostX = spaceShip->x + spaceShip->boxSize.x;
+                GLfloat rightmostX = spaceShip->x + spaceShip->boxSize.x*0.5;
                 GLfloat toBorder = game::width/2 - rightmostX;
                 Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), 0.0f };
                 spaceShip->addPos(change);
@@ -181,7 +184,17 @@ int main(void){
             shoot = false;
         }
         
+        
+        if(changeDirAt < getMillis()) {
+            goingEsq = !goingEsq;
+            changeDirAt = getMillis() + 500;
+        }
+        
         for(int i = 0; i < objects.size(); i++) {
+            
+            if(objects[i]->getLabel() == "alien") {
+                objects[i]->addPos(Vec2(goingEsq ? -1 : 1, 0));
+            }
             
             if(objects[i]->shouldDestroy(getMillis())) {
                 GShape* c = dynamic_cast<GShape*>(objects[i]);
@@ -197,14 +210,15 @@ int main(void){
         
         // Test colisions
         for(int i = 0; i < objects.size(); i++) {
-            if(objects[i]->getLabel() == "target") {
+            
+            if(objects[i]->getLabel() == "alien") {
                 
-                float rx = (getRand() - 0.5)*5;
-                float ry = (getRand() - 0.5)*5;
-                objects[i]->addPos(Vec2(rx, ry));
-                objects[i]-> setScale(Vec2(1 - getRand()/4, 1 - getRand()/4));
+                GObject* colidedWith = objects[i]->testColision(objects, "spaceship");
+                if(colidedWith != NULL) {
+                    spaceShip->destroyAt = 0;
+                }
                 
-                GObject* colidedWith = objects[i]->testColision(objects, "bullet");
+                colidedWith = objects[i]->testColision(objects, "bullet");
                 if(colidedWith != NULL) {
                     colidedWith->setSpeed(0.0, 0.0);
                     objects[i]->destroyAt = 0;

@@ -54,14 +54,21 @@ void GStack::bind() {
     }
 }
 
-GObject* GStack::testColision(std::vector<GObject*> &objects, string label) {
-    throw "Not implemented";
-    return NULL;
+std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines() {
+    return this->getSubLines(0.0f, 0.0f);
 }
 
-std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines() {
-    throw "Not implemented";
-    return vector<pair<Vec2, Vec2>>();
+
+std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines(GLfloat addX, GLfloat addY) {
+    
+    vector<pair<Vec2, Vec2>> res;
+    
+    for(int i = 0; i < objects.size(); i++) {
+        vector<pair<Vec2, Vec2>> someSubs = objects[i]->getSubLines(parent ? (x+addX) : (x * scale.x * propagatedScale.x + addX), parent ? (y+addY) : (y * scale.y * propagatedScale.y + addY));
+        for(int j = 0; j < someSubs.size(); j++) res.push_back(someSubs[j]);
+    }
+    
+    return res;
 }
 
 

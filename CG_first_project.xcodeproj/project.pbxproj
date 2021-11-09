@@ -12,13 +12,18 @@
 		8F8332522734B47E0084BD57 /* stb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332512734B47E0084BD57 /* stb.cpp */; };
 		8F8332592734BF980084BD57 /* GShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332572734BF980084BD57 /* GShape.cpp */; };
 		8F878A852730B01500FA5FF1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F878A842730B01500FA5FF1 /* main.cpp */; };
-		8F878A8F2730B0BE00FA5FF1 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A8E2730B0BE00FA5FF1 /* libglfw3.a */; };
 		8F878A942730B14B00FA5FF1 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = 8F878A932730B14B00FA5FF1 /* glad.c */; };
 		8F878A972730B29700FA5FF1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A962730B29700FA5FF1 /* AppKit.framework */; };
 		8F878A992730B29E00FA5FF1 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A982730B29E00FA5FF1 /* IOKit.framework */; };
 		8F878A9B2730B2AF00FA5FF1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9A2730B2AF00FA5FF1 /* CoreFoundation.framework */; };
 		8F878A9D2730B2B300FA5FF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9C2730B2B300FA5FF1 /* Foundation.framework */; };
 		8F878A9F2730B2B800FA5FF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9E2730B2B800FA5FF1 /* CoreGraphics.framework */; };
+		8F8F6A012739A72C00CFA63E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F69FF2739A71200CFA63E /* libglfw3.a */; };
+		8F8F6A052739AA2300CFA63E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F6A042739AA2300CFA63E /* libglfw3.a */; };
+		8F8F6A0D2739AEA500CFA63E /* default.frag in Sources */ = {isa = PBXBuildFile; fileRef = 8F8F6A082739AD3800CFA63E /* default.frag */; };
+		8F8F6A0E2739AEA500CFA63E /* default.vert in Sources */ = {isa = PBXBuildFile; fileRef = 8F8F6A092739AD3800CFA63E /* default.vert */; };
+		8F8F6A112739AFD700CFA63E /* default.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F8F6A082739AD3800CFA63E /* default.frag */; };
+		8F8F6A122739AFD700CFA63E /* default.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F8F6A092739AD3800CFA63E /* default.vert */; };
 		8FC993052735D2D8003681F6 /* customObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC993042735D2D8003681F6 /* customObjects.cpp */; };
 		8FC993092735D9F7003681F6 /* GStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC993072735D9F7003681F6 /* GStack.cpp */; };
 		8FC9930E2735E47E003681F6 /* GObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9930D2735E47E003681F6 /* GObject.cpp */; };
@@ -31,12 +36,14 @@
 /* Begin PBXCopyFilesBuildPhase section */
 		8F878A7F2730B01500FA5FF1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = /usr/share/man/man1/;
-			dstSubfolderSpec = 0;
+			buildActionMask = 12;
+			dstPath = "";
+			dstSubfolderSpec = 7;
 			files = (
+				8F8F6A112739AFD700CFA63E /* default.frag in CopyFiles */,
+				8F8F6A122739AFD700CFA63E /* default.vert in CopyFiles */,
 			);
-			runOnlyForDeploymentPostprocessing = 1;
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -51,7 +58,6 @@
 		8F8332582734BF980084BD57 /* GShape.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GShape.hpp; sourceTree = "<group>"; };
 		8F878A812730B01500FA5FF1 /* CG_first_project */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = CG_first_project; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F878A842730B01500FA5FF1 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
-		8F878A8E2730B0BE00FA5FF1 /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
 		8F878A902730B0F000FA5FF1 /* GLFW */ = {isa = PBXFileReference; lastKnownFileType = folder; path = GLFW; sourceTree = "<group>"; };
 		8F878A912730B12200FA5FF1 /* KHR */ = {isa = PBXFileReference; lastKnownFileType = folder; path = KHR; sourceTree = "<group>"; };
 		8F878A922730B12200FA5FF1 /* glad */ = {isa = PBXFileReference; lastKnownFileType = folder; path = glad; sourceTree = "<group>"; };
@@ -61,14 +67,16 @@
 		8F878A9A2730B2AF00FA5FF1 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		8F878A9C2730B2B300FA5FF1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		8F878A9E2730B2B800FA5FF1 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		8F8F69FF2739A71200CFA63E /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libglfw3.a; path = ../../../../libglfw3.a; sourceTree = "<group>"; };
+		8F8F6A042739AA2300CFA63E /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
+		8F8F6A082739AD3800CFA63E /* default.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = default.frag; path = CG_first_project/shaders/default.frag; sourceTree = SOURCE_ROOT; };
+		8F8F6A092739AD3800CFA63E /* default.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.vert; sourceTree = "<group>"; };
 		8FC993042735D2D8003681F6 /* customObjects.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = customObjects.cpp; sourceTree = "<group>"; };
 		8FC993062735D4ED003681F6 /* customObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = customObjects.h; sourceTree = "<group>"; };
 		8FC993072735D9F7003681F6 /* GStack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GStack.cpp; sourceTree = "<group>"; };
 		8FC993082735D9F7003681F6 /* GStack.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GStack.hpp; sourceTree = "<group>"; };
 		8FC9930B2735DE0F003681F6 /* GObject.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GObject.hpp; sourceTree = "<group>"; };
 		8FC9930D2735E47E003681F6 /* GObject.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GObject.cpp; sourceTree = "<group>"; };
-		8FDCD6A327330362004B6BDF /* default.vert */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = default.vert; sourceTree = "<group>"; };
-		8FDCD6A42733038E004B6BDF /* default.frag */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = default.frag; sourceTree = "<group>"; };
 		8FDCD6A6273303B8004B6BDF /* shaderClass.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = shaderClass.hpp; sourceTree = "<group>"; };
 		8FDCD6A827330482004B6BDF /* shaderClass.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = shaderClass.cpp; sourceTree = "<group>"; };
 		8FDCD6AA27330663004B6BDF /* VBO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VBO.cpp; sourceTree = "<group>"; };
@@ -85,11 +93,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F878A9F2730B2B800FA5FF1 /* CoreGraphics.framework in Frameworks */,
+				8F8F6A052739AA2300CFA63E /* libglfw3.a in Frameworks */,
 				8F878A9D2730B2B300FA5FF1 /* Foundation.framework in Frameworks */,
 				8F878A9B2730B2AF00FA5FF1 /* CoreFoundation.framework in Frameworks */,
 				8F878A992730B29E00FA5FF1 /* IOKit.framework in Frameworks */,
 				8F878A972730B29700FA5FF1 /* AppKit.framework in Frameworks */,
-				8F878A8F2730B0BE00FA5FF1 /* libglfw3.a in Frameworks */,
+				8F8F6A012739A72C00CFA63E /* libglfw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +166,7 @@
 		8F878A8D2730B03A00FA5FF1 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
-				8F878A8E2730B0BE00FA5FF1 /* libglfw3.a */,
+				8F8F6A042739AA2300CFA63E /* libglfw3.a */,
 			);
 			path = Libraries;
 			sourceTree = "<group>";
@@ -165,6 +174,7 @@
 		8F878A952730B29700FA5FF1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F8F69FF2739A71200CFA63E /* libglfw3.a */,
 				8F878A9E2730B2B800FA5FF1 /* CoreGraphics.framework */,
 				8F878A9C2730B2B300FA5FF1 /* Foundation.framework */,
 				8F878A9A2730B2AF00FA5FF1 /* CoreFoundation.framework */,
@@ -177,8 +187,8 @@
 		8FDCD6A22733033F004B6BDF /* shaders */ = {
 			isa = PBXGroup;
 			children = (
-				8FDCD6A327330362004B6BDF /* default.vert */,
-				8FDCD6A42733038E004B6BDF /* default.frag */,
+				8F8F6A082739AD3800CFA63E /* default.frag */,
+				8F8F6A092739AD3800CFA63E /* default.vert */,
 			);
 			path = shaders;
 			sourceTree = "<group>";
@@ -228,6 +238,7 @@
 				8F878A7D2730B01500FA5FF1 /* Sources */,
 				8F878A7E2730B01500FA5FF1 /* Frameworks */,
 				8F878A7F2730B01500FA5FF1 /* CopyFiles */,
+				8F8F6A0A2739ADAC00CFA63E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -270,11 +281,23 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		8F8F6A0A2739ADAC00CFA63E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8F878A7D2730B01500FA5FF1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F8F6A0D2739AEA500CFA63E /* default.frag in Sources */,
+				8F8F6A0E2739AEA500CFA63E /* default.vert in Sources */,
 				8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */,
 				8FC993092735D9F7003681F6 /* GStack.cpp in Sources */,
 				8F8332592734BF980084BD57 /* GShape.cpp in Sources */,
@@ -412,6 +435,7 @@
 				DEVELOPMENT_TEAM = ZKV9A6H8ZZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Include";
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Libraries";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -424,6 +448,7 @@
 				DEVELOPMENT_TEAM = ZKV9A6H8ZZ;
 				ENABLE_HARDENED_RUNTIME = YES;
 				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Include";
+				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
 				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Libraries";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};

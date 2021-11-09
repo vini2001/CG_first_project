@@ -43,8 +43,8 @@ class GShape : public GObject {
         void setScale(Vec2 scale);
         void setPropagatedScale(Vec2 scale);
         void destroy();
-        GObject* testColision(std::vector<GObject*> &objects, string label);
         std::vector<std::pair<Vec2, Vec2>> getSubLines();
+        std::vector<std::pair<Vec2, Vec2>> getSubLines(GLfloat addX, GLfloat addY);
     
         vector<GVertice> vertices;
         GLfloat* getVerticesArray();

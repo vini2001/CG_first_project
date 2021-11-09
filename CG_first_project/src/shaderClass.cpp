@@ -19,11 +19,37 @@ string get_file_contents(const char* filename)
 }
 
 
+const char* fragString = "#version 330 core\n"
+"out vec4 FragColor;\n"
+"in vec3 color;\n"
+"\n"
+"void main(){\n"
+"  FragColor = vec4(color, 1.0f);\n"
+"}\n"
+"\n";
+
+const char* verString = "#version 330 core\n"
+"layout (location = 0) in vec3 aPos;\n"
+"layout (location = 1) in vec3 aColor;\n"
+"\n"
+"out vec3 color;\n"
+"\n"
+"uniform float scale;\n"
+"\n"
+"void main(){\n"
+"    gl_Position = vec4(aPos.x + aPos.x * scale, aPos.y + aPos.y * scale, aPos.z + aPos.z * scale, 1.0);\n"
+"    color = aColor;\n"
+"}\n"
+"\n";
+
+
 // Constructor that build the Shader Program from 2 different shaders
 Shader::Shader(const char* vertexFile, const char* fragmentFile){
+    
     // Read vertexFile and fragmentFile and store the strings
-    string vertexCode = get_file_contents(vertexFile);
-    string fragmentCode = get_file_contents(fragmentFile);
+    //TODO: figure out a way to include the frag and vertex files on the compiled game
+    string vertexCode = verString; //get_file_contents(vertexFile);
+    string fragmentCode = fragString; //get_file_contents(fragmentFile);
 
     // Convert the shader source strings into character arrays
     const char* vertexSource = vertexCode.c_str();
