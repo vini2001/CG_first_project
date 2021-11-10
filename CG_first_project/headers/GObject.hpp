@@ -21,8 +21,9 @@ class GObject {
         virtual void setPropagatedScale(Vec2 scale) = 0;
         bool update();
         Vec2 getScale();
-        void addPos(Vec2 change);
-        void setSpeed(GLfloat x, GLfloat y);
+        void addSpeed(Vec2 change);
+        void setSpeed(Vec2 change);
+        Vec2 getSpeed();
         void setItemSpawnPos(GLfloat x, GLfloat y);
         Vec2 getItemSpawnPos();
         bool shouldDestroy(long currentTime);

@@ -19,6 +19,7 @@ class GVertice {
         GLfloat cr, cg, cb;
         GVertice(GLfloat x, GLfloat y);
         GVertice(GLfloat x, GLfloat y, GLfloat cr, GLfloat cg, GLfloat cb);
+        GVertice(GLfloat x, GLfloat y, Vec3 rgb);
         Vec2 toVec();
 };
 

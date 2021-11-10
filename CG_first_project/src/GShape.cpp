@@ -11,6 +11,12 @@ GVertice::GVertice(GLfloat x, GLfloat y) : x(x), y(y) {
     this->cb = 0.0f;
 }
 
+GVertice::GVertice(GLfloat x, GLfloat y, Vec3 rgb) : x(x), y(y) {
+    this->cr = rgb.r;
+    this->cg = rgb.g;
+    this->cb = rgb.b;
+}
+
 GVertice::GVertice(GLfloat x, GLfloat y, GLfloat cr, GLfloat cg, GLfloat cb) : x(x), y(y) {
     this->cr = cr;
     this->cg = cg;

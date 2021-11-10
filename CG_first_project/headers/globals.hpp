@@ -9,7 +9,10 @@
 namespace game {
     extern GLFWwindow *window;
     extern int width, height;
+    extern int shootingInterval;
+    extern bool colisionsEnabled;
 }
 extern int debugLevel;
+extern long framesSinceRender;
 
 #endif /* globals_hpp */

@@ -86,13 +86,29 @@ void WindowSizeCallback(GLFWwindow* window, int width, int height){
 
 void fire(GStack *spaceShip) {
     Vec2 spawnPos = spaceShip->getItemSpawnPos();
-    GShape *bullet = createRectangle(spawnPos.x - .5, spawnPos.y - 70, 1, 15);
-    bullet->setSpeed(0.0, 30.0);
-    bullet->destroyAt = getMillis() + 500;
-    bullet->setLabel("bullet");
     
+    float bulletsSpeed = 5.0;
+    
+    GStack *bullet1 = createBullet(spawnPos.x - 1, spawnPos.y);
+    bullet1->destroyAt = getMillis() + 2000;
+    bullet1->setLabel("bullet");
+    bullet1->setSpeed(Vec2(0.0, bulletsSpeed));
     // insert at the beggining so the ship will always be render over the bullet
-    objects.insert(objects.begin(), bullet);
+    objects.insert(objects.begin(), bullet1);
+
+    GStack *bullet2 = createBullet(spawnPos.x - 1, spawnPos.y);
+    bullet2->destroyAt = getMillis() + 2000;
+    bullet2->setLabel("bullet");
+    bullet2->setSpeed(Vec2(-bulletsSpeed/10, bulletsSpeed));
+    // insert at the beggining so the ship will always be render over the bullet
+    objects.insert(objects.begin(), bullet2);
+    
+    GStack *bullet3 = createBullet(spawnPos.x - 1, spawnPos.y);
+    bullet3->destroyAt = getMillis() + 2000;
+    bullet3->setLabel("bullet");
+    bullet3->setSpeed(Vec2(bulletsSpeed/10, bulletsSpeed));
+    objects.insert(objects.begin(), bullet3);
+    
 }
 
 
@@ -104,7 +120,7 @@ int main(void){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_REFRESH_RATE, 4);
+    glfwWindowHint(GLFW_REFRESH_RATE, 15);
     
     
     
@@ -138,14 +154,20 @@ int main(void){
     objects.push_back(spaceShip);
     
     
+    int countAliens = 0;
+    
     // create a bunch of aliens
-    for(int i = 0; i < 10; i++) {
-        GStack *alien = createAlien(350 + 75*i - game::width/2, game::height/2 - 100, Vec2(1, 1));
-        alien->setLabel("alien");
-        alien->setSpeed(0, -1);
-        objects.push_back(alien);
+    for(int r = 0; r < 6; r++) {
+        for(int i = 0+r; i < 11-r; i++) {
+            countAliens ++;
+            GShape *alien = createAlien(320 + 85*i - game::width/2, game::height/2 - 100 - 70*r);
+            alien->setLabel("alien");
+            alien->setSpeed(Vec2(0, -0.5));
+            objects.push_back(alien);
+        }
     }
     
+    cout << countAliens << " aliens created " << endl;
     
     
     for(int i = 0; i < objects.size(); i++) {
@@ -155,83 +177,105 @@ int main(void){
     long changeDirAt = 0;
     bool goingEsq = false;
     
-    long lastTime = getMillis();
-    while (!glfwWindowShouldClose(game::window)) {
-        glClearColor(0.03f, 0.06f, 0.08f, 1.0f);
-        glClear(GL_COLOR_BUFFER_BIT);
-        shaderProgram.activate();
+    vector<int> fpsV = {60, 60, 60};
+    int fpsCount = 0;
+    int fpsSum = 0;
     
+    long lastTime = getMillis();
+    long lastShoot = 0;
+    while (!glfwWindowShouldClose(game::window)) {
+        
         long timeEllapsed = getMillis() - lastTime;
-        if(timeEllapsed > 5) {
+        
+        if(timeEllapsed > 10) {
+            
+            framesSinceRender = timeEllapsed;
+            
+            fpsV.erase(fpsV.begin()+0);
+            fpsV.push_back(1000/timeEllapsed);
+            int fps = (fpsV[0]+fpsV[1]+fpsV[2])/3;
+            fpsCount++; fpsSum += fps;
+            
+            if(fps < 60) {
+                cout << "FPS: " << fps  << " (Avg: " << fpsSum/fpsCount << ")" << endl;
+            }
+            
+            glClearColor(0.03f, 0.06f, 0.08f, 1.0f);
+            glClear(GL_COLOR_BUFFER_BIT);
+            shaderProgram.activate();
             
             float spaceShipSpeed = 10;
             
             if(pressedKey == GLFW_KEY_LEFT) {
                 GLfloat toBorder = -game::width/2 - spaceShip->x - spaceShip->boxSize.x/2;
                 Vec2 change((spaceShip->x - spaceShipSpeed + spaceShip->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
-                spaceShip->addPos(change);
+                spaceShip->setSpeed(change);
             }else if(pressedKey == GLFW_KEY_RIGHT) {
                 GLfloat rightmostX = spaceShip->x + spaceShip->boxSize.x*0.5;
                 GLfloat toBorder = game::width/2 - rightmostX;
                 Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), 0.0f };
-                spaceShip->addPos(change);
+                spaceShip->setSpeed(change);
+            }else{
+                spaceShip->setSpeed(Vec2(0, 0));
             }
             lastTime = getMillis();
-        }
-        
-        if(shoot) {
-            fire(spaceShip);
-            shoot = false;
-        }
-        
-        
-        if(changeDirAt < getMillis()) {
-            goingEsq = !goingEsq;
-            changeDirAt = getMillis() + 500;
-        }
-        
-        for(int i = 0; i < objects.size(); i++) {
             
-            if(objects[i]->getLabel() == "alien") {
-                objects[i]->addPos(Vec2(goingEsq ? -1 : 1, 0));
+            if(shoot && lastShoot + game::shootingInterval < getMillis()) {
+                lastShoot = getMillis();
+                fire(spaceShip);
+                shoot = false;
             }
             
-            if(objects[i]->shouldDestroy(getMillis())) {
-                GShape* c = dynamic_cast<GShape*>(objects[i]);
-                delete c;
-                objects.erase(objects.begin()+i);
-                i--;
-                continue;
-            }
-            objects[i]->update();
-            objects[i]->draw(GL_TRIANGLES, 12, GL_UNSIGNED_INT, 0);
-        }
-        
-        
-        // Test colisions
-        for(int i = 0; i < objects.size(); i++) {
             
-            if(objects[i]->getLabel() == "alien") {
-                
-                GObject* colidedWith = objects[i]->testColision(objects, "spaceship");
-                if(colidedWith != NULL) {
-                    spaceShip->destroyAt = 0;
+            if(changeDirAt < getMillis()) {
+                goingEsq = !goingEsq;
+                changeDirAt = getMillis() + 500;
+            }
+            
+            for(int i = 0; i < objects.size(); i++) {
+
+                if(objects[i]->getLabel() == "alien") {
+                    objects[i]->setSpeed(Vec2(goingEsq ? -3 : 3, objects[i]->getSpeed().y));
                 }
-                
-                colidedWith = objects[i]->testColision(objects, "bullet");
-                if(colidedWith != NULL) {
-                    colidedWith->setSpeed(0.0, 0.0);
-                    objects[i]->destroyAt = 0;
-                    colidedWith->destroyAt = 0;
-                    delete dynamic_cast<GShape*>(objects[i]);
-                    objects.erase(objects.begin()+i--);
+
+                if(objects[i]->shouldDestroy(getMillis())) {
+                    GStack* c = dynamic_cast<GStack*>(objects[i]);
+                    delete c;
+                    objects.erase(objects.begin()+i);
+                    i--;
                     continue;
                 }
+                objects[i]->update();
+                objects[i]->draw(GL_TRIANGLES, 100, GL_UNSIGNED_INT, 0);
             }
-        }
+            
+            
+            if(game::colisionsEnabled){
+                for(int i = 0; i < objects.size(); i++) {
         
-        glfwSwapBuffers(game::window);
-        glfwPollEvents();
+                    if(objects[i]->getLabel() == "alien") {
+        
+                        GObject* colidedWith = objects[i]->testColision(objects, "spaceship");
+                        if(colidedWith != NULL) {
+                            spaceShip->destroyAt = 0;
+                        }
+        
+                        colidedWith = objects[i]->testColision(objects, "bullet");
+                        if(colidedWith != NULL) {
+                            colidedWith->setSpeed(Vec2(0.0, 0.0));
+                            objects[i]->destroyAt = 0;
+                            colidedWith->destroyAt = 0;
+                            delete dynamic_cast<GShape*>(objects[i]);
+                            objects.erase(objects.begin()+i--);
+                            continue;
+                        }
+                    }
+                }
+            }
+            
+            glfwSwapBuffers(game::window);
+            glfwPollEvents();
+        }
     }
     
     for(int i = 0; i < objects.size(); i++) {

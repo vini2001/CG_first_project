@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "GObject.hpp"
 #include <iostream>
+#include "globals.hpp"
 
 using namespace std;
 
@@ -27,15 +28,18 @@ void GObject::setParent(GObject *p) {
     parent = p;
 }
 
-void GObject::addPos(Vec2 change) {
-    x += change.x;
-    y += change.y;
-    itemSpawnPos.x += change.x;
-    itemSpawnPos.y += change.y;
+void GObject::addSpeed(Vec2 change) {
+    speed.x += change.x;
+    speed.y += change.y;
     toUpdate = true;
 }
 
 bool GObject::update() {
+    
+    Vec2 speed = this->speed;
+    speed.x = (speed.x/10)*framesSinceRender;
+    speed.y = (speed.y/10)*framesSinceRender;
+    
     x += speed.x;
     y += speed.y;
     
@@ -48,9 +52,12 @@ bool GObject::update() {
     return false;
 }
 
-void GObject::setSpeed(GLfloat x, GLfloat y) {
-    this->speed.x = x;
-    this->speed.y = y;
+void GObject::setSpeed(Vec2 v) {
+    this->speed = v;
+}
+
+Vec2 GObject::getSpeed() {
+    return this->speed;
 }
 
 void GObject::setItemSpawnPos(GLfloat x, GLfloat y) {

@@ -11,4 +11,12 @@ class Vec2 {
         float x, y;
 };
 
+
+class Vec3 {
+    public:
+        Vec3(float r, float g, float b);
+        Vec3();
+        float r, g, b;
+};
+
 #endif /* vectors_hpp */

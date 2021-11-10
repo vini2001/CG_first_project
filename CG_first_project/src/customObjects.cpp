@@ -68,34 +68,83 @@ GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
     return obj;
 }
 
-GStack* createAlien(GLfloat x, GLfloat y, Vec2 scale) {
+GStack* createBullet(GLfloat x, GLfloat y) {
+    GStack *bulletS = new GStack(x, y);
     
-    GStack *stR = new GStack(x, y+5);
-    
-    GShape *square = createSquare(0, 0, 50);
-    GShape *eye1 = createSquare(35, 0, 10);
-    eye1->rgb(0.09, 0.13, 0.43);
-    GShape *eye2 = createSquare(5, 0, 10);
-    eye2->rgb(0.09, 0.13, 0.43);
-    
-    GShape *tri1 = createTriangle(-15, 35, 30, -20);
-    tri1->rgb(0.09, 0.13, 0.43);
-    GShape *tri2 = createTriangle(35, 35, 30, -20);
-    tri2->rgb(0.09, 0.13, 0.43);
-    
-    GShape *rec1 = createRectangle(-10, 50, 70, 5);
-    rec1->rgb(0.09, 0.13, 0.43);
-    
-    
-    stR->addObject(square);
-    stR->addObject(eye1);
-    stR->addObject(eye2);
-    stR->addObject(tri1);
-    stR->addObject(tri2);
-    stR->addObject(rec1);
-    stR->setLabel("spaceship");
-    return stR;
+    GShape *bullet = createRectangle(0, 0, 7, 20);
+    bulletS->addObject(bullet);
+    GShape *bullet2 = createRectangle(0, 20, 7, 7);
+    bullet2->rgb(0.8, 0.1, 0.3);
+    bulletS->addObject(bullet2);
+    GShape *bullet3 = createTriangle(0, 27, 7, 3);
+    bullet3->rgb(0.8, 0.1, 0.3);
+    bulletS->addObject(bullet3);
+    GShape *bullet4 = createTriangle(1.5, 0, 4, -13);
+    bullet4->rgb(0.8, 0.8, 0.1);
+    bulletS->addObject(bullet4);
+    return bulletS;
 }
+
+//GObject* createAlien(GLfloat x, GLfloat y) {
+//
+//    GStack *stR = new GStack(x, y+5);
+//
+//    GShape *square = createSquare(0, 0, 50);
+//    GShape *eye1 = createSquare(35, 0, 10);
+//    eye1->rgb(0.09, 0.13, 0.43);
+//    GShape *eye2 = createSquare(5, 0, 10);
+//    eye2->rgb(0.09, 0.13, 0.43);
+//
+//    GShape *tri1 = createTriangle(-15, 35, 30, -20);
+//    tri1->rgb(0.09, 0.13, 0.43);
+//    GShape *tri2 = createTriangle(35, 35, 30, -20);
+//    tri2->rgb(0.09, 0.13, 0.43);
+//
+//    GShape *rec1 = createRectangle(-10, 50, 70, 5);
+//    rec1->rgb(0.09, 0.13, 0.43);
+//
+//
+//    stR->addObject(square);
+//    stR->addObject(eye1);
+//    stR->addObject(eye2);
+//    stR->addObject(tri1);
+//    stR->addObject(tri2);
+//    stR->addObject(rec1);
+//    stR->setLabel("spaceship");
+//    return stR;
+//}
+
+// draw Square with indices and vertices on an object
+void drawSquare(GShape *obj, GVertice v1, GVertice v2, GVertice v3, GVertice v4) {
+    obj->addVertice(v1); obj->addVertice(v2); obj->addVertice(v3); obj->addVertice(v4);
+    obj->addTriangle(v1, v2, v3);
+    obj->addTriangle(v2, v3, v4);
+}
+
+// draw Triangle with indices and vertices on an object
+void drawTriangle(GShape *obj, GVertice v1, GVertice v2, GVertice v3) {
+    obj->addVertice(v1); obj->addVertice(v2); obj->addVertice(v3);
+    obj->addTriangle(v1, v2, v3);
+}
+
+
+GShape* createAlien(GLfloat x, GLfloat y) {
+    GShape *obj = new GShape(x, y+5);
+    GLfloat r = 1.0f, g = 1.0f, b = 1.0f;
+    drawSquare(obj, GVertice(0, 0, r, g, b), GVertice(0, 50, r, g, b), GVertice(50, 0, r, g, b), GVertice(50, 50, r, g, b));
+    
+    Vec3 blue(0.09, 0.13, 0.43);
+    Vec3 red(0.99, 0.13, 0.33);
+    drawTriangle(obj, GVertice(-15, 35, blue), GVertice(15, 35, blue), GVertice(0, 15, blue));
+    drawTriangle(obj, GVertice(35, 35, blue), GVertice(65, 35, blue), GVertice(50, 15, blue));
+    drawSquare(obj, GVertice(-10, 50, blue), GVertice(-10, 55, blue), GVertice(60, 50, blue), GVertice(60, 55, blue));
+    drawSquare(obj, GVertice(5, 0, blue), GVertice(5, 10, blue), GVertice(15, 0, blue), GVertice(15, 10, blue));
+    drawSquare(obj, GVertice(35, 0, blue), GVertice(35, 10, blue), GVertice(45, 0, blue), GVertice(45, 10, blue));
+    
+
+    return obj;
+}
+
 
 GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     GShape *t1 = createTriangle(175.0f, 280.0f, 150.0f, 100.f);
