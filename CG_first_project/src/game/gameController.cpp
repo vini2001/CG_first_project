@@ -14,7 +14,7 @@ void GameController::init(){
         for(int i = 0+r; i < 11-r; i++) {
             GShape *alien = createAlien(320 + 85*i - game::width/2, game::height/2 - 100 - 70*r);
             alien->setLabel("alien");
-            alien->setSpeed(Vec2(0, -0.5));
+            alien->setSpeed(Vec2(0, -0.05));
             addObject(alien);
         }
     }
@@ -46,21 +46,21 @@ void GameController::fire(GStack *spaceShip) {
     float bulletsSpeed = 5.0;
     
     GStack *bullet1 = createBullet(spawnPos.x - 1, spawnPos.y);
-    bullet1->destroyAt = getMillis() + 2000;
+    bullet1->destroyAt = getMillis() + 10000/(int)bulletsSpeed;
     bullet1->setLabel("bullet");
     bullet1->setSpeed(Vec2(0.0, bulletsSpeed));
     // insert at the beggining so the ship will always be render over the bullet
     objects.insert(objects.begin(), bullet1);
 
     GStack *bullet2 = createBullet(spawnPos.x - 1, spawnPos.y);
-    bullet2->destroyAt = getMillis() + 2000;
+    bullet2->destroyAt = getMillis() + 10000/(int)bulletsSpeed;
     bullet2->setLabel("bullet");
     bullet2->setSpeed(Vec2(-bulletsSpeed/10, bulletsSpeed));
     // insert at the beggining so the ship will always be render over the bullet
     objects.insert(objects.begin(), bullet2);
     
     GStack *bullet3 = createBullet(spawnPos.x - 1, spawnPos.y);
-    bullet3->destroyAt = getMillis() + 2000;
+    bullet3->destroyAt = getMillis() + 10000/(int)bulletsSpeed;
     bullet3->setLabel("bullet");
     bullet3->setSpeed(Vec2(bulletsSpeed/10, bulletsSpeed));
     objects.insert(objects.begin(), bullet3);

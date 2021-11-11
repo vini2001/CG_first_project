@@ -81,10 +81,18 @@ GStack* createBullet(GLfloat x, GLfloat y) {
     bullet3->rgb(0.8, 0.1, 0.3);
     bulletS->addObject(bullet3);
     bullet3->setLabel("bullet-part-3");
-    GShape *bullet4 = createTriangle(1.5, 0, 4, -13);
+    GShape *bullet4 = createTriangle(1.5, 0, 4, -100);
     bullet4->rgb(0.8, 0.8, 0.1);
     bulletS->addObject(bullet4);
     bullet4->setLabel("bullet-part-1");
+    bullet4->vertices[2].cr = 0;
+    bullet4->vertices[2].cg = 0;
+    bullet4->vertices[2].cb = 0;
+    
+    GShape *colisionBox = createRectangle(0, 0, 7, 30);
+    colisionBox->rgb(0, 1, 0);
+    bulletS->colisionBox = colisionBox;
+    
     return bulletS;
 }
 
@@ -115,7 +123,8 @@ GShape* createAlien(GLfloat x, GLfloat y) {
     drawSquare(obj, GVertice(5, 0, blue), GVertice(5, 10, blue), GVertice(15, 0, blue), GVertice(15, 10, blue));
     drawSquare(obj, GVertice(35, 0, blue), GVertice(35, 10, blue), GVertice(45, 0, blue), GVertice(45, 10, blue));
     
-
+    GShape *colisionBox = createRectangle(-8, 0, 60, 54);
+    obj->colisionBox = colisionBox;
     return obj;
 }
 

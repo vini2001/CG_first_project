@@ -13,6 +13,8 @@ class GObject {
         GLfloat x, y;
         Vec2 boxSize;
         std::string classType;
+        GObject *colisionBox = NULL;
+    
         GObject(GLfloat x, GLfloat y);
         GObject();
         virtual void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos);
@@ -37,7 +39,7 @@ class GObject {
     
     GObject* testColision(std::vector<GObject*> &objects, std::string label);
     
-        virtual void destroy() = 0;
+        virtual void destroy();
         
         long destroyAt = -1;
     

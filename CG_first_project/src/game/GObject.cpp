@@ -2,6 +2,8 @@
 #include "GObject.hpp"
 #include <iostream>
 #include "globals.hpp"
+#include "GShape.hpp"
+#include "GStack.hpp"
 
 using namespace std;
 
@@ -107,6 +109,16 @@ GObject* GObject::testColision(std::vector<GObject*> &objects, string label) {
         }
     }
     return NULL;
+}
+
+void GObject::destroy() {
+    if(colisionBox != NULL) {
+        if(colisionBox->classType == "stack") {
+            delete dynamic_cast<GStack*>(colisionBox);
+        }else if(colisionBox->classType == "shape") {
+            delete dynamic_cast<GShape*>(colisionBox);
+        }
+    }
 }
 
 GObject::GObject() {

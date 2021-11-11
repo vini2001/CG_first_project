@@ -56,10 +56,15 @@ std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines() {
 
 std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines(GLfloat addX, GLfloat addY) {
     
-    vector<pair<Vec2, Vec2>> res;
+    // if there is a colision box, check only it for performance reasons
+    if(colisionBox != NULL) return colisionBox->getSubLines(addX + x, addY + y);
     
+    vector<pair<Vec2, Vec2>> res;
     for(int i = 0; i < objects.size(); i++) {
-        vector<pair<Vec2, Vec2>> someSubs = objects[i]->getSubLines(parent ? (x+addX) : (x * scale.x * propagatedScale.x + addX), parent ? (y+addY) : (y * scale.y * propagatedScale.y + addY));
+        vector<pair<Vec2, Vec2>> someSubs = objects[i]->getSubLines(
+                parent ? (x+addX) : (x * scale.x * propagatedScale.x + addX),
+                parent ? (y+addY) : (y * scale.y * propagatedScale.y + addY)
+        );
         for(int j = 0; j < someSubs.size(); j++) res.push_back(someSubs[j]);
     }
     
@@ -75,6 +80,7 @@ void GStack::destroy() {
             delete dynamic_cast<GShape*>(objects[i]);
         }
     }
+    GObject::destroy();
 }
 
 GStack::~GStack() {

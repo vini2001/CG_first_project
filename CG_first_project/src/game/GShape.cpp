@@ -109,6 +109,7 @@ void GShape::prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &ind
 
 void GShape::destroy() {
     triangles.clear();
+    GObject::destroy();
 }
 
 std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines() {
@@ -116,6 +117,10 @@ std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines() {
 }
 
 std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines(GLfloat addX, GLfloat addY) {
+    
+    // if there is a colision box, check only it for performance reasons
+    if(colisionBox != NULL) return colisionBox->getSubLines(addX + x, addY + y);
+    
     vector<pair<Vec2, Vec2>> res;
     
     // get every line segment that forms the shape
