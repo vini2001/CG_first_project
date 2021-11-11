@@ -4,9 +4,12 @@
 
 GStack::GStack(GLfloat x, GLfloat y) : GObject(x, y) {
     this->parent = false;
+    classType = "stack";
 }
 
-GStack::GStack(GLfloat x, GLfloat y, bool parent) : GObject(x, y), parent(parent) {}
+GStack::GStack(GLfloat x, GLfloat y, bool parent) : GObject(x, y), parent(parent) {
+    classType = "stack";
+}
 
 void GStack::addObject(GObject *obj) {
     obj->setParent(this);
@@ -66,7 +69,11 @@ std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines(GLfloat addX, GLfloat add
 
 void GStack::destroy() {
     for(int i = 0; i < objects.size(); i++) {
-        free(objects[i]);
+        if(objects[i]->classType == "stack") {
+            delete dynamic_cast<GStack*>(objects[i]);
+        }else if(objects[i]->classType == "shape") {
+            delete dynamic_cast<GShape*>(objects[i]);
+        }
     }
 }
 

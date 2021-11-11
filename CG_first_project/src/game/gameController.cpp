@@ -111,6 +111,9 @@ void GameController::drawElements() {
         objects[i]->getSizes(sizeVArray, sizeIArray, trianglesQuantity);
     }
     
+    if(vArray != NULL) { free(vArray); vArray = NULL; }
+    if(indices != NULL) { free(indices); indices = NULL; }
+    
     vArray = (GLfloat*) malloc(sizeVArray);
     indices = (GLuint*) malloc(sizeIArray);
     long arrayPos = 0;
@@ -157,6 +160,13 @@ void GameController::detectColisions() {
                     colidedWith->destroyAt = 0;
                     delete dynamic_cast<GShape*>(objects[i]);
                     objects.erase(objects.begin()+i--);
+                    
+                    vector<GObject*>::iterator it = find(objects.begin(), objects.end(), colidedWith);
+                    if(it != objects.end()) {
+                        int indexBullet = (int) distance(objects.begin(), it);
+                        delete dynamic_cast<GStack*>(objects[indexBullet]);
+                        objects.erase(it); i--;
+                    }
                     continue;
                 }
             }

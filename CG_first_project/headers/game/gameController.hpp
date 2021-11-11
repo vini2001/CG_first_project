@@ -35,7 +35,7 @@ private:
     VAO* vao;
     VBO* vbo1;
     EBO* ebo1;
-    GLfloat *vArray;
+    GLfloat* vArray = NULL;
     GLuint* indices = NULL;
     long lastShot = 0;
     bool shoot = false;

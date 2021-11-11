@@ -11,10 +11,10 @@ GShape* createSquare(GLfloat x, GLfloat y, GLfloat size) {
     GVertice v2 = GVertice(size, 0.00f, r, g, b);
     GVertice v3 = GVertice(size, size, r, g, b);
     GVertice v4 = GVertice(0.00f, size, r, g, b);
-    obj->addVertice(v1);
-    obj->addVertice(v2);
-    obj->addVertice(v3);
-    obj->addVertice(v4);
+    obj->addVertice(&v1);
+    obj->addVertice(&v2);
+    obj->addVertice(&v3);
+    obj->addVertice(&v4);
     obj->addTriangle(v1, v2, v3);
     obj->addTriangle(v1, v3, v4);
     return obj;
@@ -27,10 +27,10 @@ GShape* createRectangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) {
     GVertice v2 = GVertice(width, 0.00f, r, g, b);
     GVertice v3 = GVertice(width, height, r, g, b);
     GVertice v4 = GVertice(0.00f, height, r, g, b);
-    obj->addVertice(v1);
-    obj->addVertice(v2);
-    obj->addVertice(v3);
-    obj->addVertice(v4);
+    obj->addVertice(&v1);
+    obj->addVertice(&v2);
+    obj->addVertice(&v3);
+    obj->addVertice(&v4);
     obj->addTriangle(v1, v2, v3);
     obj->addTriangle(v1, v3, v4);
     return obj;
@@ -46,9 +46,9 @@ GShape* createTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height, bool
     GVertice v1 = GVertice(0.00f, 0.00f, r, g, b);
     GVertice v2 = GVertice(width, 0.00f, r, g, b);
     GVertice v3 = GVertice(width/2, upsideDown ? -height : height, r, g, b);
-    obj->addVertice(v1);
-    obj->addVertice(v2);
-    obj->addVertice(v3);
+    obj->addVertice(&v1);
+    obj->addVertice(&v2);
+    obj->addVertice(&v3);
     obj->addTriangle(v1, v2, v3);
     
     obj->setItemSpawnPos(v3.x, v3.y);
@@ -61,69 +61,43 @@ GShape* createRectTriangle(GLfloat x, GLfloat y, GLfloat width, GLfloat height) 
     GVertice v1 = GVertice(0.00f, 0.00f, r, g, b);
     GVertice v2 = GVertice(width, 0.00f, r, g, b);
     GVertice v3 = GVertice(width, height, r, g, b);
-    obj->addVertice(v1);
-    obj->addVertice(v2);
-    obj->addVertice(v3);
+    obj->addVertice(&v1);
+    obj->addVertice(&v2);
+    obj->addVertice(&v3);
     obj->addTriangle(v1, v2, v3);
     return obj;
 }
 
 GStack* createBullet(GLfloat x, GLfloat y) {
     GStack *bulletS = new GStack(x, y);
-    
     GShape *bullet = createRectangle(0, 0, 7, 20);
     bulletS->addObject(bullet);
+    bullet->setLabel("bullet-part-1");
     GShape *bullet2 = createRectangle(0, 20, 7, 7);
     bullet2->rgb(0.8, 0.1, 0.3);
     bulletS->addObject(bullet2);
+    bullet2->setLabel("bullet-part-2");
     GShape *bullet3 = createTriangle(0, 27, 7, 3);
     bullet3->rgb(0.8, 0.1, 0.3);
     bulletS->addObject(bullet3);
+    bullet3->setLabel("bullet-part-3");
     GShape *bullet4 = createTriangle(1.5, 0, 4, -13);
     bullet4->rgb(0.8, 0.8, 0.1);
     bulletS->addObject(bullet4);
+    bullet4->setLabel("bullet-part-1");
     return bulletS;
 }
 
-//GObject* createAlien(GLfloat x, GLfloat y) {
-//
-//    GStack *stR = new GStack(x, y+5);
-//
-//    GShape *square = createSquare(0, 0, 50);
-//    GShape *eye1 = createSquare(35, 0, 10);
-//    eye1->rgb(0.09, 0.13, 0.43);
-//    GShape *eye2 = createSquare(5, 0, 10);
-//    eye2->rgb(0.09, 0.13, 0.43);
-//
-//    GShape *tri1 = createTriangle(-15, 35, 30, -20);
-//    tri1->rgb(0.09, 0.13, 0.43);
-//    GShape *tri2 = createTriangle(35, 35, 30, -20);
-//    tri2->rgb(0.09, 0.13, 0.43);
-//
-//    GShape *rec1 = createRectangle(-10, 50, 70, 5);
-//    rec1->rgb(0.09, 0.13, 0.43);
-//
-//
-//    stR->addObject(square);
-//    stR->addObject(eye1);
-//    stR->addObject(eye2);
-//    stR->addObject(tri1);
-//    stR->addObject(tri2);
-//    stR->addObject(rec1);
-//    stR->setLabel("spaceship");
-//    return stR;
-//}
-
 // draw Square with indices and vertices on an object
 void drawSquare(GShape *obj, GVertice v1, GVertice v2, GVertice v3, GVertice v4) {
-    obj->addVertice(v1); obj->addVertice(v2); obj->addVertice(v3); obj->addVertice(v4);
+    obj->addVertice(&v1); obj->addVertice(&v2); obj->addVertice(&v3); obj->addVertice(&v4);
     obj->addTriangle(v1, v2, v3);
     obj->addTriangle(v2, v3, v4);
 }
 
 // draw Triangle with indices and vertices on an object
 void drawTriangle(GShape *obj, GVertice v1, GVertice v2, GVertice v3) {
-    obj->addVertice(v1); obj->addVertice(v2); obj->addVertice(v3);
+    obj->addVertice(&v1); obj->addVertice(&v2); obj->addVertice(&v3);
     obj->addTriangle(v1, v2, v3);
 }
 

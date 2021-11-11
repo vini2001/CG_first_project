@@ -104,7 +104,6 @@ GObject* GObject::testColision(std::vector<GObject*> &objects, string label) {
                     }
                 }
             }
-//            std::cout << "testing colision with bullet" << std::endl;
         }
     }
     return NULL;

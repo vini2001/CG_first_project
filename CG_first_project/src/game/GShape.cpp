@@ -27,9 +27,13 @@ Vec2 GVertice::toVec() {
     return Vec2(x, y);
 }
 
-GShape::GShape(GLfloat x, GLfloat y): GObject(x, y){}
+GShape::GShape(GLfloat x, GLfloat y): GObject(x, y){
+    classType = "shape";
+}
 
-GShape::GShape(){}
+GShape::GShape(){
+    classType = "shape";
+}
 
 
 void GShape::rgb(GLfloat r, GLfloat g, GLfloat b){
@@ -40,22 +44,6 @@ void GShape::rgb(GLfloat r, GLfloat g, GLfloat b){
     }
 }
 
-GLfloat* GShape::getVerticesArray() {
-    
-    for(int i = 0; i < vertices.size(); i++) {
-//        this->vArray[6*i+0] = vertices[i].x * totalScale.x + x * propagatedScale.x;
-//        this->vArray[6*i+1] = vertices[i].y * totalScale.y + y * propagatedScale.y;
-//        this->vArray[6*i+2] = 0.0f;
-//
-//        this->vArray[6*i+3] = vertices[i].cr;
-//        this->vArray[6*i+4] = vertices[i].cg;
-//        this->vArray[6*i+5] = vertices[i].cb;
-    }
-    
-//    return this->vArray;
-    return NULL;
-}
-
 void GShape::getSizes(int &vertices, int &indices, int &triangles) {
     // 6 => 3 coords & 3 colors
     vertices += (sizeof(GLfloat) * 6 * this->vertices.size());
@@ -64,9 +52,9 @@ void GShape::getSizes(int &vertices, int &indices, int &triangles) {
 }
 
 
-void GShape::addVertice(GVertice &v) {
-    vertices.push_back(v);
-    v.id = verticesIdsCount++;
+void GShape::addVertice(GVertice *v) {
+    (*v).id = verticesIdsCount++;
+    vertices.push_back(*v);
 }
 
 void GShape::addTriangle(GVertice v1, GVertice v2, GVertice v3) {
@@ -112,38 +100,15 @@ void GShape::prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &ind
         vArray[arrayPos++] = vertices[i].cb;
     }
 
-    
-//    int sizeIndices = (int) (sizeof(GLuint) * triangles.size() * 3);
-//    if(indices == NULL) {
-//        indices = (GLuint*) malloc(sizeIndices);
-        for(int i = 0; i < triangles.size(); i++) {
-            indices[indicesPos++] = triangles[i].a.id + startingId;
-            indices[indicesPos++] = triangles[i].b.id + startingId;
-            indices[indicesPos++] = triangles[i].c.id + startingId;
-        }
-//    }
-//    ebo1 = new EBO(indices, sizeIndices);
-    
-    
-//    vao->linkAttrib(*vbo1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-//    vao->linkAttrib(*vbo1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-    
-//    vao->unbind();
-//    delete vbo1;
-//    delete ebo1;
-}
-
-void GShape::bind() {
-//    vao->bind();
+    for(int i = 0; i < triangles.size(); i++) {
+        indices[indicesPos++] = triangles[i].a.id + startingId;
+        indices[indicesPos++] = triangles[i].b.id + startingId;
+        indices[indicesPos++] = triangles[i].c.id + startingId;
+    }
 }
 
 void GShape::destroy() {
-//    free(vArray);
-//    free(indices);
-//    
-//    if(vao != NULL) {
-//        delete vao;
-//    }
+    triangles.clear();
 }
 
 std::vector<std::pair<Vec2, Vec2>> GShape::getSubLines() {

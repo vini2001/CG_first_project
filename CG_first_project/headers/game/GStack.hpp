@@ -12,6 +12,7 @@ private:
     vector<GObject*> objects;
     bool parent;
     
+    
 public:
     GStack(GLfloat x, GLfloat y);
     GStack(GLfloat x, GLfloat y, bool parent);

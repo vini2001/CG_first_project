@@ -12,6 +12,7 @@ class GObject {
    public:
         GLfloat x, y;
         Vec2 boxSize;
+        std::string classType;
         GObject(GLfloat x, GLfloat y);
         GObject();
         virtual void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos);

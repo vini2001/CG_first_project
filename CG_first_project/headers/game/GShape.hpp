@@ -35,10 +35,9 @@ class GShape : public GObject {
         GShape(GLfloat x, GLfloat y);
         GShape();
         int ID;
-        void addVertice(GVertice &v);
+        void addVertice(GVertice *v);
         void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos);
         void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos, GLfloat addX, GLfloat addY);
-        void bind();
         void addTriangle(GVertice v1, GVertice v2, GVertice v3);
         void rgb(GLfloat r, GLfloat g, GLfloat b);
         void setScale(Vec2 scale);
@@ -48,8 +47,7 @@ class GShape : public GObject {
         std::vector<std::pair<Vec2, Vec2>> getSubLines(GLfloat addX, GLfloat addY);
     
         vector<GVertice> vertices;
-        GLfloat* getVerticesArray();
-    void getSizes(int &vertices, int &indices, int &triangles);
+        void getSizes(int &vertices, int &indices, int &triangles);
     
         ~GShape();
     
