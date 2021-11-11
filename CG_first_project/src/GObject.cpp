@@ -5,12 +5,6 @@
 
 using namespace std;
 
-void GObject::draw(GLenum mode, GLsizei count, GLenum type, const void* indices) {
-    if(toUpdate) prepare();
-    this->bind();
-    glDrawElements(mode, count, type, indices);
-}
-
 Vec2 GObject::getScale() {
     return scale;
 }
@@ -20,9 +14,7 @@ void GObject::recomputeTotalScale(){
     this->totalScale.y = this->scale.y * this->propagatedScale.y;
 }
 
-void GObject::prepare() {
-    toUpdate = false;
-}
+void GObject::prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos) {}
 
 void GObject::setParent(GObject *p) {
     parent = p;
@@ -31,7 +23,6 @@ void GObject::setParent(GObject *p) {
 void GObject::addSpeed(Vec2 change) {
     speed.x += change.x;
     speed.y += change.y;
-    toUpdate = true;
 }
 
 bool GObject::update() {
@@ -45,9 +36,7 @@ bool GObject::update() {
     
     itemSpawnPos.x += speed.x;
     itemSpawnPos.y += speed.y;
-    
-    if(speed.x != 0.0 || speed.y != 0.0)
-        toUpdate = true;
+
     
     return false;
 }

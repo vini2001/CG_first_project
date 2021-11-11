@@ -9,9 +9,6 @@
 #include <stdio.h>
 
 #include "shaderClass.hpp"
-#include "VAO.hpp"
-#include "VBO.hpp"
-#include "EBO.hpp"
 
 #include <stb/stb_image.h>
 #include "GShape.hpp"
@@ -21,11 +18,10 @@
 #include <chrono>
 #include <map>
 #include "globals.hpp"
+#include "gameController.hpp"
 
 using namespace std;
 
-
-GLuint indices[] = {0, 1, 2,  0, 2, 3 };
 
 float getRand() {
     return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
@@ -35,6 +31,8 @@ long getMillis() {
     return chrono::duration_cast<std::chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
 }
 
+
+GameController gameController;
 
 static GLuint pressedKey;
 static map<GLuint, bool> keyIsPressed;
@@ -72,17 +70,6 @@ void mouse_button_callback(GLFWwindow* windowGame, int button, int action, int m
     }
 }
 
-vector<GObject*> objects;
-
-void WindowSizeCallback(GLFWwindow* window, int width, int height){
-    game::width = width;
-    game::height = height;
-    
-    for(int i = 0; i < objects.size(); i++) {
-        objects[i]->prepare();
-    }
-}
-
 
 void fire(GStack *spaceShip) {
     Vec2 spawnPos = spaceShip->getItemSpawnPos();
@@ -94,35 +81,45 @@ void fire(GStack *spaceShip) {
     bullet1->setLabel("bullet");
     bullet1->setSpeed(Vec2(0.0, bulletsSpeed));
     // insert at the beggining so the ship will always be render over the bullet
-    objects.insert(objects.begin(), bullet1);
+    gameController.objects.insert(gameController.objects.begin(), bullet1);
 
     GStack *bullet2 = createBullet(spawnPos.x - 1, spawnPos.y);
     bullet2->destroyAt = getMillis() + 2000;
     bullet2->setLabel("bullet");
     bullet2->setSpeed(Vec2(-bulletsSpeed/10, bulletsSpeed));
     // insert at the beggining so the ship will always be render over the bullet
-    objects.insert(objects.begin(), bullet2);
+    gameController.objects.insert(gameController.objects.begin(), bullet2);
     
     GStack *bullet3 = createBullet(spawnPos.x - 1, spawnPos.y);
     bullet3->destroyAt = getMillis() + 2000;
     bullet3->setLabel("bullet");
     bullet3->setSpeed(Vec2(bulletsSpeed/10, bulletsSpeed));
-    objects.insert(objects.begin(), bullet3);
+    gameController.objects.insert(gameController.objects.begin(), bullet3);
+}
+
+
+
+void WindowSizeCallback(GLFWwindow* window, int width, int height){
+    game::width = width;
+    game::height = height;
     
+    gameController.drawElements();
+}
+
+
+void aaa(int &b) {
+    b++;
 }
 
 
 int main(void){
-    
-        
+
     glfwInit();
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
     glfwWindowHint(GLFW_REFRESH_RATE, 15);
-    
-    
     
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
      
@@ -149,30 +146,19 @@ int main(void){
     gladLoadGL();
     
     Shader shaderProgram("default.vert", "default.frag");
+    gameController.init();
     
-    GStack *spaceShip = createSpaceShip(-100, -game::height/2 * 0.95, Vec2(0.35, 0.35));
-    objects.push_back(spaceShip);
-    
-    
-    int countAliens = 0;
     
     // create a bunch of aliens
     for(int r = 0; r < 6; r++) {
         for(int i = 0+r; i < 11-r; i++) {
-            countAliens ++;
             GShape *alien = createAlien(320 + 85*i - game::width/2, game::height/2 - 100 - 70*r);
             alien->setLabel("alien");
             alien->setSpeed(Vec2(0, -0.5));
-            objects.push_back(alien);
+            gameController.addObject(alien);
         }
     }
-    
-    cout << countAliens << " aliens created " << endl;
-    
-    
-    for(int i = 0; i < objects.size(); i++) {
-        objects[i]->prepare();
-    }
+
     
     long changeDirAt = 0;
     bool goingEsq = false;
@@ -207,80 +193,57 @@ int main(void){
             float spaceShipSpeed = 10;
             
             if(pressedKey == GLFW_KEY_LEFT) {
-                GLfloat toBorder = -game::width/2 - spaceShip->x - spaceShip->boxSize.x/2;
-                Vec2 change((spaceShip->x - spaceShipSpeed + spaceShip->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
-                spaceShip->setSpeed(change);
+                GLfloat toBorder = -game::width/2 - gameController.player->x - gameController.player->boxSize.x/2;
+                Vec2 change((gameController.player->x - spaceShipSpeed + gameController.player->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
+                gameController.player->setSpeed(change);
             }else if(pressedKey == GLFW_KEY_RIGHT) {
-                GLfloat rightmostX = spaceShip->x + spaceShip->boxSize.x*0.5;
+                GLfloat rightmostX = gameController.player->x + gameController.player->boxSize.x*0.5;
                 GLfloat toBorder = game::width/2 - rightmostX;
                 Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), 0.0f };
-                spaceShip->setSpeed(change);
+                gameController.player->setSpeed(change);
             }else{
-                spaceShip->setSpeed(Vec2(0, 0));
+                gameController.player->setSpeed(Vec2(0, 0));
             }
             lastTime = getMillis();
             
-            if(shoot && lastShoot + game::shootingInterval < getMillis()) {
+            if(shoot && lastShoot + game::shootingInterval < getMillis() && gameController.playerAlive) {
                 lastShoot = getMillis();
-                fire(spaceShip);
+                fire(gameController.player);
                 shoot = false;
             }
-            
             
             if(changeDirAt < getMillis()) {
                 goingEsq = !goingEsq;
                 changeDirAt = getMillis() + 500;
             }
             
-            for(int i = 0; i < objects.size(); i++) {
+            for(int i = 0; i < gameController.objects.size(); i++) {
 
-                if(objects[i]->getLabel() == "alien") {
-                    objects[i]->setSpeed(Vec2(goingEsq ? -3 : 3, objects[i]->getSpeed().y));
+                if(gameController.objects[i]->getLabel() == "alien") {
+                    gameController.objects[i]->setSpeed(Vec2(goingEsq ? -3 : 3, gameController.objects[i]->getSpeed().y));
                 }
 
-                if(objects[i]->shouldDestroy(getMillis())) {
-                    GStack* c = dynamic_cast<GStack*>(objects[i]);
+                if(gameController.objects[i]->shouldDestroy(getMillis())) {
+                    GStack* c = dynamic_cast<GStack*>(gameController.objects[i]);
                     delete c;
-                    objects.erase(objects.begin()+i);
+                    gameController.objects.erase(gameController.objects.begin()+i);
                     i--;
                     continue;
                 }
-                objects[i]->update();
-                objects[i]->draw(GL_TRIANGLES, 100, GL_UNSIGNED_INT, 0);
+                gameController.objects[i]->update();
             }
             
             
-            if(game::colisionsEnabled){
-                for(int i = 0; i < objects.size(); i++) {
-        
-                    if(objects[i]->getLabel() == "alien") {
-        
-                        GObject* colidedWith = objects[i]->testColision(objects, "spaceship");
-                        if(colidedWith != NULL) {
-                            spaceShip->destroyAt = 0;
-                        }
-        
-                        colidedWith = objects[i]->testColision(objects, "bullet");
-                        if(colidedWith != NULL) {
-                            colidedWith->setSpeed(Vec2(0.0, 0.0));
-                            objects[i]->destroyAt = 0;
-                            colidedWith->destroyAt = 0;
-                            delete dynamic_cast<GShape*>(objects[i]);
-                            objects.erase(objects.begin()+i--);
-                            continue;
-                        }
-                    }
-                }
-            }
-            
+            gameController.detectColisions();
+            gameController.drawElements();
             glfwSwapBuffers(game::window);
             glfwPollEvents();
         }
     }
     
-    for(int i = 0; i < objects.size(); i++) {
-        objects[i]->destroy();
-        free(objects[i]);
+    for(int i = 0; i < gameController.objects.size(); i++) {
+        gameController.objects[i]->destroy();
+        free(gameController.objects[i]);
     }
     
     shaderProgram.deleteIt();

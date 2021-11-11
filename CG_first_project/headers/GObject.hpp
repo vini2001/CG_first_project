@@ -14,9 +14,8 @@ class GObject {
         Vec2 boxSize;
         GObject(GLfloat x, GLfloat y);
         GObject();
-        virtual void prepare();
-        virtual void prepare(GLfloat addX, GLfloat addY) = 0;
-        virtual void bind() = 0;
+        virtual void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos);
+        virtual void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos, GLfloat addX, GLfloat addY) = 0;
         virtual void setScale(Vec2 scale) = 0;
         virtual void setPropagatedScale(Vec2 scale) = 0;
         bool update();
@@ -33,15 +32,13 @@ class GObject {
     
         virtual std::vector<std::pair<Vec2, Vec2>> getSubLines() = 0;
         virtual std::vector<std::pair<Vec2, Vec2>> getSubLines(GLfloat addX, GLfloat addY) = 0;
+        virtual void getSizes(int &vertices, int &indices, int &triangles) = 0;
     
     GObject* testColision(std::vector<GObject*> &objects, std::string label);
     
         virtual void destroy() = 0;
         
         long destroyAt = -1;
-    
-        /// https://www.khronos.org/registry/OpenGL-Refpages/gl4/html/glDrawElements.xhtml
-        virtual void draw(GLenum mode, GLsizei count, GLenum type, const void* indices);
     
     protected:
         // the individual element scale
@@ -55,7 +52,7 @@ class GObject {
     
         Vec2 speed;
         Vec2 itemSpawnPos;
-        bool toUpdate = false;
+
         std::string label;
         GObject *parent = NULL;
         

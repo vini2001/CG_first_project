@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F238D3B2736FCBC00F7A88A /* globals.cpp */; };
 		8F263E872738985E00975C47 /* vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F263E852738985E00975C47 /* vectors.cpp */; };
+		8F682000273CB04F005405EA /* gameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F681FFE273CB04F005405EA /* gameController.cpp */; };
 		8F8332522734B47E0084BD57 /* stb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332512734B47E0084BD57 /* stb.cpp */; };
 		8F8332592734BF980084BD57 /* GShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332572734BF980084BD57 /* GShape.cpp */; };
 		8F878A852730B01500FA5FF1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F878A842730B01500FA5FF1 /* main.cpp */; };
@@ -52,6 +53,8 @@
 		8F238D3B2736FCBC00F7A88A /* globals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = globals.cpp; sourceTree = "<group>"; };
 		8F263E852738985E00975C47 /* vectors.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vectors.cpp; sourceTree = "<group>"; };
 		8F263E862738985E00975C47 /* vectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vectors.hpp; sourceTree = "<group>"; };
+		8F681FFE273CB04F005405EA /* gameController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameController.cpp; sourceTree = "<group>"; };
+		8F681FFF273CB04F005405EA /* gameController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gameController.hpp; sourceTree = "<group>"; };
 		8F8332502734B4310084BD57 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		8F8332512734B47E0084BD57 /* stb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb.cpp; sourceTree = "<group>"; };
 		8F8332572734BF980084BD57 /* GShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GShape.cpp; sourceTree = "<group>"; };
@@ -206,6 +209,7 @@
 				8FC9930B2735DE0F003681F6 /* GObject.hpp */,
 				8F238D392736F99D00F7A88A /* globals.hpp */,
 				8F263E862738985E00975C47 /* vectors.hpp */,
+				8F681FFF273CB04F005405EA /* gameController.hpp */,
 			);
 			path = headers;
 			sourceTree = "<group>";
@@ -224,6 +228,7 @@
 				8FC9930D2735E47E003681F6 /* GObject.cpp */,
 				8F238D3B2736FCBC00F7A88A /* globals.cpp */,
 				8F263E852738985E00975C47 /* vectors.cpp */,
+				8F681FFE273CB04F005405EA /* gameController.cpp */,
 			);
 			path = src;
 			sourceTree = "<group>";
@@ -297,6 +302,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8F6A0D2739AEA500CFA63E /* default.frag in Sources */,
+				8F682000273CB04F005405EA /* gameController.cpp in Sources */,
 				8F8F6A0E2739AEA500CFA63E /* default.vert in Sources */,
 				8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */,
 				8FC993092735D9F7003681F6 /* GStack.cpp in Sources */,

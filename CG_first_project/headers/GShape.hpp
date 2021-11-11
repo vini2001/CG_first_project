@@ -36,8 +36,8 @@ class GShape : public GObject {
         GShape();
         int ID;
         void addVertice(GVertice &v);
-        void prepare();
-        void prepare(GLfloat addX, GLfloat addY);
+        void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos);
+        void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos, GLfloat addX, GLfloat addY);
         void bind();
         void addTriangle(GVertice v1, GVertice v2, GVertice v3);
         void rgb(GLfloat r, GLfloat g, GLfloat b);
@@ -49,16 +49,11 @@ class GShape : public GObject {
     
         vector<GVertice> vertices;
         GLfloat* getVerticesArray();
-        int getSizeVertices();
+    void getSizes(int &vertices, int &indices, int &triangles);
     
         ~GShape();
     
     private:
-        GLfloat *vArray;
-        VAO* vao;
-        VBO* vbo1;
-        EBO* ebo1;
-        GLuint* indices = NULL;
         vector<GTriangle> triangles;
         GLuint verticesIdsCount = 0;
 };

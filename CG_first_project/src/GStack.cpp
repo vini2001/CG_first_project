@@ -30,34 +30,26 @@ void GStack::setPropagatedScale(Vec2 propagatedScale) {
     }
 }
 
-void GStack::prepare() {
-    this->prepare(0.0f, 0.0f);
+void GStack::prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos) {
+    this->prepare(vArray, arrayPos, indices, indicesPos, 0.0f, 0.0f);
 }
 
-void GStack::prepare(GLfloat addX, GLfloat addY) {
-    GObject::prepare();
+void GStack::prepare(GLfloat *vArray, long &arrayPos, GLuint *indices, long &indicesPos, GLfloat addX, GLfloat addY) {
+    GObject::prepare(vArray, arrayPos, indices, indicesPos);
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->prepare(parent ? (x+addX) : (x * scale.x * propagatedScale.x + addX), parent ? (y+addY) : (y * scale.y * propagatedScale.y + addY));
+        objects[i]->prepare(vArray, arrayPos, indices, indicesPos, parent ? (x+addX) : (x * scale.x * propagatedScale.x + addX), parent ? (y+addY) : (y * scale.y * propagatedScale.y + addY));
     }
 }
 
-void GStack::draw(GLenum mode, GLsizei count, GLenum type, const void* indices) {
-    if(toUpdate) prepare();
+void GStack::getSizes(int &vertices, int &indices, int &triangles) {
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->draw(mode, count, type, indices);
-    }
-}
-
-void GStack::bind() {
-    for(int i = 0; i < objects.size(); i++) {
-        objects[i]->bind();
+        objects[i]->getSizes(vertices, indices, triangles);
     }
 }
 
 std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines() {
     return this->getSubLines(0.0f, 0.0f);
 }
-
 
 std::vector<std::pair<Vec2, Vec2>> GStack::getSubLines(GLfloat addX, GLfloat addY) {
     
