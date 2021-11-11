@@ -32,6 +32,7 @@
 		8FDCD6AC27330663004B6BDF /* VBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD6AA27330663004B6BDF /* VBO.cpp */; };
 		8FDCD6AF273307D8004B6BDF /* EBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD6AD273307D8004B6BDF /* EBO.cpp */; };
 		8FDCD6B227330833004B6BDF /* VAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD6B027330833004B6BDF /* VAO.cpp */; };
+		8FF80ECA273DA0810077CBEF /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF80EC8273DA0810077CBEF /* utils.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -88,6 +89,8 @@
 		8FDCD6AE273307D8004B6BDF /* EBO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EBO.hpp; sourceTree = "<group>"; };
 		8FDCD6B027330833004B6BDF /* VAO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VAO.cpp; sourceTree = "<group>"; };
 		8FDCD6B127330833004B6BDF /* VAO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VAO.hpp; sourceTree = "<group>"; };
+		8FF80EC8273DA0810077CBEF /* utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
+		8FF80EC9273DA0810077CBEF /* utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -199,17 +202,8 @@
 		8FDCD6A5273303AC004B6BDF /* headers */ = {
 			isa = PBXGroup;
 			children = (
-				8FDCD6A6273303B8004B6BDF /* shaderClass.hpp */,
-				8FDCD6AB27330663004B6BDF /* VBO.hpp */,
-				8FDCD6AE273307D8004B6BDF /* EBO.hpp */,
-				8FDCD6B127330833004B6BDF /* VAO.hpp */,
-				8FC993062735D4ED003681F6 /* customObjects.h */,
-				8F8332582734BF980084BD57 /* GShape.hpp */,
-				8FC993082735D9F7003681F6 /* GStack.hpp */,
-				8FC9930B2735DE0F003681F6 /* GObject.hpp */,
-				8F238D392736F99D00F7A88A /* globals.hpp */,
-				8F263E862738985E00975C47 /* vectors.hpp */,
-				8F681FFF273CB04F005405EA /* gameController.hpp */,
+				8FF80ECE273DA3FB0077CBEF /* game */,
+				8FF80ECD273DA3F30077CBEF /* graphics */,
 			);
 			path = headers;
 			sourceTree = "<group>";
@@ -217,20 +211,63 @@
 		8FDCD6A727330473004B6BDF /* src */ = {
 			isa = PBXGroup;
 			children = (
+				8FF80ECC273DA3DE0077CBEF /* game */,
+				8FF80ECB273DA3C00077CBEF /* graphics */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		8FF80ECB273DA3C00077CBEF /* graphics */ = {
+			isa = PBXGroup;
+			children = (
 				8FDCD6A827330482004B6BDF /* shaderClass.cpp */,
 				8FDCD6AA27330663004B6BDF /* VBO.cpp */,
 				8FDCD6AD273307D8004B6BDF /* EBO.cpp */,
 				8FDCD6B027330833004B6BDF /* VAO.cpp */,
 				8F8332512734B47E0084BD57 /* stb.cpp */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
+		8FF80ECC273DA3DE0077CBEF /* game */ = {
+			isa = PBXGroup;
+			children = (
+				8F238D3B2736FCBC00F7A88A /* globals.cpp */,
 				8F8332572734BF980084BD57 /* GShape.cpp */,
 				8FC993042735D2D8003681F6 /* customObjects.cpp */,
 				8FC993072735D9F7003681F6 /* GStack.cpp */,
 				8FC9930D2735E47E003681F6 /* GObject.cpp */,
-				8F238D3B2736FCBC00F7A88A /* globals.cpp */,
 				8F263E852738985E00975C47 /* vectors.cpp */,
 				8F681FFE273CB04F005405EA /* gameController.cpp */,
+				8FF80EC8273DA0810077CBEF /* utils.cpp */,
 			);
-			path = src;
+			path = game;
+			sourceTree = "<group>";
+		};
+		8FF80ECD273DA3F30077CBEF /* graphics */ = {
+			isa = PBXGroup;
+			children = (
+				8FDCD6A6273303B8004B6BDF /* shaderClass.hpp */,
+				8FDCD6AB27330663004B6BDF /* VBO.hpp */,
+				8FDCD6AE273307D8004B6BDF /* EBO.hpp */,
+				8FDCD6B127330833004B6BDF /* VAO.hpp */,
+			);
+			path = graphics;
+			sourceTree = "<group>";
+		};
+		8FF80ECE273DA3FB0077CBEF /* game */ = {
+			isa = PBXGroup;
+			children = (
+				8FC993062735D4ED003681F6 /* customObjects.h */,
+				8F8332582734BF980084BD57 /* GShape.hpp */,
+				8FC993082735D9F7003681F6 /* GStack.hpp */,
+				8FC9930B2735DE0F003681F6 /* GObject.hpp */,
+				8F238D392736F99D00F7A88A /* globals.hpp */,
+				8F263E862738985E00975C47 /* vectors.hpp */,
+				8F681FFF273CB04F005405EA /* gameController.hpp */,
+				8FF80EC9273DA0810077CBEF /* utils.hpp */,
+			);
+			path = game;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -302,6 +339,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8F6A0D2739AEA500CFA63E /* default.frag in Sources */,
+				8FF80ECA273DA0810077CBEF /* utils.cpp in Sources */,
 				8F682000273CB04F005405EA /* gameController.cpp in Sources */,
 				8F8F6A0E2739AEA500CFA63E /* default.vert in Sources */,
 				8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */,

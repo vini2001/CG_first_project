@@ -19,6 +19,11 @@ public:
     void drawElements();
     void addObject(GObject *obj);
     void detectColisions();
+    void handleInput(GLuint pressedKey, GLuint pressedMouseButton);
+    void frameActions();
+    void fire(GStack *spaceShip);
+    void destroy();
+    
     GStack* player;
     bool playerAlive = false;
     
@@ -32,6 +37,10 @@ private:
     EBO* ebo1;
     GLfloat *vArray;
     GLuint* indices = NULL;
+    long lastShot = 0;
+    bool shoot = false;
+    long changeDirAt = 0;
+    bool goingEsq = false;
 };
 
 #endif /* gameController_hpp */
