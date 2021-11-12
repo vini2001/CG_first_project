@@ -36,6 +36,7 @@
 		8FDCD6AC27330663004B6BDF /* VBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD6AA27330663004B6BDF /* VBO.cpp */; };
 		8FDCD6AF273307D8004B6BDF /* EBO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD6AD273307D8004B6BDF /* EBO.cpp */; };
 		8FDCD6B227330833004B6BDF /* VAO.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FDCD6B027330833004B6BDF /* VAO.cpp */; };
+		8FECB424273E04CE00FBC684 /* GText.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FECB422273E04CE00FBC684 /* GText.cpp */; };
 		8FF80ECA273DA0810077CBEF /* utils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FF80EC8273DA0810077CBEF /* utils.cpp */; };
 /* End PBXBuildFile section */
 
@@ -103,6 +104,8 @@
 		8FDCD6AE273307D8004B6BDF /* EBO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = EBO.hpp; sourceTree = "<group>"; };
 		8FDCD6B027330833004B6BDF /* VAO.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = VAO.cpp; sourceTree = "<group>"; };
 		8FDCD6B127330833004B6BDF /* VAO.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = VAO.hpp; sourceTree = "<group>"; };
+		8FECB422273E04CE00FBC684 /* GText.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GText.cpp; sourceTree = "<group>"; };
+		8FECB423273E04CE00FBC684 /* GText.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GText.hpp; sourceTree = "<group>"; };
 		8FF80EC8273DA0810077CBEF /* utils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = utils.cpp; sourceTree = "<group>"; };
 		8FF80EC9273DA0810077CBEF /* utils.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = utils.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -252,6 +255,7 @@
 				8FDCD6AD273307D8004B6BDF /* EBO.cpp */,
 				8FDCD6B027330833004B6BDF /* VAO.cpp */,
 				8F8332512734B47E0084BD57 /* stb.cpp */,
+				8FECB422273E04CE00FBC684 /* GText.cpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -278,6 +282,7 @@
 				8FDCD6AB27330663004B6BDF /* VBO.hpp */,
 				8FDCD6AE273307D8004B6BDF /* EBO.hpp */,
 				8FDCD6B127330833004B6BDF /* VAO.hpp */,
+				8FECB423273E04CE00FBC684 /* GText.hpp */,
 			);
 			path = graphics;
 			sourceTree = "<group>";
@@ -395,6 +400,7 @@
 				8FC993092735D9F7003681F6 /* GStack.cpp in Sources */,
 				8F8332592734BF980084BD57 /* GShape.cpp in Sources */,
 				8F263E872738985E00975C47 /* vectors.cpp in Sources */,
+				8FECB424273E04CE00FBC684 /* GText.cpp in Sources */,
 				8FDCD6B227330833004B6BDF /* VAO.cpp in Sources */,
 				8FDCD6A927330482004B6BDF /* shaderClass.cpp in Sources */,
 				8FC993052735D2D8003681F6 /* customObjects.cpp in Sources */,

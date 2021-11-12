@@ -1,16 +1,10 @@
 #include "gameController.hpp"
 #include "utils.hpp"
 #include <iostream>
-
-#include <ft2build.h>
-#include FT_FREETYPE_H
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
+#include "GText.hpp"
 
 
 GameController::GameController() {}
-
 
 
 void GameController::init(){
@@ -28,23 +22,8 @@ void GameController::init(){
         }
     }
     
-    FT_Library ft;
-    if (FT_Init_FreeType(&ft)){
-        cout << "ERROR::FREETYPE: Could not init FreeType Library" << endl;
-    }
-
-    FT_Face face;
-    if (FT_New_Face(ft, "Externals/Roboto-Regular.ttf", 0, &face)){
-        cout << "ERROR::FREETYPE: Failed to load font" << endl;
-    }
-    
-    FT_Set_Pixel_Sizes(face, 0, 48);
-
-    if (FT_Load_Char(face, 'X', FT_LOAD_RENDER)){
-        std::cout << "ERROR::FREETYTPE: Failed to load Glyph" << std::endl;
-    }
-    
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+    GText g;
+    g.fontsLoad();
 }
 
 void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton) {
