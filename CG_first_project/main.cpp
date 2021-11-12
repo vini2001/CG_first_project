@@ -1,9 +1,9 @@
 #include <iostream>
 #include <glad/glad.h>
-#include <fstream>
-#include <sstream>
 #define GLFW_INCLUDE_NONE
 #include <GLFW/glfw3.h>
+#include <fstream>
+#include <sstream>
 #include "linmath.h"
 #include <stdlib.h>
 #include <stdio.h>
@@ -128,7 +128,7 @@ int main(void){
             int fps = (fpsV[0]+fpsV[1]+fpsV[2])/3;
             fpsCount++; fpsSum += fps;
             
-            cout << "FPS: " << fps  << " (Avg: " << fpsSum/fpsCount << ")" << endl;
+//            cout << "FPS: " << fps  << " (Avg: " << fpsSum/fpsCount << ")" << endl;
             
             glClearColor(0.03f, 0.06f, 0.08f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);

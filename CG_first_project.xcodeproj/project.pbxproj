@@ -10,6 +10,10 @@
 		8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F238D3B2736FCBC00F7A88A /* globals.cpp */; };
 		8F263E872738985E00975C47 /* vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F263E852738985E00975C47 /* vectors.cpp */; };
 		8F682000273CB04F005405EA /* gameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F681FFE273CB04F005405EA /* gameController.cpp */; };
+		8F752D75273DFC9A00B09118 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F752D74273DFC9A00B09118 /* libz.a */; };
+		8F752D7B273DFD1C00B09118 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F752D7A273DFD1C00B09118 /* libpng16.a */; };
+		8F752D7D273DFD8E00B09118 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F752D7C273DFD8E00B09118 /* Roboto-Regular.ttf */; };
+		8F752D7F273E021900B09118 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9C2730B2B300FA5FF1 /* Foundation.framework */; };
 		8F8332522734B47E0084BD57 /* stb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332512734B47E0084BD57 /* stb.cpp */; };
 		8F8332592734BF980084BD57 /* GShape.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F8332572734BF980084BD57 /* GShape.cpp */; };
 		8F878A852730B01500FA5FF1 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F878A842730B01500FA5FF1 /* main.cpp */; };
@@ -17,14 +21,14 @@
 		8F878A972730B29700FA5FF1 /* AppKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A962730B29700FA5FF1 /* AppKit.framework */; };
 		8F878A992730B29E00FA5FF1 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A982730B29E00FA5FF1 /* IOKit.framework */; };
 		8F878A9B2730B2AF00FA5FF1 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9A2730B2AF00FA5FF1 /* CoreFoundation.framework */; };
-		8F878A9D2730B2B300FA5FF1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9C2730B2B300FA5FF1 /* Foundation.framework */; };
 		8F878A9F2730B2B800FA5FF1 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F878A9E2730B2B800FA5FF1 /* CoreGraphics.framework */; };
-		8F8F6A012739A72C00CFA63E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F69FF2739A71200CFA63E /* libglfw3.a */; };
 		8F8F6A052739AA2300CFA63E /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F8F6A042739AA2300CFA63E /* libglfw3.a */; };
 		8F8F6A0D2739AEA500CFA63E /* default.frag in Sources */ = {isa = PBXBuildFile; fileRef = 8F8F6A082739AD3800CFA63E /* default.frag */; };
 		8F8F6A0E2739AEA500CFA63E /* default.vert in Sources */ = {isa = PBXBuildFile; fileRef = 8F8F6A092739AD3800CFA63E /* default.vert */; };
 		8F8F6A112739AFD700CFA63E /* default.frag in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F8F6A082739AD3800CFA63E /* default.frag */; };
 		8F8F6A122739AFD700CFA63E /* default.vert in CopyFiles */ = {isa = PBXBuildFile; fileRef = 8F8F6A092739AD3800CFA63E /* default.vert */; };
+		8FBACACF273DF69600DD276E /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBACACE273DF69600DD276E /* libfreetype.a */; };
+		8FBACAD3273DF89F00DD276E /* libbz2.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FBACAD2273DF89F00DD276E /* libbz2.a */; };
 		8FC993052735D2D8003681F6 /* customObjects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC993042735D2D8003681F6 /* customObjects.cpp */; };
 		8FC993092735D9F7003681F6 /* GStack.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC993072735D9F7003681F6 /* GStack.cpp */; };
 		8FC9930E2735E47E003681F6 /* GObject.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8FC9930D2735E47E003681F6 /* GObject.cpp */; };
@@ -50,12 +54,20 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		8F0634B1273DE979008CCF26 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../../../../opt/homebrew/Cellar/freetype/2.11.0/lib/libfreetype.a; sourceTree = "<group>"; };
 		8F238D392736F99D00F7A88A /* globals.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = globals.hpp; sourceTree = "<group>"; };
 		8F238D3B2736FCBC00F7A88A /* globals.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = globals.cpp; sourceTree = "<group>"; };
 		8F263E852738985E00975C47 /* vectors.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = vectors.cpp; sourceTree = "<group>"; };
 		8F263E862738985E00975C47 /* vectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vectors.hpp; sourceTree = "<group>"; };
 		8F681FFE273CB04F005405EA /* gameController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameController.cpp; sourceTree = "<group>"; };
 		8F681FFF273CB04F005405EA /* gameController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gameController.hpp; sourceTree = "<group>"; };
+		8F752D6C273DFA6C00B09118 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		8F752D6E273DFAEB00B09118 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		8F752D70273DFB2A00B09118 /* ParavirtualizedGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParavirtualizedGraphics.framework; path = System/Library/Frameworks/ParavirtualizedGraphics.framework; sourceTree = SDKROOT; };
+		8F752D72273DFC5900B09118 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = ../../../../../../../opt/homebrew/Cellar/libpng/1.6.37/lib/libpng16.a; sourceTree = "<group>"; };
+		8F752D74273DFC9A00B09118 /* libz.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libz.a; path = ../../../../../../../opt/homebrew/Cellar/zlib/1.2.11/lib/libz.a; sourceTree = "<group>"; };
+		8F752D7A273DFD1C00B09118 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libpng16.a; sourceTree = "<group>"; };
+		8F752D7C273DFD8E00B09118 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		8F8332502734B4310084BD57 /* stb_image.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = stb_image.h; sourceTree = "<group>"; };
 		8F8332512734B47E0084BD57 /* stb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = stb.cpp; sourceTree = "<group>"; };
 		8F8332572734BF980084BD57 /* GShape.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GShape.cpp; sourceTree = "<group>"; };
@@ -75,6 +87,8 @@
 		8F8F6A042739AA2300CFA63E /* libglfw3.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libglfw3.a; sourceTree = "<group>"; };
 		8F8F6A082739AD3800CFA63E /* default.frag */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = default.frag; path = CG_first_project/shaders/default.frag; sourceTree = SOURCE_ROOT; };
 		8F8F6A092739AD3800CFA63E /* default.vert */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; path = default.vert; sourceTree = "<group>"; };
+		8FBACACE273DF69600DD276E /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libfreetype.a; sourceTree = "<group>"; };
+		8FBACAD2273DF89F00DD276E /* libbz2.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libbz2.a; sourceTree = "<group>"; };
 		8FC993042735D2D8003681F6 /* customObjects.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = customObjects.cpp; sourceTree = "<group>"; };
 		8FC993062735D4ED003681F6 /* customObjects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = customObjects.h; sourceTree = "<group>"; };
 		8FC993072735D9F7003681F6 /* GStack.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GStack.cpp; sourceTree = "<group>"; };
@@ -98,13 +112,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F752D7F273E021900B09118 /* Foundation.framework in Frameworks */,
+				8F878A972730B29700FA5FF1 /* AppKit.framework in Frameworks */,
+				8F752D75273DFC9A00B09118 /* libz.a in Frameworks */,
+				8F878A9B2730B2AF00FA5FF1 /* CoreFoundation.framework in Frameworks */,
 				8F878A9F2730B2B800FA5FF1 /* CoreGraphics.framework in Frameworks */,
 				8F8F6A052739AA2300CFA63E /* libglfw3.a in Frameworks */,
-				8F878A9D2730B2B300FA5FF1 /* Foundation.framework in Frameworks */,
-				8F878A9B2730B2AF00FA5FF1 /* CoreFoundation.framework in Frameworks */,
+				8F752D7B273DFD1C00B09118 /* libpng16.a in Frameworks */,
+				8FBACAD3273DF89F00DD276E /* libbz2.a in Frameworks */,
+				8FBACACF273DF69600DD276E /* libfreetype.a in Frameworks */,
 				8F878A992730B29E00FA5FF1 /* IOKit.framework in Frameworks */,
-				8F878A972730B29700FA5FF1 /* AppKit.framework in Frameworks */,
-				8F8F6A012739A72C00CFA63E /* libglfw3.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +168,7 @@
 		8F878A8B2730B02900FA5FF1 /* Externals */ = {
 			isa = PBXGroup;
 			children = (
+				8F752D7C273DFD8E00B09118 /* Roboto-Regular.ttf */,
 				8F878A932730B14B00FA5FF1 /* glad.c */,
 				8F878A8D2730B03A00FA5FF1 /* Libraries */,
 				8F878A8C2730B03400FA5FF1 /* Include */,
@@ -172,6 +190,9 @@
 		8F878A8D2730B03A00FA5FF1 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
+				8F752D7A273DFD1C00B09118 /* libpng16.a */,
+				8FBACAD2273DF89F00DD276E /* libbz2.a */,
+				8FBACACE273DF69600DD276E /* libfreetype.a */,
 				8F8F6A042739AA2300CFA63E /* libglfw3.a */,
 			);
 			path = Libraries;
@@ -180,6 +201,12 @@
 		8F878A952730B29700FA5FF1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F752D74273DFC9A00B09118 /* libz.a */,
+				8F752D72273DFC5900B09118 /* libpng16.a */,
+				8F752D70273DFB2A00B09118 /* ParavirtualizedGraphics.framework */,
+				8F752D6E273DFAEB00B09118 /* AVFoundation.framework */,
+				8F752D6C273DFA6C00B09118 /* ImageIO.framework */,
+				8F0634B1273DE979008CCF26 /* libfreetype.a */,
 				8F8F69FF2739A71200CFA63E /* libglfw3.a */,
 				8F878A9E2730B2B800FA5FF1 /* CoreGraphics.framework */,
 				8F878A9C2730B2B300FA5FF1 /* Foundation.framework */,
@@ -281,6 +308,7 @@
 				8F878A7E2730B01500FA5FF1 /* Frameworks */,
 				8F878A7F2730B01500FA5FF1 /* CopyFiles */,
 				8F8F6A0A2739ADAC00CFA63E /* Resources */,
+				8FBACAD1273DF73B00DD276E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -328,10 +356,31 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F752D7D273DFD8E00B09118 /* Roboto-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		8FBACAD1273DF73B00DD276E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8F878A7D2730B01500FA5FF1 /* Sources */ = {
@@ -365,6 +414,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -412,6 +462,15 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/opt/homebrew/Cellar/freetype/2.11.0/**",
+					"/opt/homebrew/Cellar/glm/0.9.9.8/include/**",
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/homebrew/Cellar/freetype/2.11.0/**",
+					/opt/homebrew/Cellar/glm/0.9.9.8/include/glm,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -424,6 +483,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = arm64;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -465,9 +525,19 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				HEADER_SEARCH_PATHS = (
+					"/opt/homebrew/Cellar/freetype/2.11.0/**",
+					"/opt/homebrew/Cellar/glm/0.9.9.8/include/**",
+					/usr/local/include,
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/opt/homebrew/Cellar/freetype/2.11.0/**",
+					/opt/homebrew/Cellar/glm/0.9.9.8/include/glm,
+				);
 				MACOSX_DEPLOYMENT_TARGET = 12.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 			};
 			name = Release;
@@ -475,26 +545,54 @@
 		8F878A892730B01500FA5FF1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_IDENTITY = "-";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKV9A6H8ZZ;
+				DEVELOPMENT_TEAM = H6394A43NW;
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Include";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Externals/Include",
+					"/opt/homebrew/Cellar/glm/0.9.9.8/**",
+				);
 				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Libraries";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Externals/Libraries",
+					"/opt/homebrew/Cellar/*/**",
+					"/opt/homebrew/opt/bzip2/lib/**",
+					"/opt/homebrew/Cellar/libpng/1.6.3/lib/**",
+					/opt/homebrew/Cellar/libzip/1.8.0_1/lib,
+					"/opt/homebrew/Cellar/glm/0.9.9.8/include/**",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Debug;
 		};
 		8F878A8A2730B01500FA5FF1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = arm64;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = ZKV9A6H8ZZ;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_HARDENED_RUNTIME = YES;
-				HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Include";
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Externals/Include",
+					"/opt/homebrew/Cellar/glm/0.9.9.8/**",
+				);
 				INFOPLIST_KEY_UILaunchScreen_Generation = NO;
-				LIBRARY_SEARCH_PATHS = "$(PROJECT_DIR)/Externals/Libraries";
+				LIBRARY_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/Externals/Libraries",
+					"/opt/homebrew/Cellar/*/**",
+					"/opt/homebrew/opt/bzip2/lib/**",
+					"/opt/homebrew/Cellar/libpng/1.6.3/lib/**",
+					/opt/homebrew/Cellar/libzip/1.8.0_1/lib,
+					"/opt/homebrew/Cellar/glm/0.9.9.8/include/**",
+				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "";
 			};
 			name = Release;
 		};
