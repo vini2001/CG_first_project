@@ -33,6 +33,7 @@ GameController gameController;
 static GLuint pressedKey;
 static GLuint pressedMouseButton = -1;
 static map<GLuint, bool> keyIsPressed;
+static Vec2 mousePos;
 
 vector<GLuint> supportedKeys = { GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_ESCAPE, GLFW_PRESS };
 static bool holdingKey;
@@ -75,6 +76,10 @@ void WindowSizeCallback(GLFWwindow* window, int width, int height){
     gameController.drawElements();
 }
 
+static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
+    mousePos = Vec2(xpos - game::width/2, ypos - game::height/2);
+}
+
 int main(void){
 
     glfwInit();
@@ -102,6 +107,7 @@ int main(void){
     
     glfwSetKeyCallback(game::window, key_callback);
     glfwSetMouseButtonCallback(game::window, mouse_button_callback);
+    glfwSetCursorPosCallback(game::window, cursor_position_callback);
     glfwSetWindowSizeCallback(game::window, WindowSizeCallback);
     glfwGetWindowSize(game::window, &game::width, &game::height);
     
@@ -141,7 +147,8 @@ int main(void){
             glClear(GL_COLOR_BUFFER_BIT);
             shaderProgram.activate();
 
-            gameController.handleInput(pressedKey, pressedMouseButton);
+            
+            gameController.handleInput(pressedKey, pressedMouseButton, mousePos);
             pressedMouseButton = -1; // set as -1 to avoid duplicated actions
             gameController.frameActions();
             gameController.drawElements();

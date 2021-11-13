@@ -25,13 +25,14 @@ void GameController::init(){
     gText = new GText();
 }
 
-void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton) {
-    float spaceShipSpeed = 10;
-    if(pressedKey == GLFW_KEY_LEFT) {
+void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton, Vec2 mousePos) {
+    float playerXpos = player->x + player->boxSize.x/2;
+    float spaceShipSpeed = abs(mousePos.x - playerXpos)/20;
+    if(mousePos.x < playerXpos - 15) {
         GLfloat toBorder = -game::width/2 - player->x - player->boxSize.x/2;
         Vec2 change((player->x - spaceShipSpeed + player->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
         player->setSpeed(change);
-    }else if(pressedKey == GLFW_KEY_RIGHT) {
+    }else if(mousePos.x > playerXpos + 15) {
         GLfloat rightmostX = player->x + player->boxSize.x*0.5;
         GLfloat toBorder = game::width/2 - rightmostX;
         Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), 0.0f };

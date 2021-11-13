@@ -22,7 +22,7 @@ public:
     void drawElements();
     void addObject(GObject *obj);
     void detectColisions();
-    void handleInput(GLuint pressedKey, GLuint pressedMouseButton);
+    void handleInput(GLuint pressedKey, GLuint pressedMouseButton, Vec2 mousePos);
     void frameActions();
     void fire(GStack *spaceShip);
     void drawText(string text, float x, float y, float scale, glm::vec3 colors);
