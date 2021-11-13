@@ -22,8 +22,7 @@ void GameController::init(){
         }
     }
     
-    GText g;
-    g.fontsLoad();
+    gText = new GText();
 }
 
 void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton) {
@@ -180,9 +179,18 @@ void GameController::detectColisions() {
     }
 }
 
+void GameController::drawText(string text, float x, float y, float scale, glm::vec3 colors){
+    gText->renderText(text, x, y, scale, colors);
+}
+
 void GameController::destroy() {
     for(int i = 0; i < objects.size(); i++) {
         objects[i]->destroy();
         free(objects[i]);
     }
+}
+
+
+GameController::~GameController() {
+    delete gText;
 }

@@ -19,6 +19,7 @@
 #include <map>
 #include "globals.hpp"
 #include "gameController.hpp"
+#include "GText.hpp"
 
 using namespace std;
 
@@ -80,8 +81,10 @@ int main(void){
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    glfwWindowHint(GLFW_REFRESH_RATE, 15);
+    #ifdef __APPLE__
+        glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    #endif
+//    glfwWindowHint(GLFW_REFRESH_RATE, 15);
     
     const GLFWvidmode* mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
      
@@ -107,15 +110,21 @@ int main(void){
     glfwMakeContextCurrent(game::window);
     gladLoadGL();
     
-    Shader shaderProgram("default.vert", "default.frag");
+    // Needed for text to work
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    Shader shaderProgram;
     gameController.init();
-
     
     vector<int> fpsV = {60, 60, 60};
     int fpsCount = 0;
     int fpsSum = 0;
     
     long lastTime = getMillis();
+    long lastFpsUpdate = getMillis();
+    string fpsS;
+    
     while (!glfwWindowShouldClose(game::window)) {
         
         long timeEllapsed = getMillis() - lastTime;
@@ -128,16 +137,22 @@ int main(void){
             int fps = (fpsV[0]+fpsV[1]+fpsV[2])/3;
             fpsCount++; fpsSum += fps;
             
-//            cout << "FPS: " << fps  << " (Avg: " << fpsSum/fpsCount << ")" << endl;
-            
             glClearColor(0.03f, 0.06f, 0.08f, 1.0f);
             glClear(GL_COLOR_BUFFER_BIT);
             shaderProgram.activate();
-            
+
             gameController.handleInput(pressedKey, pressedMouseButton);
             pressedMouseButton = -1; // set as -1 to avoid duplicated actions
             gameController.frameActions();
             gameController.drawElements();
+            
+            // update fps every 100 so it doesn't flash too fast
+            if(getMillis() - lastFpsUpdate > 100) {
+                fpsS = "FPS "; fpsS.append(to_string(fps));
+                lastFpsUpdate = getMillis();
+            }
+            
+            gameController.drawText(fpsS, game::width-70, game::height-30, 0.3f, fps < 60 ? glm::vec3(0.8, 0.1f, 0.1f) :  glm::vec3(0.1, 0.7f, 0.1f));
             
             glfwSwapBuffers(game::window);
             glfwPollEvents();
@@ -146,7 +161,7 @@ int main(void){
     
     gameController.destroy();
     
-    shaderProgram.deleteIt();
+//    shaderProgram.deleteIt();
     glfwDestroyWindow(game::window);
     glfwTerminate();
     return 0;

@@ -43,17 +43,19 @@ const char* verString = "#version 330 core\n"
 "\n";
 
 
-// Constructor that build the Shader Program from 2 different shaders
-Shader::Shader(const char* vertexFile, const char* fragmentFile){
-    
-    // Read vertexFile and fragmentFile and store the strings
-    //TODO: figure out a way to include the frag and vertex files on the compiled game
-    string vertexCode = verString; //get_file_contents(vertexFile);
-    string fragmentCode = fragString; //get_file_contents(fragmentFile);
+Shader::Shader() : Shader(verString, fragString) {}
 
-    // Convert the shader source strings into character arrays
-    const char* vertexSource = vertexCode.c_str();
-    const char* fragmentSource = fragmentCode.c_str();
+// Constructor that build the Shader Program from 2 different shaders
+Shader::Shader(const char* vertexSource, const char* fragmentSource){
+    
+//    //Read vertexFile and fragmentFile and store the strings
+//    // TODO: figure out a way to include the frag and vertex files on the compiled game
+//    string vertexCode = verString; //get_file_contents(vertexFile);
+//    string fragmentCode = fragString; //get_file_contents(fragmentFile);
+
+//    // Convert the shader source strings into character arrays
+//    const char* vertexSource = vertexCode.c_str();
+//    const char* fragmentSource = fragmentCode.c_str();
 
     // Create Vertex Shader Object and get its reference
     GLuint vertexShader = glCreateShader(GL_VERTEX_SHADER);

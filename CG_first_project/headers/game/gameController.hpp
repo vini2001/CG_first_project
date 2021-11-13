@@ -10,6 +10,7 @@
 #include "VBO.hpp"
 #include "EBO.hpp"
 #include "customObjects.h"
+#include "GText.hpp"
 
 
 
@@ -24,7 +25,10 @@ public:
     void handleInput(GLuint pressedKey, GLuint pressedMouseButton);
     void frameActions();
     void fire(GStack *spaceShip);
+    void drawText(string text, float x, float y, float scale, glm::vec3 colors);
     void destroy();
+    
+    ~GameController();
     
     GStack* player;
     bool playerAlive = false;
@@ -43,6 +47,7 @@ private:
     bool shoot = false;
     long changeDirAt = 0;
     bool goingEsq = false;
+    GText *gText;
 };
 
 #endif /* gameController_hpp */
