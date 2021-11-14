@@ -11,6 +11,7 @@ namespace game {
     extern int width, height;
     extern int shootingInterval;
     extern bool colisionsEnabled;
+    extern bool started;
 }
 extern int debugLevel;
 extern long framesSinceRender;

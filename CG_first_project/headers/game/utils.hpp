@@ -5,5 +5,6 @@
 #include <chrono>
 
 long getMillis();
+float getRand();
 
 #endif /* utils_hpp */

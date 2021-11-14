@@ -23,11 +23,6 @@
 
 using namespace std;
 
-
-float getRand() {
-    return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
-}
-
 GameController gameController;
 
 static GLuint pressedKey;
@@ -76,8 +71,16 @@ void WindowSizeCallback(GLFWwindow* window, int width, int height){
     gameController.drawElements();
 }
 
-static void cursor_position_callback(GLFWwindow* window, double xpos, double ypos){
-    mousePos = Vec2(xpos - game::width/2, ypos - game::height/2);
+static void cursor_position_callback(GLFWwindow* window, double x, double y){
+    if(abs(x) > game::width / 2) {
+        x = x > 0 ? ( game::width / 2 ) : -(game::width / 2);
+        glfwSetCursorPos(game::window, x, y);
+    }
+    if(abs(y) > game::height / 2) {
+        y = y > 0 ? (game::height / 2) : -(game::height / 2);
+        glfwSetCursorPos(game::window, x, y);
+    }
+    mousePos = Vec2(x, y);
 }
 
 int main(void){
@@ -109,6 +112,7 @@ int main(void){
     glfwSetMouseButtonCallback(game::window, mouse_button_callback);
     glfwSetCursorPosCallback(game::window, cursor_position_callback);
     glfwSetWindowSizeCallback(game::window, WindowSizeCallback);
+    glfwSetInputMode(game::window, GLFW_CURSOR, GLFW_CURSOR_DISABLED);
     glfwGetWindowSize(game::window, &game::width, &game::height);
     
     cout << "height: " << game::height << ", width: " << game::width << endl;
@@ -121,7 +125,7 @@ int main(void){
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     Shader shaderProgram;
-    gameController.init();
+    gameController.init(&shaderProgram);
     
     vector<int> fpsV = {60, 60, 60};
     int fpsCount = 0;

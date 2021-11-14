@@ -30,8 +30,12 @@ void VAO::deleteIt(){
     glDeleteVertexArrays(1, &ID);
 }
 
-VAO::~VAO() {
+void VAO::destroy() {
     if(debugLevel == DEBUG_ALL) std::cout << "VAO destroy" << std::endl;
     unbind();
     deleteIt();
+}
+
+VAO::~VAO() {
+    destroy();
 }

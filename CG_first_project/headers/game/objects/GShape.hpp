@@ -51,7 +51,7 @@ class GShape : public GObject {
     
         ~GShape();
     
-    private:
+    protected:
         vector<GTriangle> triangles;
         GLuint verticesIdsCount = 0;
 };

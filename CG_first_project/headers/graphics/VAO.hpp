@@ -13,6 +13,7 @@ class VAO{
         void bind();
         void unbind();
         void deleteIt();
+        void destroy();
         ~VAO();
 };
 

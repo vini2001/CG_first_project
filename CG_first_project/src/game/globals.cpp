@@ -1,11 +1,10 @@
 #include "globals.hpp"
-#include <stdio.h>
 
 
 int game::width;
 int game::height;
-int game::shootingInterval = 300;
 bool game::colisionsEnabled = true;
+bool game::started = false;
 GLFWwindow* game::window;
 
 int debugLevel;

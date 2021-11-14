@@ -10,6 +10,7 @@
 		8F238D3C2736FCBC00F7A88A /* globals.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F238D3B2736FCBC00F7A88A /* globals.cpp */; };
 		8F263E872738985E00975C47 /* vectors.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F263E852738985E00975C47 /* vectors.cpp */; };
 		8F682000273CB04F005405EA /* gameController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F681FFE273CB04F005405EA /* gameController.cpp */; };
+		8F6A3D1227407D85003CC075 /* GAlienSpaceship.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8F6A3D1027407D85003CC075 /* GAlienSpaceship.cpp */; };
 		8F752D75273DFC9A00B09118 /* libz.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F752D74273DFC9A00B09118 /* libz.a */; };
 		8F752D7B273DFD1C00B09118 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8F752D7A273DFD1C00B09118 /* libpng16.a */; };
 		8F752D7D273DFD8E00B09118 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8F752D7C273DFD8E00B09118 /* Roboto-Regular.ttf */; };
@@ -62,6 +63,8 @@
 		8F263E862738985E00975C47 /* vectors.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = vectors.hpp; sourceTree = "<group>"; };
 		8F681FFE273CB04F005405EA /* gameController.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gameController.cpp; sourceTree = "<group>"; };
 		8F681FFF273CB04F005405EA /* gameController.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = gameController.hpp; sourceTree = "<group>"; };
+		8F6A3D1027407D85003CC075 /* GAlienSpaceship.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = GAlienSpaceship.cpp; sourceTree = "<group>"; };
+		8F6A3D1127407D85003CC075 /* GAlienSpaceship.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = GAlienSpaceship.hpp; sourceTree = "<group>"; };
 		8F752D6C273DFA6C00B09118 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		8F752D6E273DFAEB00B09118 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		8F752D70273DFB2A00B09118 /* ParavirtualizedGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ParavirtualizedGraphics.framework; path = System/Library/Frameworks/ParavirtualizedGraphics.framework; sourceTree = SDKROOT; };
@@ -131,6 +134,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F6A3D0E27407D61003CC075 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				8FC993062735D4ED003681F6 /* customObjects.h */,
+				8F8332582734BF980084BD57 /* GShape.hpp */,
+				8FC993082735D9F7003681F6 /* GStack.hpp */,
+				8FC9930B2735DE0F003681F6 /* GObject.hpp */,
+				8F6A3D1127407D85003CC075 /* GAlienSpaceship.hpp */,
+			);
+			path = objects;
+			sourceTree = "<group>";
+		};
+		8F6A3D0F27407D72003CC075 /* objects */ = {
+			isa = PBXGroup;
+			children = (
+				8F8332572734BF980084BD57 /* GShape.cpp */,
+				8FC993042735D2D8003681F6 /* customObjects.cpp */,
+				8FC993072735D9F7003681F6 /* GStack.cpp */,
+				8FC9930D2735E47E003681F6 /* GObject.cpp */,
+				8F6A3D1027407D85003CC075 /* GAlienSpaceship.cpp */,
+			);
+			path = objects;
+			sourceTree = "<group>";
+		};
 		8F83324F2734B40E0084BD57 /* stb */ = {
 			isa = PBXGroup;
 			children = (
@@ -263,11 +290,8 @@
 		8FF80ECC273DA3DE0077CBEF /* game */ = {
 			isa = PBXGroup;
 			children = (
+				8F6A3D0F27407D72003CC075 /* objects */,
 				8F238D3B2736FCBC00F7A88A /* globals.cpp */,
-				8F8332572734BF980084BD57 /* GShape.cpp */,
-				8FC993042735D2D8003681F6 /* customObjects.cpp */,
-				8FC993072735D9F7003681F6 /* GStack.cpp */,
-				8FC9930D2735E47E003681F6 /* GObject.cpp */,
 				8F263E852738985E00975C47 /* vectors.cpp */,
 				8F681FFE273CB04F005405EA /* gameController.cpp */,
 				8FF80EC8273DA0810077CBEF /* utils.cpp */,
@@ -290,10 +314,7 @@
 		8FF80ECE273DA3FB0077CBEF /* game */ = {
 			isa = PBXGroup;
 			children = (
-				8FC993062735D4ED003681F6 /* customObjects.h */,
-				8F8332582734BF980084BD57 /* GShape.hpp */,
-				8FC993082735D9F7003681F6 /* GStack.hpp */,
-				8FC9930B2735DE0F003681F6 /* GObject.hpp */,
+				8F6A3D0E27407D61003CC075 /* objects */,
 				8F238D392736F99D00F7A88A /* globals.hpp */,
 				8F263E862738985E00975C47 /* vectors.hpp */,
 				8F681FFF273CB04F005405EA /* gameController.hpp */,
@@ -393,6 +414,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8F8F6A0D2739AEA500CFA63E /* default.frag in Sources */,
+				8F6A3D1227407D85003CC075 /* GAlienSpaceship.cpp in Sources */,
 				8FF80ECA273DA0810077CBEF /* utils.cpp in Sources */,
 				8F682000273CB04F005405EA /* gameController.cpp in Sources */,
 				8F8F6A0E2739AEA500CFA63E /* default.vert in Sources */,
