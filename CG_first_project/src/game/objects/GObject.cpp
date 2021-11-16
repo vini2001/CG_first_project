@@ -30,8 +30,8 @@ void GObject::addSpeed(Vec2 change) {
 bool GObject::update() {
     
     Vec2 speed = this->speed;
-    speed.x = (speed.x/10)*framesSinceRender;
-    speed.y = (speed.y/10)*framesSinceRender;
+    speed.x = (speed.x/10)*framesSinceUpdate;
+    speed.y = (speed.y/10)*framesSinceUpdate;
     
     x += speed.x;
     y += speed.y;

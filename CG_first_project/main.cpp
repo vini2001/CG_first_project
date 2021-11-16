@@ -30,7 +30,10 @@ static GLuint pressedMouseButton = -1;
 static map<GLuint, bool> keyIsPressed;
 static Vec2 mousePos;
 
-vector<GLuint> supportedKeys = { GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_ESCAPE, GLFW_PRESS, GLFW_KEY_S };
+vector<GLuint> supportedKeys = {
+    GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_ESCAPE, GLFW_PRESS, GLFW_KEY_S,
+    GLFW_KEY_R
+};
 static bool holdingKey;
 static void key_callback(GLFWwindow* windowGame, int key, int scancode, int action, int mods){
     switch (key) {
@@ -58,6 +61,7 @@ static void key_callback(GLFWwindow* windowGame, int key, int scancode, int acti
 
 void mouse_button_callback(GLFWwindow* windowGame, int button, int action, int mods){
     if (action == GLFW_PRESS) {
+        cout << button << endl;
         pressedMouseButton = button;
     }else{
         pressedMouseButton = -1;
@@ -131,21 +135,31 @@ int main(void){
     int fpsCount = 0;
     int fpsSum = 0;
     
-    long lastTime = getMillis();
+    long lastRealTime = getRealMillis();
+    long lastGameTime = getMillis();
+    
     long lastFpsUpdate = getMillis();
     string fpsS;
     
     while (!glfwWindowShouldClose(game::window)) {
         
-        long timeEllapsed = getMillis() - lastTime;
-        if(timeEllapsed > 10) {
-            lastTime = getMillis();
-            framesSinceRender = timeEllapsed;
+        long gameTimeEllapsed = getMillis() - lastGameTime;
+        long realTimeEllapsed = getRealMillis() - lastRealTime;
+        
+        // every 10 ms do the render process
+        if(realTimeEllapsed > 10) {
+            
+            // getMillis() will subtract the paused time, so framesSinceUpdate will always subtract the paused time to avoid time jumps
+            lastGameTime = getMillis();
+            framesSinceUpdate = gameTimeEllapsed;
+            
+            cout << getMillis() << endl;
+            lastRealTime = getRealMillis();
             
             glfwPollEvents();
             
             fpsV.erase(fpsV.begin()+0);
-            fpsV.push_back(1000/timeEllapsed);
+            fpsV.push_back(1000/gameTimeEllapsed);
             int fps = (fpsV[0]+fpsV[1]+fpsV[2])/3;
             fpsCount++; fpsSum += fps;
             

@@ -12,8 +12,11 @@ namespace game {
     extern int shootingInterval;
     extern bool colisionsEnabled;
     extern bool started;
+    extern long pausedTime;
+    extern long pausedAt;
+extern bool paused;
 }
 extern int debugLevel;
-extern long framesSinceRender;
+extern long framesSinceUpdate;
 
 #endif /* globals_hpp */

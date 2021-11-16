@@ -1,11 +1,18 @@
 #include "utils.hpp"
 #include "linmath.h"
+#include "globals.hpp"
 
 
 
 using namespace std;
-long getMillis() {
+
+long getRealMillis() {
     return chrono::duration_cast<chrono::milliseconds>(chrono::system_clock::now().time_since_epoch()).count();
+}
+
+long getMillis() {
+    long realM = getRealMillis();
+    return realM - game::pausedTime - (game::paused ? realM - game::pausedAt : 0);
 }
 
 float getRand() {

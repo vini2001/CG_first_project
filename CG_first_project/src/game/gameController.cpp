@@ -42,6 +42,14 @@ void GameController::init(Shader *shaderProgram){
 }
 
 void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton, Vec2 mousePos) {
+    
+    if(pressedKey == GLFW_KEY_R) {
+        destroy();
+        init(shader);
+    }
+    
+    if(!game::started) return;
+    
     float playerXpos = player->x + player->boxSize.x/2;
     float spaceShipSpeed = abs(mousePos.x - playerXpos)/5;
     if(mousePos.x < playerXpos - 15) {
@@ -57,8 +65,17 @@ void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton, V
         player->setSpeed(Vec2(0, 0));
     }
     
+    
     if (pressedMouseButton == GLFW_MOUSE_BUTTON_LEFT || pressedKey == GLFW_KEY_S) {
         shoot = true;
+    }else if(pressedMouseButton == GLFW_MOUSE_BUTTON_RIGHT) {
+        game::paused = !game::paused;
+        if(game::paused) {
+            game::pausedAt = getRealMillis();
+            flashMessages.push_back(FlashMessage("PAUSED", game::width/2 - 90, game::height/2, glm::vec3(1, 1, 1), getMillis() + 1, 1));
+        }else{
+            game::pausedTime += getRealMillis() - game::pausedAt;
+        }
     }
 }
 
@@ -107,6 +124,8 @@ void GameController::fire(GStack *spaceShip) {
 
 
 void GameController::frameActions() {
+    if(game::paused) return;
+    
     if(shoot && lastShot + shootingInterval < getMillis() && playerAlive) {
         lastShot = getMillis();
         fire(player);
@@ -180,7 +199,7 @@ void GameController::frameActions() {
 
 void GameController::drawElements() {
     
-    if(game::started) {
+//    if(game::started) {
         if(vao != NULL) delete vao;
         
         vao = new VAO();
@@ -217,7 +236,7 @@ void GameController::drawElements() {
         
         vao->bind();
         glDrawElements(GL_TRIANGLES, trianglesQuantity*3, GL_UNSIGNED_INT, 0);
-    }
+//    }
     
     
     for(int i = 0; i < flashMessages.size(); i++) {
@@ -325,12 +344,27 @@ void GameController::drawText(string text, float x, float y, float scale, glm::v
 }
 
 void GameController::destroy() {
+    delete gText;
+    flashMessages.clear();
+    playerBulletsLevel = 1;
+    bulletsSpeed = 5.0;
+    shootingInterval = 300;
+    
     for(int i = 0; i < objects.size(); i++) {
-        objects[i]->destroy();
-        free(objects[i]);
+        if(objects[i]->classType == "shape") {
+            delete dynamic_cast<GShape*>(objects[i]);
+        }else if(objects[i]->classType == "stack") {
+            delete dynamic_cast<GStack*>(objects[i]);
+        }else{
+            objects[i]->destroy();
+            free(objects[i]);
+        }
     }
+    
+    aliens.clear();
+    objects.clear();
 }
 
 GameController::~GameController() {
-    delete gText;
+    destroy();
 }
