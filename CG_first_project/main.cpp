@@ -30,7 +30,7 @@ static GLuint pressedMouseButton = -1;
 static map<GLuint, bool> keyIsPressed;
 static Vec2 mousePos;
 
-vector<GLuint> supportedKeys = { GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_ESCAPE, GLFW_PRESS };
+vector<GLuint> supportedKeys = { GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_ESCAPE, GLFW_PRESS, GLFW_KEY_S };
 static bool holdingKey;
 static void key_callback(GLFWwindow* windowGame, int key, int scancode, int action, int mods){
     switch (key) {
@@ -142,6 +142,8 @@ int main(void){
             lastTime = getMillis();
             framesSinceRender = timeEllapsed;
             
+            glfwPollEvents();
+            
             fpsV.erase(fpsV.begin()+0);
             fpsV.push_back(1000/timeEllapsed);
             int fps = (fpsV[0]+fpsV[1]+fpsV[2])/3;
@@ -165,13 +167,12 @@ int main(void){
             
             gameController.drawText(fpsS, game::width-70, game::height-30, 0.3f, fps < 60 ? glm::vec3(0.8, 0.1f, 0.1f) :  glm::vec3(0.1, 0.7f, 0.1f));
             
+            
             glfwSwapBuffers(game::window);
-            glfwPollEvents();
         }
     }
     
     gameController.destroy();
-    
 //    shaderProgram.deleteIt();
     glfwDestroyWindow(game::window);
     glfwTerminate();

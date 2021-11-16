@@ -57,7 +57,7 @@ void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton, V
         player->setSpeed(Vec2(0, 0));
     }
     
-    if (pressedMouseButton == GLFW_MOUSE_BUTTON_LEFT) {
+    if (pressedMouseButton == GLFW_MOUSE_BUTTON_LEFT || pressedKey == GLFW_KEY_S) {
         shoot = true;
     }
 }
@@ -153,7 +153,7 @@ void GameController::frameActions() {
     detectColisions();
     
     long sinceLastAttack = getMillis() - lastAttack;
-    if(sinceLastAttack > 6000) {
+    if(sinceLastAttack > 6000 && aliens.size() > 0) {
         lastAttack = getMillis();
         
         int curRow = -1;

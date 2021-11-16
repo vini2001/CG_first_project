@@ -414,8 +414,8 @@
             filePath = "CG_first_project/main.cpp"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "main()"
             landmarkType = "9">
          </BreakpointContent>
@@ -689,6 +689,22 @@
             startingLineNumber = "7"
             endingLineNumber = "7"
             landmarkName = "VAO::VAO()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "77CEDCD9-1D7D-4623-8398-3829C1D6031F"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CG_first_project/src/game/gameController.cpp"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "224"
+            endingLineNumber = "224"
+            landmarkName = "GameController::drawElements()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

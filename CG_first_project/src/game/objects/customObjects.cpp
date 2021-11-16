@@ -90,7 +90,6 @@ GStack* createBullet(GLfloat x, GLfloat y) {
     bullet4->vertices[2].cb = 0;
     
     GShape *colisionBox = createRectangle(0, 0, 7, 30);
-    colisionBox->rgb(0, 1, 0);
     bulletS->colisionBox = colisionBox;
     
     return bulletS;
@@ -168,6 +167,9 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     stR->setItemSpawnPos(st->getItemSpawnPos().x, st->getItemSpawnPos().y);
     stR->addObject(st);
     stR->boxSize.x = 500.0 * scale.x;
+    
+    GShape *colisionBox = createTriangle(-20*scale.x, 0, 540*scale.x, 378*scale.y);
+    stR->colisionBox = colisionBox;
     
     stR->setLabel("spaceship");
     return stR;
