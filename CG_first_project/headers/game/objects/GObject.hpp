@@ -21,11 +21,13 @@ class GObject {
         virtual void prepare(GLfloat* vArray, long &arrayPos, GLuint *indices, long &indicesPos, GLfloat addX, GLfloat addY) = 0;
         virtual void setScale(Vec2 scale) = 0;
         virtual void setPropagatedScale(Vec2 scale) = 0;
-        bool update();
+        virtual bool update();
         Vec2 getScale();
         void addSpeed(Vec2 change);
         void setSpeed(Vec2 change);
+        void setAcceleration(Vec2 change);
         Vec2 getSpeed();
+        Vec2 getAcceleration();
         void setItemSpawnPos(GLfloat x, GLfloat y);
         Vec2 getItemSpawnPos();
         bool shouldDestroy(long currentTime);
@@ -36,6 +38,8 @@ class GObject {
         virtual std::vector<std::pair<Vec2, Vec2>> getSubLines() = 0;
         virtual std::vector<std::pair<Vec2, Vec2>> getSubLines(GLfloat addX, GLfloat addY) = 0;
         virtual void getSizes(int &vertices, int &indices, int &triangles) = 0;
+    
+        std::string positionDebug();
     
     GObject* testColision(std::vector<GObject*> &objects, std::string label);
     
@@ -54,6 +58,7 @@ class GObject {
         Vec2 totalScale;
     
         Vec2 speed;
+        Vec2 acceleration;
         Vec2 itemSpawnPos;
 
         std::string label;

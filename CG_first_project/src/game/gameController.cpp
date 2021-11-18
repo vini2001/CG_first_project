@@ -3,28 +3,41 @@
 #include <iostream>
 #include "GText.hpp"
 #include "GAlienSpaceship.hpp"
+#include "GStar.hpp"
+
+#define DEBUG_MODE_FALSE -100
 
 
 GameController::GameController() {}
 
 
+float spaceShipAcceleration = 0.01;
 void GameController::init(Shader *shaderProgram){
     this->shader = shaderProgram;
+    
+    // create stars
+    for(int i = 0; i < 30; i++) {
+        GObject *star = new GStar(getRand() * game::width - game::width/2, getRand() * game::height - game::height/2);
+        objects.push_back(star);
+        star->setSpeed(Vec2(0, -6));
+    }
+    
     player = createSpaceShip(-100, -game::height/2 * 0.95, Vec2(0.35, 0.35));
     addObject(player);
     playerAlive = true;
+//    player->setAcceleration(Vec2(0, spaceShipAcceleration));
     
     // create a bunch of aliens
     for(int r = 0; r < 15; r++) {
         float alienSize = 0.65;
         for(int i = 0 + (r < 7 ? 0 : r - 7); i < 15-(r < 7 ? 0 : r - 7); i++) {
             
-            int prize = getRand() > 0.94 ? ALIEN_SHOOTING_PRIZE : ALIEN_NO_PRIZE;
-            if(getRand() > 0.94) prize = ALIEN_SHOOTING_INTERVAL_PRIZE;
-            if(getRand() > 0.94) prize = ALIEN_SHOOTING_SPEED_PRIZE;
+            int prize = getRand() > 0.96 ? ALIEN_SHOOTING_PRIZE : ALIEN_NO_PRIZE;
+            if(getRand() > 0.96) prize = ALIEN_SHOOTING_INTERVAL_PRIZE;
+            if(getRand() > 0.96) prize = ALIEN_SHOOTING_SPEED_PRIZE;
             GAlien *alien = new GAlien(240 + (120*alienSize)*i - game::width/2, game::height/2 + 500 - (90*alienSize)*r, prize);
             alien->setLabel("alien");
-            alien->setSpeed(Vec2(0, -0.14));
+            alien->setSpeed(Vec2(0, -0.15));
             alien->setScale(Vec2(alienSize, alienSize));
             addObject(alien);
             
@@ -52,17 +65,23 @@ void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton, V
     
     float playerXpos = player->x + player->boxSize.x/2;
     float spaceShipSpeed = abs(mousePos.x - playerXpos)/5;
+    float ySp = player->getSpeed().y;
     if(mousePos.x < playerXpos - 15) {
         GLfloat toBorder = -game::width/2 - player->x - player->boxSize.x/2;
-        Vec2 change((player->x - spaceShipSpeed + player->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), 0.0f);
+        Vec2 change((player->x - spaceShipSpeed + player->boxSize.x/2 < -game::width/2 ? toBorder : -spaceShipSpeed), ySp);
         player->setSpeed(change);
     }else if(mousePos.x > playerXpos + 15) {
         GLfloat rightmostX = player->x + player->boxSize.x*0.5;
         GLfloat toBorder = game::width/2 - rightmostX;
-        Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), 0.0f };
+        Vec2 change = { (rightmostX + spaceShipSpeed > game::width/2 ? toBorder : spaceShipSpeed), ySp };
         player->setSpeed(change);
     }else{
-        player->setSpeed(Vec2(0, 0));
+        player->setSpeed(Vec2(0, ySp));
+//        if(ySp > 0.3) {
+//            player->setAcceleration(Vec2(0, -spaceShipAcceleration));
+//        }else if(ySp < -0.3) {
+//            player->setAcceleration(Vec2(0, spaceShipAcceleration));
+//        }
     }
     
     
@@ -74,8 +93,19 @@ void GameController::handleInput(GLuint pressedKey, GLuint pressedMouseButton, V
             game::pausedAt = getRealMillis();
             flashMessages.push_back(FlashMessage("PAUSED", game::width/2 - 90, game::height/2, glm::vec3(1, 1, 1), getMillis() + 1, 1));
         }else{
+            debugMode = false;
             game::pausedTime += getRealMillis() - game::pausedAt;
         }
+    }else if(pressedMouseButton == GLFW_MOUSE_BUTTON_MIDDLE || pressedKey == GLFW_KEY_D) {
+        if(!game::paused) {
+            game::paused = true;
+            game::pausedAt = getRealMillis();
+            flashMessages.push_back(FlashMessage("DEBUG MODE", game::width/2 - 140, game::height/2, glm::vec3(1, 1, 1), DEBUG_MODE_FALSE, 1));
+        }else{
+            // advance one frame
+            framesJump += 1;
+        }
+        debugMode = true;
     }
 }
 
@@ -124,7 +154,16 @@ void GameController::fire(GStack *spaceShip) {
 
 
 void GameController::frameActions() {
-    if(game::paused) return;
+    game::frameCount++;
+    
+    if(game::paused) {
+        if(framesJump == 0) {
+            return;
+        }else{
+            //TODO: sum real time passed to game::pausedAt
+            game::pausedAt += 10;
+        }
+    }
     
     if(shoot && lastShot + shootingInterval < getMillis() && playerAlive) {
         lastShot = getMillis();
@@ -143,6 +182,12 @@ void GameController::frameActions() {
             objects[i]->setSpeed(Vec2(goingEsq ? -1.5 : 1.5, objects[i]->getSpeed().y));
             
             if(objects[i]->y + 50 < -game::height/2) {
+                
+                if(game::started) {
+                    game::started = false;
+                    flashMessages.push_back(FlashMessage("The Earth has been destroyed!!!", game::width/2 - 300, game::height/2, glm::vec3(0.9, 0.05, 0.2), getMillis() + 20000, 1));
+                }
+                
                 // TODO: this code repeats a bit, may need refactoring
                 objects[i]->destroyAt = 0;
                 deleteFromAliensArray(objects[i]);
@@ -150,11 +195,6 @@ void GameController::frameActions() {
                 delete dynamic_cast<GShape*>(objects[i]);
                 if(it != objects.end()) {
                     objects.erase(it); i--;
-                }
-                
-                if(game::started) {
-                    game::started = false;
-                    flashMessages.push_back(FlashMessage("The Earth has been destroyed!!!", game::width/2 - 300, game::height/2, glm::vec3(0.9, 0.05, 0.2), getMillis() + 20000, 1));
                 }
             }
         }
@@ -195,57 +235,79 @@ void GameController::frameActions() {
             aliens[indexAttack + 1]->setSpeed(Vec2(0, -1.6));
         }
     }
+    
+    if(debugMode && framesJump > 0) {
+        framesJump--;
+        printDebug();
+    }
+}
+
+void GameController::resizeScreen() {
+    delete gText;
+    gText = new GText();
+}
+
+void GameController::printDebug() {
+    cout << "Spaceship: ";
+    cout << player->positionDebug() << endl;
+    
+    for(int i = 0; i < aliens.size(); i++) {
+        cout << "Alien: " << i << aliens[i]->positionDebug() << endl;
+    }
 }
 
 void GameController::drawElements() {
+    if(vao != NULL) delete vao;
     
-//    if(game::started) {
-        if(vao != NULL) delete vao;
-        
-        vao = new VAO();
-        vao->bind();
-        int sizeVArray = 0;
-        int sizeIArray = 0;
-        int trianglesQuantity = 0;
-        for(int i = 0; i < objects.size(); i++) {
-            objects[i]->getSizes(sizeVArray, sizeIArray, trianglesQuantity);
-        }
-        
-        if(vArray != NULL) { free(vArray); vArray = NULL; }
-        if(indices != NULL) { free(indices); indices = NULL; }
-        
-        vArray = (GLfloat*) malloc(sizeVArray);
-        indices = (GLuint*) malloc(sizeIArray);
-        long arrayPos = 0;
-        long indicesPos = 0;
-        
-        for(int i = 0; i < objects.size(); i++) {
-            objects[i]->prepare(vArray, arrayPos, indices, indicesPos);
-        }
-        
-        vbo1 = new VBO(vArray, (int) sizeVArray);
-        
-        ebo1 = new EBO(indices, (int) sizeIArray);
-        
-        vao->linkAttrib(*vbo1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
-        vao->linkAttrib(*vbo1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
-        
-        vao->unbind();
-        delete vbo1;
-        delete ebo1;
-        
-        vao->bind();
-        glDrawElements(GL_TRIANGLES, trianglesQuantity*3, GL_UNSIGNED_INT, 0);
-//    }
+    vao = new VAO();
+    vao->bind();
+    int sizeVArray = 0;
+    int sizeIArray = 0;
+    int trianglesQuantity = 0;
+    for(int i = 0; i < objects.size(); i++) {
+        objects[i]->getSizes(sizeVArray, sizeIArray, trianglesQuantity);
+    }
+    
+    if(vArray != NULL) { free(vArray); vArray = NULL; }
+    if(indices != NULL) { free(indices); indices = NULL; }
+    
+    vArray = (GLfloat*) malloc(sizeVArray);
+    indices = (GLuint*) malloc(sizeIArray);
+    long arrayPos = 0;
+    long indicesPos = 0;
+    
+    for(int i = 0; i < objects.size(); i++) {
+        objects[i]->prepare(vArray, arrayPos, indices, indicesPos);
+    }
+    
+    vbo1 = new VBO(vArray, (int) sizeVArray);
+    
+    ebo1 = new EBO(indices, (int) sizeIArray);
+    
+    vao->linkAttrib(*vbo1, 0, 3, GL_FLOAT, 6 * sizeof(float), (void*)0);
+    vao->linkAttrib(*vbo1, 1, 3, GL_FLOAT, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    
+    vao->unbind();
+    delete vbo1;
+    delete ebo1;
+    
+    vao->bind();
+    glDrawElements(GL_TRIANGLES, trianglesQuantity*3, GL_UNSIGNED_INT, 0);
     
     
     for(int i = 0; i < flashMessages.size(); i++) {
-        if(flashMessages[i].finishAt > getMillis()) {
+        if(flashMessages[i].finishAt > getMillis() || (flashMessages[i].finishAt == DEBUG_MODE_FALSE && debugMode)) {
             FlashMessage m = flashMessages[i];
             drawText(m.text, m.x, 70 * i + m.y, flashMessages[i].scale, m.rgb);
         }else{
             flashMessages.erase(flashMessages.begin()+i--);
         }
+    }
+}
+
+void GameController::win() {
+    if(game::started) {
+        flashMessages.push_back(FlashMessage("Human Victory!!!", game::width/2 - 170, game::height/2, glm::vec3(0.1, 0.77, 0.07), getMillis() + 20000, 1));
     }
 }
 
@@ -255,6 +317,10 @@ void GameController::addObject(GObject *obj){
 
 void GameController::detectColisions() {
     if(game::colisionsEnabled){
+        
+        // do not check for colisions at every frame for performance reasons
+        if(game::frameCount % 2 == 0) return;
+        
         for(int i = 0; i < objects.size(); i++) {
             if(objects[i]->getLabel() == "alien") {
 
@@ -306,6 +372,10 @@ void GameController::detectColisions() {
                         
                         delete dynamic_cast<GShape*>(objects[i]);
                         objects.erase(objects.begin()+i--);
+                        
+                        if(aliens.empty()) {
+                            win();
+                        }
                     }else{
                         alien->refresh();
                         if(alien->row == aliens[aliens.size()-1]->row) {
@@ -344,7 +414,8 @@ void GameController::drawText(string text, float x, float y, float scale, glm::v
 }
 
 void GameController::destroy() {
-    delete gText;
+    if(gText != NULL) delete gText;
+    gText = NULL;
     flashMessages.clear();
     playerBulletsLevel = 1;
     bulletsSpeed = 5.0;

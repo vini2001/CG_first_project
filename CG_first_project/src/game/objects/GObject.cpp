@@ -29,6 +29,9 @@ void GObject::addSpeed(Vec2 change) {
 
 bool GObject::update() {
     
+    this->speed.x += acceleration.x;
+    this->speed.y += acceleration.y;
+    
     Vec2 speed = this->speed;
     speed.x = (speed.x/10)*framesSinceUpdate;
     speed.y = (speed.y/10)*framesSinceUpdate;
@@ -47,8 +50,16 @@ void GObject::setSpeed(Vec2 v) {
     this->speed = v;
 }
 
+void GObject::setAcceleration(Vec2 v) {
+    this->acceleration = v;
+}
+
 Vec2 GObject::getSpeed() {
     return this->speed;
+}
+
+Vec2 GObject::getAcceleration() {
+    return this->acceleration;
 }
 
 void GObject::setItemSpawnPos(GLfloat x, GLfloat y) {
@@ -72,12 +83,23 @@ std::string GObject::getLabel() {
     return label;
 }
 
+std::string GObject::positionDebug() {
+    std::string debugStr = "";
+    debugStr.append("(");
+    debugStr.append(to_string(x));
+    debugStr.append(",");
+    debugStr.append(to_string(y));
+    debugStr.append(")");
+    return debugStr;
+}
+
 void GObject::init() {
     boxSize = Vec2(0, 0);
     scale = Vec2(1,1);
     propagatedScale = Vec2(1,1);
     totalScale = Vec2(1,1);
     speed = Vec2(0,0);
+    acceleration = Vec2(0,0);
     itemSpawnPos = Vec2(0,0);
 }
 

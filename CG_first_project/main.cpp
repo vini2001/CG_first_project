@@ -32,7 +32,7 @@ static Vec2 mousePos;
 
 vector<GLuint> supportedKeys = {
     GLFW_KEY_LEFT, GLFW_KEY_RIGHT, GLFW_KEY_ESCAPE, GLFW_PRESS, GLFW_KEY_S,
-    GLFW_KEY_R
+    GLFW_KEY_R, GLFW_KEY_D
 };
 static bool holdingKey;
 static void key_callback(GLFWwindow* windowGame, int key, int scancode, int action, int mods){
@@ -51,7 +51,9 @@ static void key_callback(GLFWwindow* windowGame, int key, int scancode, int acti
                 pressedKey = NULL;
                 keyIsPressed[pressedKey] = false;
             }else if(action == GLFW_PRESS || action == GLFW_REPEAT){
-                pressedKey = key;
+                if(action == GLFW_PRESS) {
+                    pressedKey = key;
+                }
                 keyIsPressed[pressedKey] = true;
                 holdingKey = action == GLFW_REPEAT;
             }
@@ -61,7 +63,6 @@ static void key_callback(GLFWwindow* windowGame, int key, int scancode, int acti
 
 void mouse_button_callback(GLFWwindow* windowGame, int button, int action, int mods){
     if (action == GLFW_PRESS) {
-        cout << button << endl;
         pressedMouseButton = button;
     }else{
         pressedMouseButton = -1;
@@ -72,10 +73,16 @@ void WindowSizeCallback(GLFWwindow* window, int width, int height){
     game::width = width;
     game::height = height;
     
+    gameController.resizeScreen();
     gameController.drawElements();
 }
 
+static bool firstChange = true;
 static void cursor_position_callback(GLFWwindow* window, double x, double y){
+    if(firstChange) {
+        x = 0;
+        firstChange = false;
+    }
     if(abs(x) > game::width / 2) {
         x = x > 0 ? ( game::width / 2 ) : -(game::width / 2);
         glfwSetCursorPos(game::window, x, y);
@@ -144,6 +151,10 @@ int main(void){
     while (!glfwWindowShouldClose(game::window)) {
         
         long gameTimeEllapsed = getMillis() - lastGameTime;
+        
+        // first triggered frame on debug mode will be instant, so make sure it jumps about 10 ms = 1frame
+        if(gameTimeEllapsed == 0) gameTimeEllapsed = 10;
+        
         long realTimeEllapsed = getRealMillis() - lastRealTime;
         
         // every 10 ms do the render process
@@ -153,7 +164,6 @@ int main(void){
             lastGameTime = getMillis();
             framesSinceUpdate = gameTimeEllapsed;
             
-            cout << getMillis() << endl;
             lastRealTime = getRealMillis();
             
             glfwPollEvents();
@@ -169,6 +179,7 @@ int main(void){
 
             
             gameController.handleInput(pressedKey, pressedMouseButton, mousePos);
+            pressedKey = -1;
             pressedMouseButton = -1; // set as -1 to avoid duplicated actions
             gameController.frameActions();
             gameController.drawElements();

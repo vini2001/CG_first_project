@@ -41,6 +41,7 @@ public:
     void fire(GStack *spaceShip);
     void drawText(string text, float x, float y, float scale, glm::vec3 colors);
     void destroy();
+    void resizeScreen();
     
     ~GameController();
     
@@ -67,14 +68,21 @@ private:
     float bulletsSpeed = 5.0;
     int shootingInterval = 300;
     
+    int framesJump = 0;
+    bool debugMode = false;
+    void printDebug();
+    
     vector<FlashMessage> flashMessages;
     Shader *shader;
     
     bool compareAlien(GAlien a, GAlien b);
     vector<GAlien*> aliens;
+    vector<GObject*> bullets;
     
     void deleteFromAliensArray(GObject *alienObj);
     void deleteObjectFromObjects(GObject *object);
+    
+    void win();
     
     long lastAttack = 0;
 };

@@ -89,7 +89,7 @@ GStack* createBullet(GLfloat x, GLfloat y) {
     bullet4->vertices[2].cg = 0;
     bullet4->vertices[2].cb = 0;
     
-    GShape *colisionBox = createRectangle(0, 0, 7, 30);
+    GShape *colisionBox = createRectangle(0, -20, 7, 50);
     bulletS->colisionBox = colisionBox;
     
     return bulletS;
