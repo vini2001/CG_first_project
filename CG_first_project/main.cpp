@@ -43,7 +43,7 @@ static void key_callback(GLFWwindow* windowGame, int key, int scancode, int acti
             break;
         default:
             if(!(find(supportedKeys.begin(), supportedKeys.end(), key) != supportedKeys.end())) {
-                cout << "unsupported key " << key << endl;
+                // unsupported key
                 break;
             }
 
