@@ -1,7 +1,7 @@
 # Computer Graphics OpenGL game project
 2D OpenGL / GLFW game developed for a CG class at the Federal University of Minas Gerais (UFMG) - Brazil
 
-XCode project tested on MacOS Monterey with arm64 (Apple Silicon processor only)
+XCode project tested on MacOS Monterey with arm64 (Apple Silicon) processor only
 
 Libraries Used
 - GLFW
