@@ -32,10 +32,12 @@ void GameController::init(Shader *shaderProgram){
         float alienSize = 0.65;
         for(int i = 0 + (r < 7 ? 0 : r - 7); i < 15-(r < 7 ? 0 : r - 7); i++) {
             
+            bool bigOne = getRand() > 0.85;
+            
             int prize = getRand() > 0.96 ? ALIEN_SHOOTING_PRIZE : ALIEN_NO_PRIZE;
             if(getRand() > 0.96) prize = ALIEN_SHOOTING_INTERVAL_PRIZE;
             if(getRand() > 0.96) prize = ALIEN_SHOOTING_SPEED_PRIZE;
-            GAlien *alien = new GAlien(240 + (120*alienSize)*i - game::width/2, game::height/2 + 500 - (90*alienSize)*r, prize);
+            GAlien *alien = new GAlien((bigOne ? 237 : 240) + (120*alienSize)*i - game::width/2, game::height/2 + 500 - (90*alienSize)*r, prize);
             alien->setLabel("alien");
             alien->setSpeed(Vec2(0, -0.15));
             alien->setScale(Vec2(alienSize, alienSize));
@@ -43,6 +45,12 @@ void GameController::init(Shader *shaderProgram){
             
             alien->row = r;
             alien->pos = i;
+            
+            if(bigOne) {
+                alien->life *= 2;
+                alien->setScale(Vec2(alienSize*1.2, alienSize*1.2));
+                alien->bigOne = true;
+            }
             
             
             aliens.push_back(alien);
@@ -126,7 +134,7 @@ void GameController::fire(GStack *spaceShip) {
     
     
     if(b1) {
-        GStack *bullet1 = createBullet(spawnPos.x - 1, spawnPos.y);
+        GStack *bullet1 = createBullet(spawnPos.x - 3.4, spawnPos.y);
         bullet1->destroyAt = getMillis() + 10000/(int)bulletsSpeed;
         bullet1->setLabel("bullet");
         bullet1->setSpeed(Vec2(0.0, bulletsSpeed));
@@ -248,12 +256,17 @@ void GameController::resizeScreen() {
 }
 
 void GameController::printDebug() {
-    cout << "Spaceship: ";
-    cout << player->positionDebug() << endl;
-    
     for(int i = 0; i < aliens.size(); i++) {
-        cout << "Alien: " << i << aliens[i]->positionDebug() << endl;
+        cout << "Alien " << i << ":\n" << aliens[i]->positionDebug() << endl;
     }
+    
+    for(int i = 0; i < objects.size(); i++) {
+        if(objects[i]->getLabel() == "bullet") {
+            cout << "Bullet" << i << ":\n" << objects[i]->positionDebug() << endl;
+        }
+    }
+    
+    cout << "Player Spaceship:\n" << player->positionDebug() << endl;
 }
 
 void GameController::drawElements() {

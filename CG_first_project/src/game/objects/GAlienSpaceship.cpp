@@ -11,7 +11,7 @@ void GAlien::refresh() {
     triangles.clear();
     verticesIdsCount = 0;
     
-    float whiteFactor = ((float)life) / 100;
+    float whiteFactor = ((float)life) / (bigOne ? 200 : 100);
     Vec3 white(whiteFactor, whiteFactor, whiteFactor);
     if(prize == ALIEN_SHOOTING_PRIZE) {
         white = Vec3(0.98f, whiteFactor, whiteFactor*0.8);

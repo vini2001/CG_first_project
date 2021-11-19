@@ -13,6 +13,7 @@ class GAlien : public GShape {
 public:
     int prize = ALIEN_NO_PRIZE;
     int life = 100;
+    bool bigOne = false;
     GAlien(GLfloat x, GLfloat y, int prize);
     void refresh();
     

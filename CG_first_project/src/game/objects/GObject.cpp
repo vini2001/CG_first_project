@@ -85,11 +85,18 @@ std::string GObject::getLabel() {
 
 std::string GObject::positionDebug() {
     std::string debugStr = "";
-    debugStr.append("(");
+    debugStr.append("Position (");
     debugStr.append(to_string(x));
     debugStr.append(",");
     debugStr.append(to_string(y));
     debugStr.append(")");
+    debugStr.append("\n");
+    debugStr.append("Speed (");
+    debugStr.append(to_string(speed.x));
+    debugStr.append(",");
+    debugStr.append(to_string(speed.y));
+    debugStr.append(")");
+    debugStr.append("\n");
     return debugStr;
 }
 
@@ -122,7 +129,6 @@ GObject* GObject::testColision(std::vector<GObject*> &objects, string label) {
             
             for(int t = 0; t < subLineThis.size(); t++) {
                 for(int j = 0; j < subLinesOther.size(); j++) {
-//                    cout << "Test " << "((" << subLineThis[t].first.x << "," << subLineThis[t].first.y << "), (" <<  subLineThis[t].second.x << "," << subLineThis[t].second.y << "))" << ", " << "((" << subLinesOther[j].first.x << "," << subLinesOther[j].first.y << "), (" <<  subLinesOther[j].second.x << "," << subLinesOther[j].second.y << "))" << endl;
                     if(intersect(subLineThis[t].first, subLineThis[t].second, subLinesOther[j].first, subLinesOther[j].second)) {
                         return o;
                     }

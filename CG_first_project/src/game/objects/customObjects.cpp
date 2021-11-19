@@ -109,17 +109,21 @@ void drawTriangle(GShape *obj, GVertice v1, GVertice v2, GVertice v3) {
 }
 
 GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
-    GShape *t1 = createTriangle(175.0f, 280.0f, 150.0f, 100.f);
-    t1->rgb(0.174509f, 0.3098f, 0.7058f);
+    Vec3 blueD(0.074509f, 0.2098f, 0.59058f);
+    Vec3 blueDD(0.074509f, 0.1098f, 0.39058f);
+    Vec3 blue(0.174509f, 0.3098f, 0.7058f);
+    
+    GShape *t1 = new GShape(175.0f, 280.0f);
+    drawTriangle(t1, GVertice(0, 0, blue), GVertice(150, 0, blue), GVertice(75, 100, blueDD));
     t1->setLabel("spaceship top_Triangle");
+    t1->setItemSpawnPos(75, 100);
     
     GShape *r1 = createRectangle(175.0f, 30.0f, 150.f, 250.f);
     r1->rgb(0.174509f, 0.3098f, 0.7058f);
     r1->setLabel("spaceship item");
     
-    GShape *t2 = createTriangle(0.00f, 30.0f, 500.0f, 250.0f);
-    t2->rgb(0.174509f, 0.3098f, 0.7058f);
-    t2->setLabel("spaceship item");
+    GShape *t2 = new GShape(0.00f, 30.0f);
+    drawTriangle(t2, GVertice(0, 0, blueD), GVertice(500, 0, blueD), GVertice(250, 250, blue));
     
     GShape *r3 = createRectangle(50.0, 0.0f, 25.0f, 130.0f);
     r3->rgb(0.174509f, 0.3098f, 0.7058f);
@@ -137,18 +141,28 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     t4->rgb(0.774509f, 0.1098f, 0.3058f);
     t4->setLabel("spaceship item");
     
-    GStack *st1 = new GStack(145, 20, false);
+    GStack *st1 = new GStack(145, 24, false);
     st1->setLabel("treco de tras da nave");
     GShape *t5 = createRectTriangle(0.0, 0.00f, 23.f, -20.f);
-    t5->rgb(0.974509f, 0.9098f, 0.8058f);
+    t5->rgb(0.074509f, 0.1098f, 0.39058f);
     st1->addObject(t5);
     GShape *t6 = createRectTriangle(200.f, 0.00f, -23.f, -20);
-    t6->rgb(0.974509f, 0.9098f, 0.8058f);
+    t6->rgb(0.074509f, 0.1098f, 0.39058f);
     st1->addObject(t6);
     GShape *r5 = createRectangle(23, 0.00f, 155, -20.f);
-    r5->rgb(0.974509f, 0.9098f, 0.8058f);
+    r5->rgb(0.074509f, 0.1098f, 0.39058f);
     st1->addObject(r5);
     st1->setLabel("spaceship stack item");
+
+    GShape *backObjs = new GShape(55, 10);
+    Vec3 cr(0.074509f, 0.2098f, 0.59058f);
+    Vec3 white(1,1,1);
+    float bwid = 8;
+    float bheight = 40;
+    float space = 4.81;
+    for(int i = 1; i < 10; i++) {
+        drawSquare(backObjs, GVertice(0 + i*bwid*space, 0, cr), GVertice(bwid + i*bwid*space, 0, cr), GVertice(0 + i*bwid*space, bheight, white), GVertice(bwid + i*bwid*space, bheight, white));
+    }
     
     GStack *st = new GStack(0, 0, true);
     st->addObject(r1);
@@ -158,6 +172,7 @@ GStack* createSpaceShip(GLfloat x, GLfloat y, Vec2 scale) {
     st->addObject(r4);
     st->addObject(t3);
     st->addObject(t4);
+    st->addObject(backObjs);
     st->addObject(st1);
     st->setScale(scale);
     st->setItemSpawnPos(t1->getItemSpawnPos().x * scale.x, t1->getItemSpawnPos().y * scale.y);
