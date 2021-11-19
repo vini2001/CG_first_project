@@ -37,7 +37,7 @@ void GameController::init(Shader *shaderProgram){
             int prize = getRand() > 0.96 ? ALIEN_SHOOTING_PRIZE : ALIEN_NO_PRIZE;
             if(getRand() > 0.96) prize = ALIEN_SHOOTING_INTERVAL_PRIZE;
             if(getRand() > 0.96) prize = ALIEN_SHOOTING_SPEED_PRIZE;
-            GAlien *alien = new GAlien((bigOne ? 237 : 240) + (120*alienSize)*i - game::width/2, game::height/2 + 500 - (90*alienSize)*r, prize);
+            GAlien *alien = new GAlien((bigOne ? 226 : 229) + (120*alienSize)*i - game::width/2, game::height/2 + 500 - (90*alienSize)*r, prize);
             alien->setLabel("alien");
             alien->setSpeed(Vec2(0, -0.15));
             alien->setScale(Vec2(alienSize, alienSize));

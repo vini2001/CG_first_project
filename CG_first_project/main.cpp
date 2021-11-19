@@ -112,7 +112,7 @@ int main(void){
     glfwWindowHint(GLFW_BLUE_BITS, mode->blueBits);
     glfwWindowHint(GLFW_REFRESH_RATE, mode->refreshRate);
     
-    game::window = glfwCreateWindow(3000, 3000, "CG game", NULL, NULL);
+    game::window = glfwCreateWindow(1440, 900, "CG game", glfwGetPrimaryMonitor(), NULL);
     if(game::window == NULL) {
         cout << "Failed to create windowGame" << endl;
         glfwTerminate();
