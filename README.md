@@ -13,3 +13,4 @@ Libraries Used
 <img src="https://github.com/vini2001/CG_first_project/blob/main/opengl-glfw-game.png"/>
 
 Demo video: https://drive.google.com/file/d/1aLrn2A2AeyehgPRfdfLFnEh8oBc5womH/view?usp=sharing
+Logs for the video above: https://drive.google.com/file/d/1qiCi6tTXiPDEWR2MeFoJmtjO46Qdc1KQ/view?usp=sharing
