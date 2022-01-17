@@ -5,37 +5,11 @@
 
 using namespace std;
 
-const char* textVertexShader =
-"#version 330 core\n"
-"layout (location = 0) in vec4 vertex; // <vec2 pos, vec2 tex>\n"
-"out vec2 TexCoords;\n"
-"\n"
-"uniform mat4 projection;\n"
-"\n"
-"void main(){\n"
-"    gl_Position = projection * vec4(vertex.xy, 0.0, 1.0);\n"
-"    TexCoords = vertex.zw;\n"
-"}  ";
-
-const char* textFragmentShader =
-"#version 330 core\n"
-"in vec2 TexCoords;\n"
-"out vec4 color;\n"
-"\n"
-"uniform sampler2D text;\n"
-"uniform vec3 textColor;\n"
-"\n"
-"void main(){\n"
-"    vec4 sampled = vec4(1.0, 1.0, 1.0, texture(text, TexCoords).r);\n"
-"    color = vec4(textColor, 1.0) * sampled;\n"
-"}  ";
-
-
-GText::GText() : textShader(Shader(textVertexShader, textFragmentShader)) {
+GText::GText() : textShader(Shader("shaders/text.vert", "shaders/text.frag")) {
     
     glm::mat4 projection = glm::ortho(0.0f, static_cast<float>(game::width), 0.0f, static_cast<float>(game::height));
     textShader.activate();
-    glUniformMatrix4fv(glGetUniformLocation(textShader.ID, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+    glUniformMatrix4fv(glGetUniformLocation(textShader.id, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
     fontsLoad();
     
@@ -58,7 +32,7 @@ void GText::fontsLoad() {
     }
 
     FT_Face face;
-    if (FT_New_Face(ft, "Externals/Roboto-Regular.ttf", 0, &face)){
+    if (FT_New_Face(ft, "Libraries/Roboto-Regular.ttf", 0, &face)){
         cout << "ERROR::FREETYPE: Failed to load font" << endl;
     }
     
@@ -112,7 +86,7 @@ void GText::doSomething(){
 void GText::renderText(string text, float x, float y, float scale, glm::vec3 color){
     // activate corresponding render state
     textShader.activate();
-    glUniform3f(glGetUniformLocation(textShader.ID, "textColor"), color.x, color.y, color.z);
+    glUniform3f(glGetUniformLocation(textShader.id, "textColor"), color.x, color.y, color.z);
     glActiveTexture(GL_TEXTURE0);
     glBindVertexArray(VAO);
 

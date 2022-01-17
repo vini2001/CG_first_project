@@ -48,7 +48,7 @@ static void key_callback(GLFWwindow* windowGame, int key, int scancode, int acti
             }
 
             if(pressedKey == key && action == GLFW_RELEASE) {
-                pressedKey = NULL;
+                pressedKey = (GLuint) NULL;
                 keyIsPressed[pressedKey] = false;
             }else if(action == GLFW_PRESS || action == GLFW_REPEAT){
                 if(action == GLFW_PRESS) {
@@ -135,7 +135,7 @@ int main(void){
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
-    Shader shaderProgram;
+    Shader shaderProgram("shaders/default.vert", "shaders/default.frag");
     gameController.init(&shaderProgram);
     
     vector<int> fpsV = {60, 60, 60};

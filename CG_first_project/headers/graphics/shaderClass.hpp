@@ -1,28 +1,31 @@
-#ifndef SHADER_CLASS_H
-#define SHADER_CLASS_H
+#ifndef SHADER_H
+#define SHADER_H
 
 #include <glad/glad.h>
+#include <glm/glm.hpp>
+
 #include <string>
 #include <fstream>
 #include <sstream>
 #include <iostream>
-#include <cerrno>
 
-using namespace std;
-string get_file_contents(const char* filename);
+class Shader
+{
+public:
+	// the program ID
+	unsigned int id;
+	// constructor will read and build the shader
+	Shader(const char* vertexPath, const char* fragmentPath);
+	// function to use/activate this shader
+	void activate();
+	// utility functions to set values to uniforms in the shader program
+	void setBool(const std::string &uniformName, bool value) const;
+	void setInt(const std::string &uniformName, int value) const;
+	void setFloat(const std::string &uniformName, float value) const;
+	void setVec4(const std::string &uniformName, float value[4]) const;
+	void setVec4(const std::string &uniformName, const glm::vec4 &value) const;
+	void setMat4(const std::string &uniformName, const glm::mat4 &value) const;
 
-class Shader{
-    
-    public:
-        GLuint ID;
-        Shader(const char* vertexFile, const char* fragmentFile);
-        Shader();
-    
-    void activate();
     void deleteIt();
-    
-    private:
-        void compileErrors(unsigned int shader, const char* type);
 };
-
 #endif

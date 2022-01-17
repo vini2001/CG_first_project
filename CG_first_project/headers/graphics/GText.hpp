@@ -15,6 +15,8 @@
 #include <GLFW/glfw3.h>
 #include "shaderClass.hpp"
 
+using namespace std;
+
 
 struct Character {
     unsigned int TextureID;  // ID handle of the glyph texture
